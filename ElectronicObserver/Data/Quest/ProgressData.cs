@@ -136,13 +136,7 @@ namespace ElectronicObserver.Data.Quest
 		/// <param name="q">任務データ。</param>
 		public virtual void CheckProgress(QuestData q)
 		{
-
-			if (this.TemporaryProgress > 0)
-			{
-				if (q.State == 2)
-                    this.Progress = Math.Min(this.Progress + this.TemporaryProgress, this.ProgressMax);
-                this.TemporaryProgress = 0;
-			}
+            this.ApplyTemporaryProgress(q);
 
 			if (this.QuestType == 0)     // ver. 1.6.6 以前のデータとの互換性維持
                 this.QuestType = q.Type;
@@ -159,12 +153,21 @@ namespace ElectronicObserver.Data.Quest
 
 		}
 
+        public virtual void ApplyTemporaryProgress(QuestData q)
+        {
+            if (this.TemporaryProgress > 0)
+            {
+                if (q.State == 2)
+                    this.Progress = Math.Min(this.Progress + this.TemporaryProgress, this.ProgressMax);
+                this.TemporaryProgress = 0;
+            }
+        }
 
-		/// <summary>
-		/// この任務の達成に必要な条件を表す文字列を返します。
-		/// </summary>
-		/// <returns></returns>
-		public abstract string GetClearCondition();
+        /// <summary>
+        /// この任務の達成に必要な条件を表す文字列を返します。
+        /// </summary>
+        /// <returns></returns>
+        public abstract string GetClearCondition();
 
 		[IgnoreDataMember]
 		public int ID => this.QuestID;

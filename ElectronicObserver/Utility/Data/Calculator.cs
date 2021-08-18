@@ -643,6 +643,10 @@ namespace ElectronicObserver.Utility.Data
                     case ShipTypes.FleetOiler:
                         tp += 15;
                         break;
+
+                    case ShipTypes.SubmarineAircraftCarrier:
+                        tp += 1;
+                        break;
                 }
             }
 

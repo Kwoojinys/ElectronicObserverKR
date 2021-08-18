@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ElectronicObserver.Resource.Record
 {
@@ -41,21 +42,57 @@ namespace ElectronicObserver.Resource.Record
 
 			try
 			{
+				bool hasError = false;
 
 				using (StreamReader sr = new StreamReader(path, Utility.Configuration.Config.Log.FileEncoding))
 				{
-
                     this.ClearRecord();
-
+					bool ignoreError = false;
 					string line;
 					sr.ReadLine();          //ヘッダを読み飛ばす
 
 					while ((line = sr.ReadLine()) != null)
 					{
-                        this.LoadLine(line);
-					}
+                        try
+                        {
+                            this.LoadLine(line);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            if (ignoreError)
+                                continue;
+
+                            hasError = true;
+                            Utility.ErrorReporter.SendErrorReport(ex, $"기록 {Path.GetFileName(path)} 의 손상을 감지했습니다.");
+
+                            switch (MessageBox.Show($"기록 {Path.GetFileName(path)} 에서 손상된 데이터를 감지했습니다.\r\n\r\n[중단]: 읽기를 중지합니다. 데이터를 잃을 수 있습니다.\r\n[재시도]: (권장)로드를 계속합니다.\r\n[무시]: 로드를 계속합니다.(이후 추가확인하지않습니다.)",
+								"기록 손상 감지", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2))
+                            {
+                                case DialogResult.Abort:
+                                    throw;
+
+                                case DialogResult.Retry:
+                                    // do nothing
+                                    break;
+
+                                case DialogResult.Ignore:
+                                    ignoreError = true;
+                                    break;
+                            }
+                        }
+                    }
 
 				}
+
+                if (hasError == true)
+                {
+                    string backupDestination = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + "_backup_" + DateTimeHelper.GetTimeStamp() + Path.GetExtension(path));
+                    File.Copy(path, backupDestination);
+                    Utility.Logger.Add(3, $"복구전에 기록을 {backupDestination} 에 백업했습니다. 복구에 실패했을경우, 이 파일을 다시 이용해주세요.");
+
+                    this.SaveAll(RecordManager.Instance.MasterPath);
+                }
 
                 this.UpdateLastSavedIndex();
 				return true;

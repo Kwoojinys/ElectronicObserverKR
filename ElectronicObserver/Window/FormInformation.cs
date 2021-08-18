@@ -568,12 +568,19 @@ namespace ElectronicObserver.Window
         {
             var fleet = KCDatabase.Instance.Fleet[fleetID];
             var result = MissionClearCondition.Check(missionID, fleet);
+            var mission = KCDatabase.Instance.Mission[missionID];
 
-            if (!result.IsSuceeded)
+            if (result.IsSuceeded == false)
             {
-                var mission = KCDatabase.Instance.Mission[missionID];
                 MessageBox.Show(
-                    $"#{fleet.FleetID} {fleet.Name} 함대는 {mission.DisplayID}:{mission.Name} 의 조건에 미달되는것같습니다. \r\n실패할 수 있습니다. .\r\n\r\n{string.Join("\r\n", result.FailureReason)}\r\n\r\n（이 경고는 설정->실행에서 비활성화 할 수 있습니다.）",
+                    $"#{fleet.FleetID} {fleet.Name} 함대는 {mission.DisplayID}:{mission.Name} 의 조건에 미달되는것같습니다. \r\n실패할 수 있습니다. .\r\n\r\n{string.Join("\r\n", result.FailureReason)}\r\n\r\n（이 경고는 설정->실행에서 비활성화 할 수 있습니다.)",
+                    "원정 실패 경고", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            if (fleet.MembersInstance.Any(s => s?.FuelRate < 1 || s?.AmmoRate < 1))
+            {
+                MessageBox.Show(
+                    $"#{fleet.FleetID} {fleet.Name} 함대는 {mission.DisplayID}:{mission.Name} 에 실패할 가능성이 있습니다.\r\n\r\n미보급\r\n\r\n (이 경고는 설정->실행에서 비활성화 할 수 있습니다.)",
                     "원정 실패 경고", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }

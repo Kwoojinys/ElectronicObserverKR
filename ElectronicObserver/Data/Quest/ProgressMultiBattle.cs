@@ -48,8 +48,11 @@ namespace ElectronicObserver.Data.Quest
 
 		public override void CheckProgress(QuestData q)
 		{
-			// do nothing
-		}
+            foreach (var p in ProgressList)
+                p.ApplyTemporaryProgress(q);
+
+            this.Progress = ProgressList.Sum(p => p.Progress);
+        }
 
 		public override string ToString()
 		{

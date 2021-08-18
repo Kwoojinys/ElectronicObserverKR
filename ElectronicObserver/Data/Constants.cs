@@ -457,13 +457,15 @@ namespace ElectronicObserver.Data
                 case 97: return "육군특종선(R1)";
                 case 98: return "De Ruyter급";
                 case 99: return "Atlanta급";
-                case 100: return "迅鯨型";
-                case 101: return "松型";
-                case 102: return "South Dakota級";
-                case 103: return "巡潜丙型";
-                case 104: return "丁型海防艦";       // 86 に同じ
-                case 105: return "Yorktown級";
-                case 106: return "St. Louis級";
+                case 100: return "진게이급";
+                case 101: return "마츠급";
+                case 102: return "South Dakota급";
+                case 103: return "순잠병형";
+                case 104: return "정형해방함";       // 86 に同じ
+                case 105: return "Yorktown급";
+                case 106: return "St. Louis급";
+                case 107: return "North Carolina급";
+                case 108: return "Town급";
                 default: return "不明";
             }
 		}
