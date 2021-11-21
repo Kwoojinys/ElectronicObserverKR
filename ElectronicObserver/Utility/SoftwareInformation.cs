@@ -18,7 +18,7 @@ namespace ElectronicObserver.Utility
         /// <summary>
         /// バージョン(英語)
         /// </summary>
-		public static string VersionKorean => "4.7.0 KRTL_R32";
+		public static string VersionKorean => "4.7.0 KRTL_R33";
 
         /// <summary>
         /// 更新日時
