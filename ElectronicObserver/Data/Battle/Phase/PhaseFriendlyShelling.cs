@@ -10,43 +10,13 @@ namespace ElectronicObserver.Data.Battle.Phase
 	/// <summary>
 	/// 夜戦における友軍艦隊攻撃フェーズの処理を行います。
 	/// </summary>
-	public class PhaseFriendlySupport : PhaseBase
+	public class PhaseFriendlyShelling : PhaseBase
 	{
-		public PhaseFriendlySupport(BattleData battle, string title)
+		public PhaseFriendlyShelling(BattleData battle, string title)
 			: base(battle, title)
 		{
 			if (!this.IsAvailable)
 				return;
-
-			// info translation
-
-			int[] GetArrayOrDefault(string objectName, int length) => !this.InfoData.IsDefined(objectName) ? null : FixedArray((int[])this.InfoData[objectName], length);
-			int[][] GetArraysOrDefault(string objectName, int topLength, int bottomLength)
-			{
-				if (!this.InfoData.IsDefined(objectName))
-					return null;
-
-				int[][] ret = new int[topLength][];
-				dynamic[] raw = (dynamic[])this.InfoData[objectName];
-				for (int i = 0; i < ret.Length; i++)
-				{
-					if (i < raw.Length)
-						ret[i] = FixedArray((int[])raw[i], bottomLength);
-					else
-						ret[i] = Enumerable.Repeat(-1, bottomLength).ToArray();
-				}
-				return ret;
-			}
-
-            this.FriendlyMembers = GetArrayOrDefault("api_ship_id", 7);
-            this.FriendlyMembersInstance = this.FriendlyMembers.Select(id => KCDatabase.Instance.MasterShips[id]).ToArray();
-            this.FriendlyLevels = GetArrayOrDefault("api_ship_lv", 7);
-            this.FriendlyInitialHPs = GetArrayOrDefault("api_nowhps", 7);
-            this.FriendlyMaxHPs = GetArrayOrDefault("api_maxhps", 7);
-
-            this.FriendlySlots = GetArraysOrDefault("api_Slot", 7, 5);
-            this.FriendlyParameters = GetArraysOrDefault("api_Param", 7, 4);
-
 
 			// battle translation
 
@@ -87,7 +57,7 @@ namespace ElectronicObserver.Data.Battle.Phase
 			}
 		}
 
-		public override bool IsAvailable => this.RawData.api_friendly_info();
+		public override bool IsAvailable => RawData.api_friendly_battle();
 
 
 		public override void EmulateBattle(int[] hps, int[] damages)
@@ -96,13 +66,13 @@ namespace ElectronicObserver.Data.Battle.Phase
 				return;
 
             // note: HP計算が正しくできない - 送られてくるHPにはすでに友軍支援のダメージが適用済みであるため、昼戦終了時のHPを参照しなければならない
-            int[] friendhps = this.FriendlyInitialHPs;
+            int[] friendhps = Battle.FriendlySupportInfo.FriendlyInitialHPs;
 
             foreach (var attack in this.Attacks)
-			{
-				foreach (var defs in attack.Defenders.GroupBy(d => d.Defender))
-				{
-                    this.BattleDetails.Add(new BattleFriendlySupportDetail(
+            {
+                foreach (var defs in attack.Defenders.GroupBy(d => d.Defender))
+                {
+                    this.BattleDetails.Add(new BattleFriendlyShellingDetail(
                         (BattleNight)this.Battle,
                         attack.Attacker,
                         defs.Key,
@@ -121,12 +91,6 @@ namespace ElectronicObserver.Data.Battle.Phase
 
 		}
 
-
-		/// <summary>
-		/// 戦闘情報データ
-		/// </summary>
-		public dynamic InfoData => this.RawData.api_friendly_info;
-
 		/// <summary>
 		/// 戦闘データ
 		/// </summary>
@@ -137,49 +101,6 @@ namespace ElectronicObserver.Data.Battle.Phase
 		/// </summary>
 		public dynamic ShellingData => this.RawData.api_friendly_battle.api_hougeki;
 
-
-		/// <summary>
-		/// 種別？
-		/// </summary>
-		public int Type => (int)this.InfoData.api_production_type;
-
-
-		/// <summary>
-		/// 友軍艦隊ID
-		/// </summary>
-		public int[] FriendlyMembers { get; private set; }
-
-		/// <summary>
-		/// 友軍艦隊
-		/// </summary>
-		public ShipDataMaster[] FriendlyMembersInstance { get; private set; }
-
-
-		/// <summary>
-		/// 友軍艦隊レベル
-		/// </summary>
-		public int[] FriendlyLevels { get; private set; }
-
-		/// <summary>
-		/// 友軍艦隊初期HP
-		/// </summary>
-		public int[] FriendlyInitialHPs { get; private set; }
-
-		/// <summary>
-		/// 友軍艦隊最大HP
-		/// </summary>
-		public int[] FriendlyMaxHPs { get; private set; }
-
-
-		/// <summary>
-		/// 友軍艦隊装備
-		/// </summary>
-		public int[][] FriendlySlots { get; private set; }
-
-		/// <summary>
-		/// 友軍艦隊パラメータ
-		/// </summary>
-		public int[][] FriendlyParameters { get; private set; }
 
 		// api_voice_id
 		// api_voice_p_no
@@ -204,8 +125,8 @@ namespace ElectronicObserver.Data.Battle.Phase
 			get
 			{
 				int index = this.FlareIndexFriend;
-				if (0 <= index && index < this.FriendlyMembersInstance.Length)
-					return this.FriendlyMembersInstance[index];
+				if (0 <= index && index < this.Battle.FriendlySupportInfo.FriendlyMembersInstance.Length)
+					return this.Battle.FriendlySupportInfo.FriendlyMembersInstance[index];
 				return null;
 			}
 		}
@@ -238,13 +159,13 @@ namespace ElectronicObserver.Data.Battle.Phase
 				int index = -1;
 				var eqmaster = KCDatabase.Instance.MasterEquipments;
 
-				for ( int i = 0; i < this.FriendlyMembersInstance.Length; i++)
+				for ( int i = 0; i < this.Battle.FriendlySupportInfo.FriendlyMembersInstance.Length; i++)
 				{
-					if(this.FriendlyMembers[i] != -1 && this.FriendlyInitialHPs[i] > 1)
+					if(this.Battle.FriendlySupportInfo.FriendlyMembers[i] != -1 && this.Battle.FriendlySupportInfo.FriendlyInitialHPs[i] > 1)
 					{
-						if (this.FriendlySlots[i].Any(id => eqmaster[id]?.CategoryType == EquipmentTypes.SearchlightLarge))
+						if (this.Battle.FriendlySupportInfo.FriendlySlots[i].Any(id => eqmaster[id]?.CategoryType == EquipmentTypes.SearchlightLarge))
 							return i;
-						else if (this.FriendlySlots[i].Any(id => eqmaster[id]?.CategoryType == EquipmentTypes.Searchlight) && index == -1)
+						else if (this.Battle.FriendlySupportInfo.FriendlySlots[i].Any(id => eqmaster[id]?.CategoryType == EquipmentTypes.Searchlight) && index == -1)
 							index = i;
 					}
 				}
@@ -269,8 +190,8 @@ namespace ElectronicObserver.Data.Battle.Phase
 			get
 			{
 				int index = this.SearchlightIndexFriend;
-				if (0 <= index && index < this.FriendlyMembersInstance.Length)
-					return this.FriendlyMembersInstance[index];
+				if (0 <= index && index < this.Battle.FriendlySupportInfo.FriendlyMembersInstance.Length)
+					return this.Battle.FriendlySupportInfo.FriendlyMembersInstance[index];
 				return null;
 			}
 		}

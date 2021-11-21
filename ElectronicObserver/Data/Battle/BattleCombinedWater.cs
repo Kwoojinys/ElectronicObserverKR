@@ -33,6 +33,8 @@ namespace ElectronicObserver.Data.Battle
             this.JetBaseAirAttack = new PhaseJetBaseAirAttack(this, "기지항공대 분식 강습");
             this.JetAirBattle = new PhaseJetAirBattle(this, "분식 항공전");
             this.BaseAirAttack = new PhaseBaseAirAttack(this, "기지 항공대 공격");
+            this.FriendlySupportInfo = new PhaseFriendlySupportInfo(this, "우군함대");
+            this.FriendlyAirBattle = new PhaseFriendlyAirBattle(this, "우군지원항공공격");
             this.AirBattle = new PhaseAirBattle(this, "항공전");
             this.Support = new PhaseSupport(this, "지원 공격");
             this.OpeningASW = new PhaseOpeningASW(this, "선제대잠");
@@ -61,7 +63,9 @@ namespace ElectronicObserver.Data.Battle
 			yield return this.JetBaseAirAttack;
 			yield return this.JetAirBattle;
 			yield return this.BaseAirAttack;
-			yield return this.AirBattle;
+            yield return this.FriendlySupportInfo;
+            yield return this.FriendlyAirBattle;
+            yield return this.AirBattle;
 			yield return this.Support;
 			yield return this.OpeningASW;
 			yield return this.OpeningTorpedo;

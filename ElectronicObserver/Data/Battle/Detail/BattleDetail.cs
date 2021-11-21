@@ -420,50 +420,76 @@ namespace ElectronicObserver.Data.Battle.Detail
 	}
 
 
-	/// <summary>
-	/// 友軍艦隊攻撃における戦闘詳細データを保持します。
-	/// </summary>
-	public class BattleFriendlySupportDetail : BattleDetail
-	{
+    /// <summary>
+    /// 友軍艦隊攻撃における戦闘詳細データを保持します。
+    /// </summary>
+    public class BattleFriendlyShellingDetail : BattleDetail
+    {
 
-		public bool NightAirAttackFlag { get; protected set; }
+        public bool NightAirAttackFlag { get; protected set; }
 
-		public BattleFriendlySupportDetail(BattleNight bd, BattleIndex attackerId, BattleIndex defenderId, double[] damages, int[] criticalTypes, int attackType, int[] equipmentIDs, bool nightAirAttackFlag, int defenderHP)
+        public BattleFriendlyShellingDetail(BattleNight bd, BattleIndex attackerId, BattleIndex defenderId, double[] damages, int[] criticalTypes, int attackType, int[] equipmentIDs, bool nightAirAttackFlag, int defenderHP) 
 			: base(bd, attackerId, defenderId, damages, criticalTypes, attackType, equipmentIDs, defenderHP)
-		{
+        {
             this.NightAirAttackFlag = nightAirAttackFlag;
 
-			int[] attackerSlots;
+            int[] attackerSlots;
 
-			if (attackerId.IsFriend)
-			{
-                this.Attacker = bd.FriendlySupport.FriendlyMembersInstance[attackerId.Index];
-				attackerSlots = bd.FriendlySupport.FriendlySlots[attackerId.Index];
-			}
-			else
-			{
-				attackerSlots = this.SetAttacker();
-			}
+            if (attackerId.IsFriend)
+            {
+                this.Attacker = bd.FriendlySupportInfo.FriendlyMembersInstance[attackerId.Index];
+                attackerSlots = bd.FriendlySupportInfo.FriendlySlots[attackerId.Index];
+            }
+            else
+            {
+                attackerSlots = this.SetAttacker();
+            }
 
-			if (defenderId.IsFriend)
-                this.Defender = bd.FriendlySupport.FriendlyMembersInstance[defenderId.Index];
-			else
+            if (defenderId.IsFriend)
+                this.Defender = bd.FriendlySupportInfo.FriendlyMembersInstance[defenderId.Index];
+            else
                 this.SetDefender();
 
 
-			if (this.AttackType == 0 && this.Attacker != null)
+            if (this.AttackType == 0 && this.Attacker != null)
                 this.AttackType = this.CaclulateAttackKind(attackerSlots, this.Attacker.ShipID, this.Defender.ShipID);
-		}
+        }
 
-		protected override int CaclulateAttackKind(int[] slots, int attackerShipID, int defenderShipID)
-		{
-			return (int)Calculator.GetNightAttackKind(slots, attackerShipID, defenderShipID, false, this.NightAirAttackFlag);
-		}
+        protected override int CaclulateAttackKind(int[] slots, int attackerShipID, int defenderShipID)
+        {
+            return (int)Calculator.GetNightAttackKind(slots, attackerShipID, defenderShipID, false, this.NightAirAttackFlag);
+        }
 
-		protected override string GetAttackKind()
-		{
-			return Constants.GetNightAttackKind((NightAttackKind)this.AttackType);
-		}
-	}
+        protected override string GetAttackKind()
+        {
+            return Constants.GetNightAttackKind((NightAttackKind)this.AttackType);
+        }
+    }
+
+    /// <summary>
+    /// 友軍艦隊航空攻撃における戦闘詳細データを保持します。
+    /// </summary>
+    public class BattleFriendlyAirDetail : BattleAirDetail
+    {
+        public BattleFriendlyAirDetail(BattleData bd, BattleIndex defenderId, double damage, int criticalType, int attackType, int defenderHP)
+            : base(bd, 0, defenderId, damage, criticalType, attackType, defenderHP)
+        {
+            if (defenderId.IsFriend)
+                this.Defender = bd.FriendlySupportInfo.FriendlyMembersInstance[defenderId.Index];
+            else
+                this.SetDefender();
+        }
+
+        protected override string GetDefenderName()
+        {
+            if (this.DefenderIndex.IsFriend)
+            {
+                return Battle.FriendlySupportInfo.FriendlyMembersInstance[this.DefenderIndex.Index].NameWithClass + " #" + (this.DefenderIndex.Index + 1);
+            }
+
+            return base.GetDefenderName();
+        }
+    }
 
 }
+

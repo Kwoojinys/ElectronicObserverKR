@@ -679,7 +679,7 @@ namespace ElectronicObserver.Window
                     this.AACutin.ImageIndex = (int)ResourceManager.EquipmentContent.HighAngleGun;
 
                     this.ToolTipInfo.SetToolTip(this.AACutin, "대공컷인\r\n" +
-						string.Join("\r\n", phases2.Select(p => p.PhaseName + (p.Air.IsAACutinAvailable ? $"{p.Air.AACutInShip.NameWithLevel}\r\n컷인종류: {p.Air.AACutInKind} ({Constants.GetAACutinKind(p.Air.AACutInKind)})" : "(발동안함)"))));
+						string.Join("\r\n", phases2.Select(p => p.PhaseName + (p.Air.IsAACutinAvailable ? $"{p.Air.AACutInShipName}\r\n컷인종류: {p.Air.AACutInKind} ({Constants.GetAACutinKind(p.Air.AACutInKind)})" : "(발동안함)"))));
 				}
 				else
 				{

@@ -319,13 +319,17 @@ namespace ElectronicObserver.Data.Battle.Detail
 						}
 						break;
 
-					case PhaseFriendlySupport p:
-						if (p.IsAvailable)
-						{
-							sb.AppendLine("〈우군함대〉");
-							OutputFriendlySupportData(sb, p);
-							sb.AppendLine();
+                    case PhaseFriendlySupportInfo p:
+                        if (p.IsAvailable)
+                        {
+                            OutputFriendlySupportData(sb, p);
+                            sb.AppendLine();
+                        }
+                        break;
 
+                    case PhaseFriendlyShelling p:
+                        if (p.IsAvailable)
+						{
 							{
 								int searchlightIndex = p.SearchlightIndexFriend;
 								if (searchlightIndex != -1)
@@ -356,7 +360,10 @@ namespace ElectronicObserver.Data.Battle.Detail
 						}
 						break;
 
-				}
+                    case PhaseFriendlyAirBattle p:
+                        GetBattleDetailPhaseAirBattle(sb, p);
+                        break;
+                }
 
 
 				if (!(phase is PhaseBaseAirAttack || phase is PhaseJetBaseAirAttack))       // 通常出力と重複するため
@@ -497,7 +504,7 @@ namespace ElectronicObserver.Data.Battle.Detail
 				sb.Append("Stage2: ");
 				if (p.IsAACutinAvailable)
 				{
-					sb.AppendFormat("대공컷인( {0}, {1}({2}) )", p.AACutInShip.NameWithLevel, Constants.GetAACutinKind(p.AACutInKind), p.AACutInKind);
+					sb.AppendFormat("대공컷인( {0}, {1}({2}) )", p.AACutInShipName, Constants.GetAACutinKind(p.AACutInKind), p.AACutInKind);
 				}
 				sb.AppendLine();
 				sb.AppendFormat("　아군: -{0}/{1}\r\n　적 : -{2}/{3}\r\n",
@@ -572,7 +579,7 @@ namespace ElectronicObserver.Data.Battle.Detail
 
 		}
 
-		private static void OutputFriendlySupportData(StringBuilder sb, PhaseFriendlySupport p)
+		private static void OutputFriendlySupportData(StringBuilder sb, PhaseFriendlySupportInfo p)
 		{
 
 			for (int i = 0; i < p.FriendlyMembersInstance.Length; i++)
@@ -589,8 +596,12 @@ namespace ElectronicObserver.Data.Battle.Detail
 					p.FriendlyParameters[i][0], p.FriendlyParameters[i][1], p.FriendlyParameters[i][2], p.FriendlyParameters[i][3]);
 
 				sb.Append("　");
-				sb.AppendLine(string.Join(", ", p.FriendlySlots[i].Select(id => KCDatabase.Instance.MasterEquipments[id]).Where(eq => eq != null).Select(eq => eq.Name)));
-			}
+                sb.AppendLine(string.Join(", ", p.FriendlySlots[i]
+                    .Concat(new[] { p.FriendlyExpansionSlots?[i] ?? -1 })
+                    .Select(id => KCDatabase.Instance.MasterEquipments[id])
+                    .Where(eq => eq != null)
+                    .Select(eq => eq.Name)));
+            }
 		}
 
 		private static void OutputEnemyData(StringBuilder sb, ShipDataMaster[] members, int[] levels, int[] initialHPs, int[] maxHPs, EquipmentDataMaster[][] slots, int[][] parameters)
