@@ -111,27 +111,39 @@ namespace ElectronicObserver.Data.Battle.Phase
 
 
 
-		private T[] GetConcatArray<T>(string friendName, string enemyName, T defaultValue)
-		{
-			var friend = (T[])this.TorpedoData[friendName];
-			var enemy = (T[])this.TorpedoData[enemyName];
+        private T[] GetConcatArray<T>(string friendName, string enemyName, T defaultValue) where T : struct
+        {
+            var friend = ConvertToArray<T>(this.TorpedoData[friendName], 12, defaultValue);
+            var enemy = ConvertToArray<T>(this.TorpedoData[enemyName], 12, defaultValue);
 
-			var ret = new T[24];
+            var ret = new T[24];
 
-			for (int i = 0; i < 12; i++)
-			{
-				if (i < friend.Length)
-					ret[i] = friend[i];
-				else
-					ret[i] = defaultValue;
+            for (int i = 0; i < 12; i++)
+            {
+                ret[i] = friend[i];
+                ret[i + 12] = enemy[i];
+            }
 
-				if (i < enemy.Length)
-					ret[i + 12] = enemy[i];
-				else
-					ret[i + 12] = defaultValue;
-			}
+            return ret;
+        }
 
-			return ret;
-		}
-	}
+        /// <summary>
+		/// 基本的には `(T[])json` と等価ですが、特定の状況下におけるデータエラーを回避するための実装が含まれています
+        /// https://github.com/andanteyk/ElectronicObserver/issues/294
+        /// </summary>
+        private static T[] ConvertToArray<T>(dynamic json, int maxLength, T defaultValue) where T : struct
+        {
+            var ret = Enumerable.Repeat(defaultValue, maxLength).ToArray();
+            int i = 0;
+            foreach (var member in json)
+            {
+                ret[i++ % maxLength] =
+                    member is KeyValuePair<string, dynamic> pair ? (T)pair.Value :
+                    member != null ? (T)member :
+                    default(T);
+            }
+
+            return ret;
+        }
+    }
 }
