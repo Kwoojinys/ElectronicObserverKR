@@ -18,12 +18,12 @@ namespace ElectronicObserver.Utility
         /// <summary>
         /// バージョン(英語)
         /// </summary>
-		public static string VersionKorean => "4.7.1 KRTL_R34";
+		public static string VersionKorean => "4.7.1 KRTL_R35";
 
         /// <summary>
         /// 更新日時
         /// </summary>
-         public static DateTime UpdateTime       => DateTimeHelper.CSVStringToTime("2021/11/24 12:00:00");
+        public static DateTime UpdateTime       => DateTimeHelper.CSVStringToTime("2021/12/20 16:00:00");
         public static DateTime MaintenanceTime  = DateTime.Now;
 
         private static System.Net.WebClient _client;

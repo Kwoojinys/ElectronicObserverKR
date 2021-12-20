@@ -163,8 +163,8 @@ namespace ElectronicObserver.Data.ShipGroup
 			{ ExpressionOperator.GreaterEqual, "이상" },
 			{ ExpressionOperator.Contains, "포함" },
 			{ ExpressionOperator.NotContains, "미포함" },
-			{ ExpressionOperator.BeginWith, "에서시작" },
-			{ ExpressionOperator.NotBeginWith, "에서시작하지않는" },
+			{ ExpressionOperator.BeginWith, "로시작" },
+			{ ExpressionOperator.NotBeginWith, "로시작하지않는" },
 			{ ExpressionOperator.EndWith, "로끝나는" },
 			{ ExpressionOperator.NotEndWith, "로끝나지않는" },
 			{ ExpressionOperator.ArrayContains, "포함" },
@@ -198,10 +198,8 @@ namespace ElectronicObserver.Data.ShipGroup
 				Match match = regex_index.Match(this.LeftOperand);
 				if (match.Success)
 				{
-
 					do
 					{
-
 						if (memberex == null)
 						{
 							memberex = Expression.PropertyOrField(paramex, match.Groups["name"].Value);
