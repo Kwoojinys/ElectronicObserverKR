@@ -669,7 +669,7 @@ namespace ElectronicObserver.Data
                 int escort = members.Count(s => s.MasterShip.ShipType == ShipTypes.Escort);
                 int escortAircraftCarrier = members.Count(s => s.MasterShip.ShipType == ShipTypes.LightAircraftCarrier && s.ASWBase > 0);
 
-                Assert(
+                this.Assert(
                     (lightCruiser >= 1 && (destroyer + escort) >= 4) ||
                     (lightCruiser >= 1 && escort >= 2) ||
                     (escortAircraftCarrier >= 1 && (destroyer >= 2 || escort >= 2)) ||
@@ -693,7 +693,7 @@ namespace ElectronicObserver.Data
             {
                 this.Assert(
                    this.members.FirstOrDefault()?.MasterShip.IsEscortAircraftCarrier ?? false,
-                    () => "旗艦:護衛空母");
+                    () => "기함:호위항모");
                 return this;
             }
 

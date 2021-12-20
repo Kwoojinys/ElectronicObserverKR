@@ -1010,7 +1010,6 @@ namespace ElectronicObserver.Window
                             }
                             else
                             {
-                                Console.WriteLine(member.Name);
                                 member.Name.AutoSize = true;
                             }
 

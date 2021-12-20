@@ -566,8 +566,8 @@ namespace ElectronicObserver.Window
 
         private void CheckExpeditionFleet(int missionID, int fleetID)
         {
-            var fleet = KCDatabase.Instance.Fleet[fleetID];
-            var result = MissionClearCondition.Check(missionID, fleet);
+            var fleet   = KCDatabase.Instance.Fleet[fleetID];
+            var result  = MissionClearCondition.Check(missionID, fleet);
             var mission = KCDatabase.Instance.Mission[missionID];
 
             if (result.IsSuceeded == false)
@@ -624,8 +624,8 @@ namespace ElectronicObserver.Window
         {
             KCDatabase db = KCDatabase.Instance;
             MissionData mis = db.Mission[MissionId];
-            var Data = FormMain.Instance.Translator.GetExpeditionData(MissionId.ToString());
-            if (Data == null)
+            var data = FormMain.Instance.Translator.GetExpeditionData(MissionId.ToString());
+            if (data == null)
             {
                 this.TextInformation.Text = "[원정 정보 없음]";
                 return;
@@ -640,35 +640,20 @@ namespace ElectronicObserver.Window
             }
 
             List<FleetCondition> shipConds = new List<FleetCondition>();
-            Dictionary<ExpeditionCheckParms, object> expCheckParms = new Dictionary<ExpeditionCheckParms, object>();
+            Dictionary<ExpeditionCheckParms, int> expCheckParms = new Dictionary<ExpeditionCheckParms, int>();
             double resourceBonus = 1 + Calculator.GetExpeditionBonus(fleet);
             double fuelUnit = members.Sum(s => Math.Truncate(s.FuelMax * mis.Fuel * (s.IsMarried ? 0.85 : 1.00)));
             double ammoUnit = members.Sum(s => Math.Truncate(s.AmmoMax * mis.Ammo * (s.IsMarried ? 0.85 : 1.00)));
 
-            string reqFlagShipName = "";
-            int drums = 0;
-            int drumkanmusu = 0;
-            int fleetLevel = Convert.ToInt32(Data["FleetLevel"]);
-            int flagShipLevel = Convert.ToInt32(Data["FlagShipLevel"]);
-            int reqDrumNeed = 0;
-            int reqDrumKanmusuNeed = 0;
-            int drumBonus = 0;
-            int reqFleetPower = 0;
-            int reqFleetAA = 0;
-            int reqFleetASW = 0;
-            int reqFleetLOS = 0;
-            int reqFleetMembers = 0;
-            int reqFlagShipType = 0;
-            string shipTypes = "";
-            int[] reqTypes = { };
-
             List<ExpeditionCondition> expeditionConds = new List<ExpeditionCondition>();
+            int fleetLevel = Convert.ToInt32(data["FleetLevel"]);
+            int flagShipLevel = Convert.ToInt32(data["FlagShipLevel"]);
+            int[] reqTypes = { };
             int[] drumInfo = new int[] { 0, 0 }; // 0 = 인원 / 1 = 수량
 
-            if (Data["FleetTypes"] != null)
+            if (data["FleetTypes"] != null)
             {
-                shipTypes = Data["FleetTypes"].ToString();
-                string[] conds_types = shipTypes.Split('|');
+                string[] conds_types = data["FleetTypes"].ToString().Split('|');
 
                 for (int i = 0; i < conds_types.Length; i++)
                 {
@@ -687,19 +672,19 @@ namespace ElectronicObserver.Window
             for (int parmIndex = 0; parmIndex < (int)ExpeditionCheckParms.OutValues; parmIndex++)
             {
                 var checkType = (ExpeditionCheckParms)parmIndex;
-                if (Data[checkType.ToString()] != null)
+                if (data[checkType.ToString()] != null)
                 {
-                    expCheckParms.Add(checkType, int.Parse(Data[checkType.ToString()].ToString()));
+                    expCheckParms.Add(checkType, int.Parse(data[checkType.ToString()].ToString()));
                 }
             }
 
             StringBuilder sb = new StringBuilder();
             sb.Append("[원정정보]\r\n");
             sb.Append("[" + mis.Name + "]\r\n");
-            sb.Append("예상획득자원\r\n" + ((expCheckParms[ExpeditionCheckParms.Fuel].ToInt() * (resourceBonus)) - fuelUnit) + "/" +
-                                           ((expCheckParms[ExpeditionCheckParms.Ammo].ToInt() * (resourceBonus)) - ammoUnit) + "/" +
-                                           (expCheckParms[ExpeditionCheckParms.Steel].ToInt() * (resourceBonus)) + "/" +
-                                           (expCheckParms[ExpeditionCheckParms.Baux].ToInt() * (resourceBonus)));
+            sb.Append("예상획득자원\r\n" + (int) (expCheckParms[ExpeditionCheckParms.Fuel] * resourceBonus - fuelUnit) + "/" +
+                                           (int) (expCheckParms[ExpeditionCheckParms.Ammo] * resourceBonus - ammoUnit) + "/" +
+                                           (int) (expCheckParms[ExpeditionCheckParms.Steel] * resourceBonus) + "/" +
+                                           (int) (expCheckParms[ExpeditionCheckParms.Baux] * resourceBonus));
             sb.Append("\r\n보급소모 - 연료 : " + fuelUnit + " 탄약 : " + ammoUnit);
             List<int> shipConditions = new List<int>();
 
@@ -733,67 +718,104 @@ namespace ElectronicObserver.Window
                     sb.Append("\r\n");
                     foreach (int type in ExCond.types)
                     {
-                        string ShipTypeName = KCDatabase.Instance.ShipTypes[type].Name;
+                        ElectronicObserver.Utility.Logger.Add(2, "check : " + type);
+                        Console.WriteLine("check : " + type);
+                        var ShipTypeName = KCDatabase.Instance.ShipTypes[type].Name;
                         sb.Append(ShipTypeName + "/");
                     }
 
                     sb.Remove((sb.Length - 1), 1);
-
                     sb.Append(" " + (ExCond.reqCount - ExCond.fleetCount) + " 필요");
                 }
             }
+
+            this.TextInformation.Text = sb.ToString();
+
             //// 체크 필요
             ShipData flagship = db.Ships[fleet.Members[0]];
-            if (expCheckParms[ExpeditionCheckParms.FlagShipType]?.ToInt() != 0)
+            if (expCheckParms.TryGetValue(ExpeditionCheckParms.FlagShipType, out int fType) == true)
             {
-                if (expCheckParms[ExpeditionCheckParms.FlagShipType].ToInt() != (int)flagship.MasterShip.ShipType)
-                    sb.Append("\r\n기함 : " + db.ShipTypes[(int)expCheckParms[ExpeditionCheckParms.FlagShipType]].Name + " 지정 필요");
+                if (fType != (int)flagship.MasterShip.ShipType)
+                    sb.Append("\r\n기함 : " + db.ShipTypes[fType].Name + " 지정 필요");
             }
 
-            if (expCheckParms[ExpeditionCheckParms.FleetLevel]?.ToInt() > members.Sum(s => s.Level))
-                sb.Append("\r\n함대레벨부족 : 추가 " + (expCheckParms[ExpeditionCheckParms.FleetLevel].ToInt() - members.Sum(s => s.Level)) + " 필요");
-
-            if (expCheckParms[ExpeditionCheckParms.FlagShipLevel]?.ToInt() > flagship.Level)
-                sb.Append("\r\n기함레벨부족 : 추가 " + (expCheckParms[ExpeditionCheckParms.FlagShipLevel].ToInt() - f_flagshiplevel) + " 필요");
-
-            if (expCheckParms[ExpeditionCheckParms.FleetMembers]?.ToInt() > members.Count())
-                sb.Append("\r\n함대인원부족 : 추가 " + ((int)expCheckParms[ExpeditionCheckParms.FleetMembers] - members.Count()) + " 명 필요");
-
-            if (expCheckParms[ExpeditionCheckParms.DrunKanmusu]?.ToInt() > drumInfo[0])
-                sb.Append("\r\n드럼통장착함선 " + (expCheckParms[ExpeditionCheckParms.DrunKanmusu].ToInt() - drumInfo[0]) + "명 필요");
-
-            if (expCheckParms[ExpeditionCheckParms.DrunNeed]?.ToInt() > drumInfo[1])
+            if (expCheckParms.TryGetValue(ExpeditionCheckParms.FleetLevel, out int fLevel) == true &&
+                fLevel > members.Sum(s => s.Level))
             {
-                sb.Append("\r\n드럼통 " + (expCheckParms[ExpeditionCheckParms.DrunNeed].ToInt() - drumInfo[1]) + "개 필요");
-                if (expCheckParms[ExpeditionCheckParms.DrumBonus].ToInt() > drumInfo[1])
-                    sb.Append("(" + (expCheckParms[ExpeditionCheckParms.DrumBonus].ToInt() - drumInfo[1]) + "개 추가시 대성공보너스)");
+                sb.Append("\r\n함대레벨부족 : 추가 " + (fLevel - members.Sum(s => s.Level)) + " 필요");
             }
 
-            if (expCheckParms[ExpeditionCheckParms.FleetAA]?.ToInt() > members.Sum(s => s.AATotal))
+            if (expCheckParms.TryGetValue(ExpeditionCheckParms.FlagShipLevel, out int fShipLevel) == true &&
+                fShipLevel > flagship.Level)
+            {
+                sb.Append("\r\n기함레벨부족 : 추가 " + (fShipLevel - f_flagshiplevel) + " 필요");
+            }
+
+            if (expCheckParms.TryGetValue(ExpeditionCheckParms.FleetMembers, out int fCount) == true &&
+                fCount > members.Count())
+            {
+                sb.Append("\r\n함대인원부족 : 추가 " + (fCount - members.Count()) + " 명 필요");
+            }
+
+            if (expCheckParms.TryGetValue(ExpeditionCheckParms.DrunKanmusu, out int dKanmusuCount) == true &&
+                dKanmusuCount > drumInfo[0])
+            {
+                sb.Append("\r\n드럼통장착함선 " + (dKanmusuCount - drumInfo[0]) + "명 필요");
+            }
+
+            if (expCheckParms.TryGetValue(ExpeditionCheckParms.DrunNeed, out int dNeed) == true && 
+                dNeed > drumInfo[1])
+            {
+                sb.Append("\r\n드럼통 " + (dNeed.ToInt() - drumInfo[1]) + "개 필요");
+            }
+
+            if (expCheckParms.TryGetValue(ExpeditionCheckParms.DrumBonus, out int dBonus) == true)
+            {
+                if (dBonus > drumInfo[1])
+                {
+                    sb.Append("(" + (dBonus - drumInfo[1]) + "개 추가시 대성공보너스)");
+                }
+            }
+
+            if (expCheckParms.TryGetValue(ExpeditionCheckParms.FleetAA, out int fAA) == true &&
+                fAA > members.Sum(s => s.AATotal))
+            {
                 sb.Append("\r\n함대대공부족 : 추가 " + (expCheckParms[ExpeditionCheckParms.FleetAA].ToInt() - members.Sum(s => s.AATotal)) + " 필요");
+            }
 
-            if (expCheckParms[ExpeditionCheckParms.FleetASW]?.ToInt() > members.Sum(s => s.ASWTotal))
+            if (expCheckParms.TryGetValue(ExpeditionCheckParms.FleetASW, out int fASW) == true &&
+                fASW > members.Sum(s => s.ASWTotal))
+            {
                 sb.Append("\r\n함대대잠부족 : 추가 " + (expCheckParms[ExpeditionCheckParms.FleetASW].ToInt() - members.Sum(s => s.ASWTotal)) + " 필요");
+            }
 
-            if (expCheckParms[ExpeditionCheckParms.FleetLOS]?.ToInt() > members.Sum(s => s.LOSTotal))
+            if (expCheckParms.TryGetValue(ExpeditionCheckParms.FleetLOS, out int fLOS) == true &&
+                fLOS > members.Sum(s => s.LOSTotal))
+            {
                 sb.Append("\r\n함대색적부족 : 추가 " + (expCheckParms[ExpeditionCheckParms.FleetLOS].ToInt() - members.Sum(s => s.LOSTotal)) + " 필요");
+            }
 
-            if (expCheckParms[ExpeditionCheckParms.FleetPower]?.ToInt() > members.Sum(s => s.FirepowerTotal))
+            if (expCheckParms.TryGetValue(ExpeditionCheckParms.FleetPower, out int fPower) == true &&
+                fPower > members.Sum(s => s.FirepowerTotal))
+            {
                 sb.Append("\r\n함대화력부족 : 추가 " + (expCheckParms[ExpeditionCheckParms.FleetPower].ToInt() - members.Sum(s => s.FirepowerTotal)) + " 필요");
+            }
 
-            int greatChanceCount = 12;
-            int kiraCount = 0;
+            var greatChancePercent  = 0f;
+            int greatChanceCount    = 12;
+            int kiraCount           = 0;
+
             for (int i = 0; i < shipConditions.Count; i++)
             {
                 int tempCount = (int)Math.Ceiling((shipConditions[i] - 49) / 3.0);
                 if (shipConditions[i] > 49)
                     kiraCount++;
 
-                greatChanceCount = tempCount;
+                if (tempCount < greatChanceCount)
+                    greatChanceCount = tempCount;
             }
 
-            float greatChancePercent = 0;
-            if (expCheckParms[ExpeditionCheckParms.DrumBonus].ToInt() == 0)
+            if (dBonus == 0)
             {
                 if (greatChanceCount >= 1)
                 {
@@ -803,7 +825,7 @@ namespace ElectronicObserver.Window
             }
             else
             {
-                if (expCheckParms[ExpeditionCheckParms.DrumBonus].ToInt() <= drumInfo[1] && greatChanceCount == 0)
+                if (dBonus <= drumInfo[1] && greatChanceCount == 0)
                 {
                     greatChancePercent = (40 + (kiraCount * 15)).Clamp(0, 100);
                     sb.Append("\r\n대성공 확률 : " + greatChancePercent + "%");
@@ -814,7 +836,7 @@ namespace ElectronicObserver.Window
                     sb.Append("\r\n" + greatChanceCount + "회 대성공 가능. 확률 : " + greatChancePercent + "%");
                 }
             }
-            
+
             this.TextInformation.Text = sb.ToString();
         }
 

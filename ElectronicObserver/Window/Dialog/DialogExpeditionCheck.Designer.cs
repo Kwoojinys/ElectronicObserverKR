@@ -117,7 +117,7 @@
             this.Controls.Add(this.CheckView);
             this.Font = new System.Drawing.Font("Meiryo UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.Name = "DialogExpeditionCheck";
-            this.Text = "원졍 여부 확인";
+            this.Text = "원정 여부 확인";
             this.Activated += new System.EventHandler(this.DialogExpeditionCheck_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DialogExpeditionCheck_FormClosed);
             this.Load += new System.EventHandler(this.DialogExpeditionCheck_Load);
