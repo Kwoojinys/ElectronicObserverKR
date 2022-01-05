@@ -123,7 +123,7 @@ namespace ElectronicObserver.Utility
             KCDatabase db = KCDatabase.Instance;
             if (db.Equipments[eqId].MasterEquipment.IsLargeGun)
             {
-                bool married        = db.Ships[shipId].Level >= 100;
+                bool married        = db.Ships[shipId].IsMarried;
                 int masterShipId    = db.Ships[shipId].MasterShip.ID;
                 int masterEquipId   = db.Equipments[eqId].MasterEquipment.ID;
                 if (this.CheckWeightData(masterShipId) == true)
