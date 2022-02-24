@@ -585,10 +585,6 @@ namespace ElectronicObserver.Window
             }
         }
 
-
-
-
-
         // 작업 체크포인트 - 원정체크
         public void CheckExpeditionCondition(int fleetID, int MissionId)
         {

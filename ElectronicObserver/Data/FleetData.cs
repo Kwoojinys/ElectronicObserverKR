@@ -425,127 +425,93 @@ namespace ElectronicObserver.Data
 		/// </summary>
 		public int SupportType
 		{
-			get
-			{
-				int destroyerCount = 0;
-				int aircraftCarrierCount = 0;
-				int aircraftAuxiliaryCount = 0;
-				int aircraftShellingCount = 0;
-				int shellingCount = 0;
-				int battleshipCount = 0;
-				int heavyCruiserCount = 0;
-				int otherCount = 0;
-                int lightcarriercount = 0;
-                int escortcount = 0;
-                int submarineattackcount = 0;
+            get
+            {
+                int destroyerCount = 0;
+                int aircraftCarrierCount = 0;
+                int aircraftAuxiliaryCount = 0;
+                int aircraftShellingCount = 0;
+                int shellingCount = 0;
+                int battleshipCount = 0;
+                int heavyCruiserCount = 0;
+                int otherCount = 0;
 
                 foreach (var s in this.MembersInstance.Where(ss => ss != null))
-				{
-					switch (s.MasterShip.ShipType)
-					{
-                        case ShipTypes.Escort:
-                            submarineattackcount += 2;
-                            break;
-
-						case ShipTypes.Destroyer:
-							destroyerCount++;
-							break;
-
-                        case ShipTypes.LightCruiser:
-                            submarineattackcount++;
-                            break;
-
-						case ShipTypes.LightAircraftCarrier:
-                            aircraftCarrierCount++;
-                            lightcarriercount++;
+                {
+                    switch (s.MasterShip.ShipType)
+                    {
+                        case ShipTypes.Destroyer:
+                            destroyerCount++;
                             break;
 
                         case ShipTypes.AircraftCarrier:
+                        case ShipTypes.LightAircraftCarrier:
                         case ShipTypes.ArmoredAircraftCarrier:
-							aircraftCarrierCount++;
-							break;
-
-						case ShipTypes.SeaplaneTender:
-						case ShipTypes.AmphibiousAssaultShip:
-							aircraftAuxiliaryCount++;
-                            submarineattackcount++;
-							break;
-
-						case ShipTypes.AviationBattleship:
-							aircraftShellingCount++;
-							battleshipCount++;
-							break;
-
-						case ShipTypes.AviationCruiser:
-							aircraftShellingCount++;
-							heavyCruiserCount++;
-							break;
-
-						case ShipTypes.Transport:
-							aircraftShellingCount++;
-                            submarineattackcount++;
+                            aircraftCarrierCount++;
                             break;
-                        
-						case ShipTypes.Battleship:
-						case ShipTypes.Battlecruiser:
-							shellingCount++;
-							battleshipCount++;
-							break;
 
-						case ShipTypes.HeavyCruiser:
-							shellingCount++;
-							heavyCruiserCount++;
-							break;
+                        case ShipTypes.SeaplaneTender:
+                        case ShipTypes.AmphibiousAssaultShip:
+                            aircraftAuxiliaryCount++;
+                            break;
 
-						default:
-							otherCount++;
-							break;
-					}
+                        case ShipTypes.AviationBattleship:
+                            aircraftShellingCount++;
+                            battleshipCount++;
+                            break;
 
-				}
+                        case ShipTypes.AviationCruiser:
+                            aircraftShellingCount++;
+                            heavyCruiserCount++;
+                            break;
+
+                        case ShipTypes.Transport:
+                            aircraftShellingCount++;
+                            break;
+
+                        case ShipTypes.Battleship:
+                        case ShipTypes.Battlecruiser:
+                            shellingCount++;
+                            battleshipCount++;
+                            break;
+
+                        case ShipTypes.HeavyCruiser:
+                            shellingCount++;
+                            heavyCruiserCount++;
+                            break;
+
+                        default:
+                            otherCount++;
+                            break;
+                    }
+
+                }
 
 
-				if (destroyerCount < 2)
-					return 0;       // 発生しない
+                if (destroyerCount < 2)
+                    return 0;       // 発生しない
 
-				if (shellingCount == 0)
-				{
+                if (shellingCount == 0)
+                {
                     if (aircraftCarrierCount >= 1 ||
                         aircraftAuxiliaryCount >= 2 ||
                         aircraftShellingCount >= 2)
-                    {
-                        if(lightcarriercount >= 1)
-                        {
-                            if (lightcarriercount >= 2 || submarineattackcount >= 1)
-                                return 4;
-                        }
-
                         return 1;   // 空撃
-                    }
+                }
+                if (shellingCount == 1)
+                {
+                    if (aircraftCarrierCount + aircraftAuxiliaryCount >= 2)
+                        return 1;   // 空撃
                 }
 
-				if (shellingCount >= 1)
-				{
-                    if (aircraftCarrierCount + aircraftAuxiliaryCount >= 2 || aircraftShellingCount >= 3)
-                    {
-                        if (lightcarriercount >= 1)
-                        {
-                            if (lightcarriercount >= 2 || submarineattackcount >= 1)
-                                return 4;
-                        }
+                if (battleshipCount >= 2 ||
+                    (battleshipCount == 1 && heavyCruiserCount >= 3) ||
+                    heavyCruiserCount >= 4)
+                    return 2;       // 砲撃
 
-                        return 1;   // 空撃
-                    }
-				}
-
-				if (battleshipCount >= 2 ||
-					(battleshipCount == 1 && heavyCruiserCount >= 3) ||
-					heavyCruiserCount >= 4)
-					return 2;       // 砲撃
-
-				return 3;           // 雷撃
-			}
-		}
+                return 3;           // 雷撃
+            }
+        }
 
 
 		/// <summary>

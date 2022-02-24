@@ -161,7 +161,6 @@ namespace ElectronicObserver.Resource.Record
 
 
 		public List<DevelopmentElement> Record { get; private set; }
-		private DevelopmentElement tempElement;
 		private int LastSavedCount;
 
 

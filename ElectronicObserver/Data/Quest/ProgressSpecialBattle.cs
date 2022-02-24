@@ -209,11 +209,11 @@ namespace ElectronicObserver.Data.Quest
                     break;
 
                 case 872:   // |872|季|戦果拡張任務！「Z作戦」後段作戦|5-5・6-2・6-5・7-2(第二)ボスS勝利各1|要第一艦隊
-                    isAccepted = fleet.FleetID == 1 && CheckGaugeIndex72(bm.Compass);
+                    isAccepted = fleet.FleetID == 1 && this.CheckGaugeIndex72(bm.Compass);
                     break;
 
                 case 893:   // |893|季|泊地周辺海域の安全確保を徹底せよ！|1-5・7-1・7-2(第一＆第二)ボスS勝利各3|3エリア達成時点で80%
-                    isAccepted = CheckGaugeIndex72(bm.Compass);
+                    isAccepted = this.CheckGaugeIndex72(bm.Compass);
                     break;
 
                 // |894|季|空母戦力の投入による兵站線戦闘哨戒|1-3・1-4・2-1・2-2・2-3ボスS勝利各1?|要空母系
@@ -273,7 +273,7 @@ namespace ElectronicObserver.Data.Quest
                             default:
                                 return false;
                         }
-                    }) >= 2 && CheckGaugeIndex72(bm.Compass) && CheckGaugeIndex73(bm.Compass);
+                    }) >= 2 && this.CheckGaugeIndex72(bm.Compass) && this.CheckGaugeIndex73(bm.Compass);
                     break;
                 case 840:   //|840|週|【節分任務】令和三年節分作戦|2-(1~3)ボスA勝利各1|要(軽母or軽巡or雷巡or練巡)旗艦/(駆逐or海防)3, 期間限定(2021/01/13～????/??/??)
                     isAccepted =
@@ -324,9 +324,9 @@ namespace ElectronicObserver.Data.Quest
                 switch (compass.Destination)
                 {
                     case 7:
-                        return GaugeIndex == 1;
+                        return this.GaugeIndex == 1;
                     case 15:
-                        return GaugeIndex == 2;
+                        return this.GaugeIndex == 2;
                     default:
                         return false;
                 }
@@ -342,12 +342,12 @@ namespace ElectronicObserver.Data.Quest
                 {
                     case 5:
                     case 8:
-                        return GaugeIndex == 1;
+                        return this.GaugeIndex == 1;
                     case 18:
                     case 23:
                     case 24:
                     case 25:
-                        return GaugeIndex == 2;
+                        return this.GaugeIndex == 2;
                     default:
                         return false;
                 }

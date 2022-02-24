@@ -34,10 +34,12 @@ namespace Browser.CefOp
         protected override CefReturnValue OnBeforeResourceLoad(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IRequestCallback callback)
         {
             // ログイン直後に勝手に遷移させられ、ブラウザがホワイトアウトすることがあるためブロックする
-            if (request.Url.Contains(@"/rt.gsspat.jp/"))
-            {
-                return CefReturnValue.Cancel;
-            }
+            //if (request.Url.Contains(@"/rt.gsspat.jp/"))
+            //{
+            //    return CefReturnValue.Cancel;
+            //}
+
+            request.Url = request.Url.Replace("203.104.209.7/gadget_html5", "kcwiki.github.io/cache/gadget_html5");
 
             return base.OnBeforeResourceLoad(chromiumWebBrowser, browser, frame, request, callback);
         }

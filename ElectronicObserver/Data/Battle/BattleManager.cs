@@ -367,7 +367,7 @@ namespace ElectronicObserver.Data.Battle
 				var airraid = ((BattleBaseAirRaid)this.BattleDay).BaseAirRaid;
 
 				Utility.Logger.Add(2,
-					string.Format("{0}-{1}-{2} 로 기지에 공습을 받았습니다.( {3}, 데미지 합계: {4}, {5} )",
+					string.Format("{0}-{1}-{2} 로 기지에 공습을 받았습니다.( {3}, 대미지 합계: {4}, {5} )",
                         this.Compass.MapAreaID, this.Compass.MapInfoID, this.Compass.Destination,
 						Constants.GetAirSuperiority(airraid.IsAvailable ? airraid.AirSuperiority : -1), damage, Constants.GetAirRaidDamage(this.Compass.AirRaidDamageKind)));
 			}

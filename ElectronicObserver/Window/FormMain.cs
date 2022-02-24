@@ -106,18 +106,18 @@ namespace ElectronicObserver.Window
             switch (Configuration.Config.UI.Theme)
             {
                 case Theme.Light:
-                    thm = new VS2005Theme();
+                    thm = new VS2015LightTheme();
                     break;
                 case Theme.Dark:
-                    thm = new VS2013BlueTheme();
+                    thm = new VS2015BlueTheme();
                     break;
                 default:
-                    thm = new VS2005Theme();
+                    thm = new VS2015LightTheme();
                     break;
             }
 
             this.MainDockPanel.Theme = thm;
-            thm.Apply(this.MainDockPanel);
+            thm.ApplyTo(this.MainDockPanel);
 
             this.Text = SoftwareInformation.SoftwareNameKorean;
 		}
@@ -200,7 +200,7 @@ namespace ElectronicObserver.Window
 			APIObserver.Instance.Start(Utility.Configuration.Config.Connection.Port, this);
 
 
-            this.MainDockPanel.Extender.FloatWindowFactory = new CustomFloatWindowFactory();
+            this.MainDockPanel.Theme.Extender.FloatWindowFactory = new CustomFloatWindowFactory();
             this.SubForms = new List<DockContent>();
 
             //form init
@@ -313,8 +313,8 @@ namespace ElectronicObserver.Window
             this.StripStatus.Font = this.Font;
 
 
-            this.MainDockPanel.Skin.AutoHideStripSkin.TextFont = this.Font;
-            this.MainDockPanel.Skin.DockPaneStripSkin.TextFont = this.Font;
+            this.MainDockPanel.Theme.Skin.AutoHideStripSkin.TextFont = this.Font;
+            this.MainDockPanel.Theme.Skin.DockPaneStripSkin.TextFont = this.Font;
 
             if (c.Life.LockLayout)
 			{

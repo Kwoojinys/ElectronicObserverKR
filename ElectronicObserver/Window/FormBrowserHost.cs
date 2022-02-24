@@ -320,7 +320,6 @@ namespace ElectronicObserver.Window
 			}
 
             this.Browser.AsyncRemoteRun(() => this.Browser.Proxy.SetIconResource(canvas));
-
 		}
 
 

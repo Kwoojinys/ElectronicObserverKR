@@ -14,19 +14,19 @@ namespace ElectronicObserver.Data.Battle.Phase
 		public PhaseFriendlySupportInfo(BattleData battle, string title)
 			: base(battle, title)
 		{
-			if (!IsAvailable)
+			if (!this.IsAvailable)
 				return;
 
 			// info translation
 
-			int[] GetArrayOrDefault(string objectName, int length) => !InfoData.IsDefined(objectName) ? null : FixedArray((int[])InfoData[objectName], length);
+			int[] GetArrayOrDefault(string objectName, int length) => !this.InfoData.IsDefined(objectName) ? null : FixedArray((int[])this.InfoData[objectName], length);
 			int[][] GetArraysOrDefault(string objectName, int topLength, int bottomLength)
 			{
-				if (!InfoData.IsDefined(objectName))
+				if (!this.InfoData.IsDefined(objectName))
 					return null;
 
 				int[][] ret = new int[topLength][];
-				dynamic[] raw = (dynamic[])InfoData[objectName];
+				dynamic[] raw = (dynamic[])this.InfoData[objectName];
 				for (int i = 0; i < ret.Length; i++)
 				{
 					if (i < raw.Length)
@@ -37,18 +37,18 @@ namespace ElectronicObserver.Data.Battle.Phase
 				return ret;
 			}
 
-			FriendlyMembers = GetArrayOrDefault("api_ship_id", 7);
-			FriendlyMembersInstance = FriendlyMembers.Select(id => KCDatabase.Instance.MasterShips[id]).ToArray();
-			FriendlyLevels = GetArrayOrDefault("api_ship_lv", 7);
-			FriendlyInitialHPs = GetArrayOrDefault("api_nowhps", 7);
-			FriendlyMaxHPs = GetArrayOrDefault("api_maxhps", 7);
+            this.FriendlyMembers = GetArrayOrDefault("api_ship_id", 7);
+            this.FriendlyMembersInstance = this.FriendlyMembers.Select(id => KCDatabase.Instance.MasterShips[id]).ToArray();
+            this.FriendlyLevels = GetArrayOrDefault("api_ship_lv", 7);
+            this.FriendlyInitialHPs = GetArrayOrDefault("api_nowhps", 7);
+            this.FriendlyMaxHPs = GetArrayOrDefault("api_maxhps", 7);
 
-			FriendlySlots = GetArraysOrDefault("api_Slot", 7, 5);
-			FriendlyExpansionSlots = GetArrayOrDefault("api_slot_ex", 7);
-			FriendlyParameters = GetArraysOrDefault("api_Param", 7, 4);
+            this.FriendlySlots = GetArraysOrDefault("api_Slot", 7, 5);
+            this.FriendlyExpansionSlots = GetArrayOrDefault("api_slot_ex", 7);
+            this.FriendlyParameters = GetArraysOrDefault("api_Param", 7, 4);
 		}
 
-		public override bool IsAvailable => RawData.api_friendly_info();
+		public override bool IsAvailable => this.RawData.api_friendly_info();
 
 		public override void EmulateBattle(int[] hps, int[] damages)
 		{
@@ -59,12 +59,12 @@ namespace ElectronicObserver.Data.Battle.Phase
 		/// <summary>
 		/// 友軍情報
 		/// </summary>
-		public dynamic InfoData => RawData.api_friendly_info;
+		public dynamic InfoData => this.RawData.api_friendly_info;
 
 		/// <summary>
 		/// 種別？
 		/// </summary>
-		public int Type => (int)InfoData.api_production_type;
+		public int Type => (int)this.InfoData.api_production_type;
 
 
 		/// <summary>

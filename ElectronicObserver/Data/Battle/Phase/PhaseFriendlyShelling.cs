@@ -57,7 +57,7 @@ namespace ElectronicObserver.Data.Battle.Phase
 			}
 		}
 
-		public override bool IsAvailable => RawData.api_friendly_battle();
+		public override bool IsAvailable => this.RawData.api_friendly_battle();
 
 
 		public override void EmulateBattle(int[] hps, int[] damages)
@@ -66,7 +66,7 @@ namespace ElectronicObserver.Data.Battle.Phase
 				return;
 
             // note: HP計算が正しくできない - 送られてくるHPにはすでに友軍支援のダメージが適用済みであるため、昼戦終了時のHPを参照しなければならない
-            int[] friendhps = Battle.FriendlySupportInfo.FriendlyInitialHPs;
+            int[] friendhps = this.Battle.FriendlySupportInfo.FriendlyInitialHPs;
 
             foreach (var attack in this.Attacks)
             {

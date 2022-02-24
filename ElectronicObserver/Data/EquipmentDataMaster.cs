@@ -348,6 +348,12 @@ namespace ElectronicObserver.Data
         /// <summary> ソナーかどうか </summary>
         public bool IsSonar => this.CategoryType == EquipmentTypes.Sonar || this.CategoryType == EquipmentTypes.SonarLarge;
 
+		public bool IsSupplies => this.CategoryType == EquipmentTypes.Supplies;
+
+		public bool IsDamageControl => this.CategoryType == EquipmentTypes.DamageControl;
+
+		public bool IsRation => this.CategoryType == EquipmentTypes.Ration;
+
 		/// <summary> 爆雷かどうか(投射機は含まない) </summary>
 		public bool IsDepthCharge =>
             this.EquipmentID == 226 ||       // 九五式爆雷 

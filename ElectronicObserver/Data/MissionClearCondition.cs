@@ -663,11 +663,11 @@ namespace ElectronicObserver.Data
 
             public MissionClearConditionResult CheckEscortFleetDD4()
             {
-                int lightCruiser = members.Count(s => s.MasterShip.ShipType == ShipTypes.LightCruiser);
-                int destroyer = members.Count(s => s.MasterShip.ShipType == ShipTypes.Destroyer);
-                int trainingCruiser = members.Count(s => s.MasterShip.ShipType == ShipTypes.TrainingCruiser);
-                int escort = members.Count(s => s.MasterShip.ShipType == ShipTypes.Escort);
-                int escortAircraftCarrier = members.Count(s => s.MasterShip.ShipType == ShipTypes.LightAircraftCarrier && s.ASWBase > 0);
+                int lightCruiser = this.members.Count(s => s.MasterShip.ShipType == ShipTypes.LightCruiser);
+                int destroyer = this.members.Count(s => s.MasterShip.ShipType == ShipTypes.Destroyer);
+                int trainingCruiser = this.members.Count(s => s.MasterShip.ShipType == ShipTypes.TrainingCruiser);
+                int escort = this.members.Count(s => s.MasterShip.ShipType == ShipTypes.Escort);
+                int escortAircraftCarrier = this.members.Count(s => s.MasterShip.ShipType == ShipTypes.LightAircraftCarrier && s.ASWBase > 0);
 
                 this.Assert(
                     (lightCruiser >= 1 && (destroyer + escort) >= 4) ||

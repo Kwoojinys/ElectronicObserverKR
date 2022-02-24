@@ -28,7 +28,6 @@ namespace Browser
 	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single/*, IncludeExceptionDetailInFaults = true*/)]
 	public partial class FormBrowser : Form, BrowserLib.IBrowser
 	{
-
 		private readonly Size KanColleSize = new Size(1200, 720);
         private readonly string BrowserCachePath = "BrowserCache";
 
@@ -209,7 +208,6 @@ namespace Browser
 			if (this.ProxySettings == null)
 				return;
 
-
 			var settings = new CefSettings()
 			{
 				BrowserSubprocessPath = Path.Combine(
@@ -343,7 +341,6 @@ namespace Browser
             this.SetVolumeState();
 		}
 
-
 		private void SizeAdjuster_SizeChanged(object sender, EventArgs e)
 		{
 			if (!this.StyleSheetApplied)
@@ -387,7 +384,20 @@ namespace Browser
 			if (e.IsLoading)
 				return;
 
-            this.BeginInvoke((Action)(() =>
+			if (this.Browser.Address.Contains("redirect"))
+			{
+                this.SetCookie();
+                this.Browser.Refresh();
+			}
+
+			if (this.Browser.Address.Contains("login/=/path="))
+		    {
+                this.SetCookie();
+                this.Browser.ExecuteScriptAsync(Properties.Resources.RemoveWelcomePopup);
+                this.Browser.ExecuteScriptAsync(Properties.Resources.RemoveServicePopup);
+            }
+
+			this.BeginInvoke((Action)(() =>
 			{
                 this.ApplyStyleSheet();
 
@@ -396,8 +406,12 @@ namespace Browser
 			}));
 		}
 
+        private void SetCookie()
+        {
+            this.Browser.ExecuteScriptAsync(Properties.Resources.SauceCookie);
+        }
 
-		private bool IsBrowserInitialized =>
+        private bool IsBrowserInitialized =>
             this.Browser != null &&
             this.Browser.IsBrowserInitialized;
 

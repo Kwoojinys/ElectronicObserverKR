@@ -47,7 +47,7 @@ namespace ElectronicObserver.Data.Quest
 
 		public override void CheckProgress(QuestData q)
 		{
-            foreach (var p in ProgressList)
+            foreach (var p in this.ProgressList)
                 p.ApplyTemporaryProgress(q);
 
             this.Progress = this.ProgressList.Sum(p => p.Progress);

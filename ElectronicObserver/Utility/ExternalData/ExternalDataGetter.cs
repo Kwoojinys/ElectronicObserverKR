@@ -8,10 +8,17 @@ namespace ElectronicObserver.Utility
 {
     public partial class ExternalDataReader
     {
+        Dictionary<string, string> TranslatedStrings = new Dictionary<string, string>();
+
         public string GetTranslation(string jpString, TranslateType type, int id = -1)
         {
             try
             {
+                if (this.TranslatedStrings.TryGetValue(jpString, out string cached) == true)
+                {
+                    return cached;
+                }
+
                 string translated = jpString;
                 var translationList = this.GetData(type);
                 if (translationList == null)
@@ -23,6 +30,11 @@ namespace ElectronicObserver.Utility
                 {
                     if (this.GetTranslation(id, translationList, ref translated) == true)
                     {
+                        if (this.TranslatedStrings.ContainsKey(jpString) == false)
+                        {
+                            this.TranslatedStrings.Add(jpString, translated);
+                        }
+
                         return translated;
                     }
                 }
@@ -30,6 +42,11 @@ namespace ElectronicObserver.Utility
                 {
                     if (this.GetTranslation(jpString, translationList, ref translated, type) == true)
                     {
+                        if (this.TranslatedStrings.ContainsKey(jpString) == false)
+                        {
+                            this.TranslatedStrings.Add(jpString, translated);
+                        }
+
                         return translated;
                     }
                 }
@@ -70,7 +87,7 @@ namespace ElectronicObserver.Utility
                             translate = jpString.Remove(jpString.Length - suffix.Key.ToString().Length);
                             if (suffix.Key.ToString().Equals(jpString.Substring(jpString.Length - suffix.Key.ToString().Length)) == true)
                             {
-                                return this.GetTranslation(translate, translationList, ref translate, TranslateType.ShipName, suffix.Value.ToString());
+                                return this.GetTranslation(translate, translationList, ref translate, TranslateType.ShipName, suffix.Value?.ToString() + shipSuffix);
                             }
                         }
                     }

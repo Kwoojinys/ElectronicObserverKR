@@ -192,8 +192,6 @@ namespace ElectronicObserver.Window
                             supporttype = "포격지원"; break;
                         case 3:
                             supporttype = "장거리지원뇌격"; break;
-                        case 4:
-                            supporttype = "항공(대잠)지원"; break;
                     }
 
                     double expeditionBonus = Calculator.GetExpeditionBonus(fleet);

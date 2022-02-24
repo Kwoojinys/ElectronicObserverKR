@@ -784,7 +784,7 @@ namespace ElectronicObserver.Window
 					}
 
                     this.ToolTipInfo.SetToolTip(bar, string.Format
-						("{0}\r\nHP: ({1} → {2})/{3} ({4}) [{5}]\r\n데미지: {6}\r\n\r\n{7}",
+						("{0}\r\nHP: ({1} → {2})/{3} ({4}) [{5}]\r\n대미지: {6}\r\n\r\n{7}",
 						name,
 						Math.Max(bar.PrevValue, 0),
 						Math.Max(bar.Value, 0),
@@ -858,7 +858,7 @@ namespace ElectronicObserver.Window
 						bar.Text = Constants.GetShipClassClassification(ship.MasterShip.ShipType);
 
                         this.ToolTipInfo.SetToolTip(bar, string.Format(
-							"{0} Lv. {1}\r\nHP: ({2} → {3})/{4} ({5}) [{6}]\r\n데미지: {7}\r\n\r\n{8}",
+							"{0} Lv. {1}\r\nHP: ({2} → {3})/{4} ({5}) [{6}]\r\n대미지: {7}\r\n\r\n{8}",
 							ship.MasterShip.NameWithClass,
 							ship.Level,
 							Math.Max(bar.PrevValue, 0),

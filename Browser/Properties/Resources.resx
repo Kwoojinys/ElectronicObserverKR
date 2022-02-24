@@ -160,4 +160,13 @@ catch(e) {
     <value>var node = document.getElementById('{0}');
 if (node) document.getElementsByTagName('head')[0].removeChild(node);</value>
   </data>
+  <data name="RemoveServicePopup" xml:space="preserve">
+    <value>var element = document.getElementById('page-popup'); element.parentNode.removeChild(element);</value>
+  </data>
+  <data name="RemoveWelcomePopup" xml:space="preserve">
+    <value>var element = document.getElementById('welcome'); element.parentNode.removeChild(element);</value>
+  </data>
+  <data name="SauceCookie" xml:space="preserve">
+    <value>document.cookie = "ckcy=1;expires=Sun, 09 Feb 2025 09:00:09 GMT;domain=www.dmm.com;path=/netgame/";</value>
+  </data>
 </root>

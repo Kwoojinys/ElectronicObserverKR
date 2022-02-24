@@ -963,7 +963,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Control_PowerEngagementForm.Name = "Control_PowerEngagementForm";
             this.Control_PowerEngagementForm.Size = new System.Drawing.Size(121, 23);
             this.Control_PowerEngagementForm.TabIndex = 5;
-            this.ToolTipInfo.SetToolTip(this.Control_PowerEngagementForm, "화력(데미지)를 계산하기 위한 교전 형태를 설정합니다.");
+            this.ToolTipInfo.SetToolTip(this.Control_PowerEngagementForm, "화력(대미지)를 계산하기 위한 교전 형태를 설정합니다.");
             // 
             // label29
             // 

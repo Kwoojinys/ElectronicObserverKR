@@ -47,6 +47,10 @@ namespace ElectronicObserver.Data
 		/// </summary>
 		public bool IsLocked => (int)this.RawData.api_locked != 0;
 
+		public bool IsNoneCounted => this.MasterEquipment.IsSupplies == true ||
+									 this.MasterEquipment.IsDamageControl == true ||
+									 this.MasterEquipment.IsRation == true;
+
 		/// <summary>
 		/// 改修Level
 		/// </summary>

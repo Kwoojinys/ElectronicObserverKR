@@ -484,7 +484,7 @@ namespace ElectronicObserver.Data.Battle.Detail
         {
             if (this.DefenderIndex.IsFriend)
             {
-                return Battle.FriendlySupportInfo.FriendlyMembersInstance[this.DefenderIndex.Index].NameWithClass + " #" + (this.DefenderIndex.Index + 1);
+                return this.Battle.FriendlySupportInfo.FriendlyMembersInstance[this.DefenderIndex.Index].NameWithClass + " #" + (this.DefenderIndex.Index + 1);
             }
 
             return base.GetDefenderName();
