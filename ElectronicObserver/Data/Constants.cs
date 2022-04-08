@@ -354,7 +354,7 @@ namespace ElectronicObserver.Data
 		/// <summary>
 		/// 艦型を表す文字列を取得します。
 		/// </summary>
-		public static string GetShipClass(int id)
+		public static string GetShipClass(int id, int shipUniqId = 0)
 		{
 			switch (id)
 			{
@@ -466,6 +466,15 @@ namespace ElectronicObserver.Data
                 case 106: return "St. Louis급";
                 case 107: return "North Carolina급";
                 case 108: return "Town급";
+                case 109: return "센토쿠급(이200급잠수함)";
+				case 110: return "Brooklyn급";
+				case 111 when shipUniqId is 699: return "내빙형잡용운송함";
+                case 111 when shipUniqId is 645: return "LL01 등대보급선";
+                case 111 when shipUniqId is 650: return "PL107 남극관측선";
+                case 112: return "Illustrious급";
+                case 113: return "Conte di Cavour급";
+                case 114: return "Gato급";
+                case 115: return "특2TL급";
                 default: return "不明";
             }
 		}

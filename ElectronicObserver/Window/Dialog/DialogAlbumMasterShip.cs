@@ -297,7 +297,7 @@ namespace ElectronicObserver.Window.Dialog
 				ship.ResourceName, ship.ResourceGraphicVersion, ship.ResourceVoiceVersion, ship.ResourcePortVoiceVersion, Constants.GetVoiceFlag(ship.VoiceFlag)));
 
             {
-                string shipClassName = Constants.GetShipClass(ship.ShipClass);
+                string shipClassName = Constants.GetShipClass(ship.ShipClass, ship.ID);
 				bool isShipClassUnknown = shipClassName == "불명";
 
                 this.ShipType.Text = (ship.IsAbyssalShip ? "심해" : isShipClassUnknown ? "" : shipClassName) + (ship.IsLandBase ? "육상기지" : ship.ShipTypeName);
@@ -308,7 +308,7 @@ namespace ElectronicObserver.Window.Dialog
 				else if (isShipClassUnknown)
 					tip.AppendLine($"함급불명: {ship.ShipClass}");
                 else
-                    tip.AppendLine($"{Constants.GetShipClass(ship.ShipClass)}: {ship.ShipClass}");
+                    tip.AppendLine($"{Constants.GetShipClass(ship.ShipClass, ship.ID)}: {ship.ShipClass}");
                 tip.AppendLine();
                 tip.AppendLine("장착가능：");
                 tip.AppendLine(this.GetEquippableString(shipID));
@@ -944,7 +944,7 @@ namespace ElectronicObserver.Window.Dialog
 							sw.WriteLine(string.Join(",",
 								ship.ShipID,
 								ship.AlbumNo,
-								ship.IsAbyssalShip ? "심해서함" : Constants.GetShipClass(ship.ShipClass),
+								ship.IsAbyssalShip ? "심해서함" : Constants.GetShipClass(ship.ShipClass, ship.ID),
                                 CsvHelper.EscapeCsvCell(ship.ShipTypeName),
                                 CsvHelper.EscapeCsvCell(ship.Name),
                                 CsvHelper.EscapeCsvCell(ship.NameReading),

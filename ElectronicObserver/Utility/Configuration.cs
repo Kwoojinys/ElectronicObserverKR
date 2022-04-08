@@ -1077,10 +1077,10 @@ namespace ElectronicObserver.Utility
 
 				public ConfigFormCompass()
 				{
-                    this.CandidateDisplayCount = 4;
-                    this.IsScrollable = false;
-                    this.MaxShipNameWidth = 60;
-                    this.ToAlphabet = false;
+                    this.CandidateDisplayCount	= 4;
+                    this.IsScrollable			= false;
+                    this.MaxShipNameWidth		= 60;
+                    this.ToAlphabet				= true;
 				}
 			}
 			/// <summary>[羅針盤]ウィンドウ</summary>

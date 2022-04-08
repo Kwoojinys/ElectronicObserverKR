@@ -216,7 +216,7 @@ namespace ElectronicObserver.Resource
 			NightFighter,
 			NightAttacker,
 			LandASPatrol,
-            Reserved48,         // 艦これ本体側が未実装
+			LandAssaulter,         // 艦これ本体側が未実装
             HeavyBomber,
             Locked,
 			Unknown,
@@ -461,7 +461,7 @@ namespace ElectronicObserver.Resource
 				LoadImageFromArchive(this.Equipments, archive, mstpath + @"Equipment/NightFighter.png", "Equipment_NightFighter");
 				LoadImageFromArchive(this.Equipments, archive, mstpath + @"Equipment/NightAttacker.png", "Equipment_NightAttacker");
 				LoadImageFromArchive(this.Equipments, archive, mstpath + @"Equipment/LandASPatrol.png", "Equipment_LandASPatrol");
-                LoadImageFromArchive(this.Equipments, archive, mstpath + @"Equipment/Unknown.png", "Equipment_Reserved48");                   // 艦これ本体側が未実装
+                LoadImageFromArchive(this.Equipments, archive, mstpath + @"Equipment/LandAttacker.png", "Equipment_LandAssaulter");
                 LoadImageFromArchive(this.Equipments, archive, mstpath + @"Equipment/HeavyBomber.png", "Equipment_HeavyBomber");
                 LoadImageFromArchive(this.Equipments, archive, mstpath + @"Equipment/Locked.png", "Equipment_Locked");
 				LoadImageFromArchive(this.Equipments, archive, mstpath + @"Equipment/Unknown.png", "Equipment_Unknown");

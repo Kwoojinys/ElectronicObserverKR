@@ -37,14 +37,16 @@ namespace ElectronicObserver.Data
                 return nodeList;
             }
 
-            var targetNode = targetMap.SelectToken(node.ToString())[1];
-            var nodes = targetMap.ToList<JToken>();
+            var targetNode  = targetMap.SelectToken(node.ToString())[1].ToString();
+            var nodes       = targetMap.ToList<JToken>();
 
             foreach (var nod in nodes)
             {
                 var jProperty = nod.ToObject<JProperty>();
-                if (targetNode.Equals(jProperty.Value[1]))
+                if (targetNode.Equals(jProperty.Value[1].ToString())) 
+                {
                     nodeList.Add(Convert.ToInt32(jProperty.Name));
+                }
             }
 
             return nodeList;

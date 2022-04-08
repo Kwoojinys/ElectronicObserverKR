@@ -111,7 +111,7 @@ namespace ElectronicObserver.Window.Dialog
                     this._mapCellTable.Add(p.Key, dtbase.Clone());
                     this._mapCellTable[p.Key].Rows.Add(-1, _mapAny);
 
-                    if (Utility.Configuration.Config.FormCompass.ToAlphabet)
+                    if (Utility.Configuration.Config.FormCompass.ToAlphabet == true)
                     {
                         foreach (var c in p.Value.OrderBy(k => k))
                             this._mapCellTable[p.Key].Rows.Add(c, c.ToString() + "(" + NodeData.GetNodeName(MapAreaID, MapInfoID, c) + ")");
@@ -354,7 +354,7 @@ namespace ElectronicObserver.Window.Dialog
             if (cell != -1)
             {
                 sb.Append("-");
-                if (Utility.Configuration.Config.FormCompass.ToAlphabet)
+                if (Utility.Configuration.Config.FormCompass.ToAlphabet == true)
                 {
                     sb.Append(NodeData.GetNodeName(maparea, mapinfo, cell));
                 }
@@ -524,11 +524,10 @@ namespace ElectronicObserver.Window.Dialog
                 var counts = new Dictionary<string, int[]>();
                 var allcounts = new Dictionary<string, int[]>();
 
-                List<int> sameNodes = new List<int>();
-                sameNodes = NodeData.GetSameNodeList(args.MapAreaID, args.MapInfoID, args.MapCellID);
+                List<int> sameNodes = NodeData.GetSameNodeList(args.MapAreaID, args.MapInfoID, args.MapCellID);
                 bool exists_other_cell = false;
                 int sameNode = -1;
-                if (Utility.Configuration.Config.FormCompass.ToAlphabet)
+                if (Utility.Configuration.Config.FormCompass.ToAlphabet == true)
                 {
                     if (sameNodes.Count > 1)
                     {
