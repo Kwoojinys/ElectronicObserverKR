@@ -354,7 +354,7 @@ namespace ElectronicObserver.Window.Dialog
             if (cell != -1)
             {
                 sb.Append("-");
-                if (Utility.Configuration.Config.FormCompass.ToAlphabet == true)
+                if (Utility.Configuration.Config.FormCompass.ToAlphabet)
                 {
                     sb.Append(NodeData.GetNodeName(maparea, mapinfo, cell));
                 }
@@ -521,28 +521,12 @@ namespace ElectronicObserver.Window.Dialog
             //lock ( records ) 
             {
                 int i = 0;
-                var counts = new Dictionary<string, int[]>();
-                var allcounts = new Dictionary<string, int[]>();
-
-                List<int> sameNodes = NodeData.GetSameNodeList(args.MapAreaID, args.MapInfoID, args.MapCellID);
-                bool exists_other_cell = false;
-                int sameNode = -1;
-                if (Utility.Configuration.Config.FormCompass.ToAlphabet == true)
-                {
-                    if (sameNodes.Count > 1)
-                    {
-                        exists_other_cell = true;
-                        foreach (int Node in sameNodes)
-                        {
-                            if (args.MapCellID != Node)
-                                sameNode = Node;
-                        }
-                    }
-                }
+                var counts      = new Dictionary<string, int[]>();
+                var allcounts   = new Dictionary<string, int[]>();
+                List<int> sameNodes     = NodeData.GetSameNodeList(args.MapAreaID, args.MapInfoID, args.MapCellID);
 
                 foreach (var r in records)
                 {
-
                     #region Filtering
 
                     if (r.Date < args.DateBegin || args.DateEnd < r.Date)
@@ -557,12 +541,13 @@ namespace ElectronicObserver.Window.Dialog
 
                     if (args.MapAreaID != -1 && args.MapAreaID != r.MapAreaID)
                         continue;
+
                     if (args.MapInfoID != -1 && args.MapInfoID != r.MapInfoID)
                         continue;
 
-                    if (exists_other_cell)
+                    if (Utility.Configuration.Config.FormCompass.ToAlphabet == true)
                     {
-                        if (args.MapCellID != -1 && args.MapCellID != r.CellID && sameNode != r.CellID)
+                        if (args.MapCellID != -1 && sameNodes.Contains(r.CellID) == false)
                             continue;
                     }
                     else

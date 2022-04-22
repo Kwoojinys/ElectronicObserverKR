@@ -293,24 +293,24 @@ namespace ElectronicObserver.Window
 
 			ImageLabel label = new ImageLabel
 			{
-				Text = KCDatabase.Instance.ShipGroup[id].Name,
-				Anchor = AnchorStyles.Left,
-				Font = this.ShipView.Font,
-				BackColor = TabInactiveColor,
+				Text		= KCDatabase.Instance.ShipGroup[id].Name,
+				Anchor		= AnchorStyles.Left,
+				Font		= this.ShipView.Font,
+				BackColor	= TabInactiveColor,
 				BorderStyle = BorderStyle.FixedSingle,
-				Padding = new Padding(4, 4, 4, 4),
-				Margin = new Padding(0, 0, 0, 0),
-				ImageAlign = ContentAlignment.MiddleCenter,
-				AutoSize = true,
-				Cursor = Cursors.Hand
+				Padding		= new Padding(4, 4, 4, 4),
+				Margin		= new Padding(0, 0, 0, 0),
+				ImageAlign	= ContentAlignment.MiddleCenter,
+				AutoSize	= true,
+				Cursor		= Cursors.Hand
 			};
 
 			//イベントと固有IDの追加(内部データとの紐付)
-			label.Click += this.TabLabel_Click;
-			label.MouseDown += this.TabLabel_MouseDown;
-			label.MouseMove += this.TabLabel_MouseMove;
-			label.MouseUp += this.TabLabel_MouseUp;
-			label.ContextMenuStrip = this.MenuGroup;
+			label.Click				+= this.TabLabel_Click;
+			label.MouseDown			+= this.TabLabel_MouseDown;
+			label.MouseMove			+= this.TabLabel_MouseMove;
+			label.MouseUp			+= this.TabLabel_MouseUp;
+			label.ContextMenuStrip	= this.MenuGroup;
 			label.Tag = id;
 
 			return label;
@@ -330,18 +330,12 @@ namespace ElectronicObserver.Window
                 this.ChangeShipView(this.SelectedTab);
 		}
 
-
-
-
-
-
 		/// <summary>
 		/// ShipView用の新しい行のインスタンスを作成します。
 		/// </summary>
 		/// <param name="ship">追加する艦娘データ。</param>
 		private DataGridViewRow CreateShipViewRow(ShipData ship)
 		{
-
 			if (ship == null) return null;
 
 			DataGridViewRow row = new DataGridViewRow();
@@ -563,9 +557,9 @@ namespace ElectronicObserver.Window
 			//status bar
 			if (KCDatabase.Instance.Ships.Count > 0)
 			{
-                int levelsum = group.MembersInstance.Sum(s => s?.Level ?? 0);
-                int expsum = group.MembersInstance.Sum(s => s?.ExpTotal ?? 0);
-                int membersCount = group.MembersInstance.Count(s => s != null);
+                int levelsum		= (int) (group.MembersInstance.Sum(s => s?.Level ?? 0));
+                int expsum			= (int) (group.MembersInstance.Sum(s => s?.ExpTotal ?? 0));
+                int membersCount	= group.MembersInstance.Count(s => s != null);
 
                 this.Status_ShipCount.Text = $"소속: {membersCount}척";
                 this.Status_LevelTotal.Text = $"Lv: 합계 {levelsum} / 평균 {levelsum / Math.Max(membersCount, 1.0):F2}";
@@ -579,13 +573,10 @@ namespace ElectronicObserver.Window
 		/// </summary>
 		private void ChangeShipView(ImageLabel target)
 		{
-
 			if (target == null) return;
-
 
 			var group = KCDatabase.Instance.ShipGroup[(int)target.Tag];
 			var currentGroup = this.CurrentGroup;
-
 			int headIndex = 0;
 			List<int> selectedIDList = new List<int>();
 
@@ -597,7 +588,6 @@ namespace ElectronicObserver.Window
 
 			if (currentGroup != null)
 			{
-
                 this.UpdateMembers(currentGroup);
 
 				if (this.CurrentGroup.GroupID != group.GroupID)
@@ -607,8 +597,8 @@ namespace ElectronicObserver.Window
 				}
 				else
 				{
-					headIndex = this.ShipView.FirstDisplayedScrollingRowIndex;
-					selectedIDList = this.ShipView.SelectedRows.Cast<DataGridViewRow>().Select(r => (int)r.Cells[this.ShipView_ID.Index].Value).ToList();
+					headIndex		= this.ShipView.FirstDisplayedScrollingRowIndex;
+					selectedIDList	= this.ShipView.SelectedRows.Cast<DataGridViewRow>().Select(r => (int)r.Cells[this.ShipView_ID.Index].Value).ToList();
 				}
 			}
 
@@ -618,10 +608,8 @@ namespace ElectronicObserver.Window
 
             this.SelectedTab = target;
 
-
             this.BuildShipView(this.SelectedTab);
             this.SelectedTab.BackColor = this.TabActiveColor;
-
 
 			if (0 <= headIndex && headIndex < this.ShipView.Rows.Count)
 			{
@@ -654,7 +642,6 @@ namespace ElectronicObserver.Window
 
 		private string GetEquipmentString(ShipData ship, int index)
 		{
-
 			if (index < 5)
 			{
 				return (index >= ship.SlotSize && ship.Slot[index] == -1) ? "" :
@@ -685,7 +672,6 @@ namespace ElectronicObserver.Window
 		{
 			group.UpdateMembers(this.ShipView.Rows.Cast<DataGridViewRow>().Select(r => (int)r.Cells[this.ShipView_ID.Index].Value));
 		}
-
 
 		private void ShipView_SelectionChanged(object sender, EventArgs e)
 		{

@@ -164,7 +164,6 @@ namespace Browser
 
 		}
 
-
 		private void FormBrowser_Load(object sender, EventArgs e)
 		{
 			SetWindowLong(this.Handle, GWL_STYLE, WS_CHILD);
@@ -174,7 +173,6 @@ namespace Browser
 				this, typeof(BrowserLib.IBrowser), this.ServerUri + "Browser", "Browser");
             this.BrowserHost.Connect(this.ServerUri + "/BrowserHost");
             this.BrowserHost.Faulted += this.BrowserHostChannel_Faulted;
-
 
             this.ConfigurationChanged(this.BrowserHost.Proxy.Configuration);
 
@@ -219,6 +217,7 @@ namespace Browser
 				AcceptLanguageList = "ja,en-US,en,kr",        // todo: いる？
                 LogSeverity = this.Configuration.SavesBrowserLog ? LogSeverity.Error : LogSeverity.Disable,
                 LogFile = "BrowserLog.log",
+				RemoteDebuggingPort = 9222,
             };
 
             if (!this.Configuration.HardwareAccelerationEnabled)

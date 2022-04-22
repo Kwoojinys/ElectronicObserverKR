@@ -8,8 +8,6 @@ using ElectronicObserver.Window.Control;
 using ElectronicObserver.Window.Dialog;
 using ElectronicObserver.Window.Support;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -1027,7 +1025,7 @@ namespace ElectronicObserver.Window
 
                             member.ConfigurationChanged(this);
                             if (fleet != null)
-                                member.Update(i < fleet.Members.Count ? fleet.Members[i] : -1);
+                                member.Update(j < fleet.Members.Count ? fleet.Members[j] : -1);
                         }
                     }
                 }

@@ -14,7 +14,8 @@ namespace ElectronicObserver.Utility
         {
             try
             {
-                if (this.TranslatedStrings.TryGetValue(jpString, out string cached) == true)
+                if (string.IsNullOrEmpty(jpString) == false &&
+                    this.TranslatedStrings.TryGetValue(jpString, out string cached) == true)
                 {
                     return cached;
                 }
