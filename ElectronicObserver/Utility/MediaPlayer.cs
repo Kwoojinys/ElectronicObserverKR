@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
+using WMPLib;
 
 namespace ElectronicObserver.Utility
 {
@@ -15,7 +15,7 @@ namespace ElectronicObserver.Utility
 	/// </summary>
 	public class MediaPlayer
 	{
-		private dynamic _wmp;
+		private WindowsMediaPlayer _wmp;
 
 		public event Action<int> PlayStateChange = delegate { };
 		public event Action MediaEnded = delegate { };
@@ -59,11 +59,11 @@ namespace ElectronicObserver.Utility
 				var type = Type.GetTypeFromProgID("WMPlayer.OCX.7");
 				if (type != null)
 				{
-                    this._wmp = Activator.CreateInstance(type);
+                    this._wmp = (WindowsMediaPlayer)Activator.CreateInstance(type);
                     this._wmp.uiMode = "none";
                     this._wmp.settings.autoStart = false;
-                    this._wmp.PlayStateChange += new Action<int>(this.wmp_PlayStateChange);
-				}
+                    this._wmp.PlayStateChange += this.wmp_PlayStateChange;
+                }
 				else
 				{
                     this._wmp = null;
@@ -161,7 +161,7 @@ namespace ElectronicObserver.Utility
 		/// <summary>
 		/// 再生状態
 		/// </summary>
-		public int PlayState => !this.IsAvailable ? 0 : this._wmp.playState;
+		public int PlayState => this.IsAvailable == false ? 0 : (int) this._wmp.playState;
 
 		/// <summary>
 		/// 現在のメディアの名前

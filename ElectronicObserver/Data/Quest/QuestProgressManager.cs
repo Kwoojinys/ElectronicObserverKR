@@ -310,6 +310,15 @@ namespace ElectronicObserver.Data.Quest
                         case 822:   //|822|季|沖ノ島海域迎撃戦|2-4ボスS勝利2
                             this.Progresses.Add(new ProgressBattle(q, 2, "S", new[] { 24 }, true));
                             break;
+
+                        case 845:   //|845|분기|서방해역 작전
+                            this.Progresses.Add(new ProgressMultiBattle(q, new[]{
+                                new ProgressBattle(q, 1, "S", new[] { 41 }, true),
+                                new ProgressBattle(q, 1, "S", new[] { 42 }, true),
+                                new ProgressBattle(q, 1, "S", new[] { 43 }, true),
+                                new ProgressBattle(q, 1, "S", new[] { 44 }, true),
+                                new ProgressBattle(q, 1, "S", new[] { 45 }, true) }));
+                            break;
                         case 854:   //|854|季|戦果拡張任務！「Z作戦」前段作戦|2-4・6-1・6-3ボスA勝利各1/6-4ボスS勝利1
                             this.Progresses.Add(new ProgressMultiBattle(q, new[]{
                                 new ProgressBattle(q, 1, "A", new[]{ 24 }, true),
@@ -373,15 +382,7 @@ namespace ElectronicObserver.Data.Quest
                                 new ProgressSpecialBattle(q, 1, "S", new[]{ 23 }, true),
                             }));
                             break;
-                        case 845:   //|845|季|発令！「西方海域作戦」|4-1・4-2・4-3・4-4・4-5ボスS勝利各1
-                            this.Progresses.Add(new ProgressMultiBattle(q, new[] {
-                                new ProgressBattle(q, 1, "S", new[] { 41 }, true),
-                                new ProgressBattle(q, 1, "S", new[] { 42 }, true),
-                                new ProgressBattle(q, 1, "S", new[] { 43 }, true),
-                                new ProgressBattle(q, 1, "S", new[] { 44 }, true),
-                                new ProgressBattle(q, 1, "S", new[] { 45 }, true),
-                            }));
-                            break;
+
                         case 903:   //|903|季|拡張「六水戦」、最前線へ！|5-1・5-4・6-4・6-5ボスS勝利各1|要旗艦夕張改二(|特|丁), 由良改二or(睦月/如月/弥生/卯月/菊月/望月2)|進捗3/4で80%
                             this.Progresses.Add(new ProgressMultiBattle(q, new[] {
                                 new ProgressSpecialBattle(q, 1, "S", new[] { 51 }, true),
