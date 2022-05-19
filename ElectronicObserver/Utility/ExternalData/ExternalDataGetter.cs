@@ -8,32 +8,32 @@ namespace ElectronicObserver.Utility
 {
     public partial class ExternalDataReader
     {
-        Dictionary<string, string> TranslatedStrings = new Dictionary<string, string>();
+        private Dictionary<string, string> _translatedStrings = new Dictionary<string, string>();
 
         public string GetTranslation(string jpString, TranslateType type, int id = -1)
         {
             try
             {
                 if (string.IsNullOrEmpty(jpString) == false &&
-                    this.TranslatedStrings.TryGetValue(jpString, out string cached) == true)
+                    this._translatedStrings.TryGetValue(jpString, out string cached) == true)
                 {
                     return cached;
                 }
 
-                string translated = jpString;
                 var translationList = this.GetData(type);
                 if (translationList == null)
                 {
-                    return translated;
+                    return jpString;
                 }
 
+                string translated = jpString;
                 if (id != -1)
                 {
                     if (this.GetTranslation(id, translationList, ref translated) == true)
                     {
-                        if (this.TranslatedStrings.ContainsKey(jpString) == false)
+                        if (this._translatedStrings.ContainsKey(jpString) == false)
                         {
-                            this.TranslatedStrings.Add(jpString, translated);
+                            this._translatedStrings.Add(jpString, translated);
                         }
 
                         return translated;
@@ -43,9 +43,9 @@ namespace ElectronicObserver.Utility
                 {
                     if (this.GetTranslation(jpString, translationList, ref translated, type) == true)
                     {
-                        if (this.TranslatedStrings.ContainsKey(jpString) == false)
+                        if (this._translatedStrings.ContainsKey(jpString) == false)
                         {
-                            this.TranslatedStrings.Add(jpString, translated);
+                            this._translatedStrings.Add(jpString, translated);
                         }
 
                         return translated;
@@ -61,7 +61,7 @@ namespace ElectronicObserver.Utility
             return jpString;
         }
 
-        public bool GetTranslation(int id, JObject translationList, ref string translate)
+        private bool GetTranslation(int id, JObject translationList, ref string translate)
         {
             var founded = translationList.TryGetValue(id.ToString(), out JToken value);
             if (founded == false || value == null)
@@ -73,22 +73,20 @@ namespace ElectronicObserver.Utility
             return true;
         }
 
-        public bool GetTranslation(string jpString, JObject translationList, ref string translate, TranslateType type, string shipSuffix = "")
+        private bool GetTranslation(string jpString, JObject translationList, ref string translate, TranslateType type, string shipSuffix = "")
         {
-            var founded = translationList.TryGetValue(jpString, out JToken value);
-            if (founded == false || value == null)
+            if (translationList.TryGetValue(jpString, out JToken value) == false || value == null)
             {
                 if (type == TranslateType.ShipName)
                 {
-                    var suffixList = this.GetData(TranslateType.ShipSuffix);
-                    foreach (var suffix in suffixList)
+                    foreach (var suffix in this.GetData(TranslateType.ShipSuffix))
                     {
-                        if (jpString.Contains(suffix.Key.ToString()) == true)
+                        if (jpString.Contains(suffix.Key) == true)
                         {
-                            translate = jpString.Remove(jpString.Length - suffix.Key.ToString().Length);
-                            if (suffix.Key.ToString().Equals(jpString.Substring(jpString.Length - suffix.Key.ToString().Length)) == true)
+                            if (suffix.Key.Equals(jpString.Substring(jpString.Length - suffix.Key.Length)) == true)
                             {
-                                return this.GetTranslation(translate, translationList, ref translate, TranslateType.ShipName, suffix.Value?.ToString() + shipSuffix);
+                                return this.GetTranslation(jpString.Remove(jpString.Length - suffix.Key.Length), 
+                                    translationList, ref translate, TranslateType.ShipName, suffix.Value?.ToString() + shipSuffix);
                             }
                         }
                     }
@@ -98,7 +96,7 @@ namespace ElectronicObserver.Utility
                 return false;
             }
 
-            translate = value.ToString() + shipSuffix;
+            translate = $"{value}{shipSuffix}";
             return true;
         }
 

@@ -1033,7 +1033,6 @@ namespace ElectronicObserver.Window
 
 		private void UpdateEnemyFleetInstant(bool isPractice = false)
 		{
-
 			BattleManager bm = KCDatabase.Instance.Battle;
 			BattleData bd = bm.FirstBattle;
 
@@ -1047,9 +1046,7 @@ namespace ElectronicObserver.Window
             this._enemyFleetCandidate = null;
             this._enemyFleetCandidateIndex = -1;
 
-
-
-			if (!bm.IsPractice)
+			if (bm.IsPractice == false)
 			{
 				var efcurrent = EnemyFleetRecord.EnemyFleetElement.CreateFromCurrentState();
 				var efrecord = RecordManager.Instance.EnemyFleet[efcurrent.FleetID];
@@ -1097,8 +1094,6 @@ namespace ElectronicObserver.Window
             this.BasePanel.Visible = true;           //checkme
 
 		}
-
-
 
 		private void TextEnemyFleetName_MouseDown(object sender, MouseEventArgs e)
 		{
@@ -1154,11 +1149,10 @@ namespace ElectronicObserver.Window
 
                     this.ControlCandidates[i].Update(this._enemyFleetCandidate[i + this._enemyFleetCandidateIndex]);
 				}
+
                 this.TableEnemyCandidate.ResumeLayout();
                 this.TableEnemyCandidate.Visible = true;
-
                 this.PanelEnemyCandidate.Visible = true;
-
 			}
 		}
 
@@ -1230,10 +1224,8 @@ namespace ElectronicObserver.Window
 
 		private void TableEnemyCandidateMember_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
 		{
-
 			if (this._enemyFleetCandidate == null || this._enemyFleetCandidateIndex + e.Column >= this._enemyFleetCandidate.Count)
 				return;
-
 
 			e.Graphics.DrawLine(Pens.Silver, e.CellBounds.Right - 1, e.CellBounds.Top, e.CellBounds.Right - 1, e.CellBounds.Bottom - 1);
 
@@ -1242,7 +1234,5 @@ namespace ElectronicObserver.Window
 				e.Graphics.DrawLine(Pens.Silver, e.CellBounds.X, e.CellBounds.Bottom - 1, e.CellBounds.Right - 1, e.CellBounds.Bottom - 1);
 			}
 		}
-
 	}
-
 }

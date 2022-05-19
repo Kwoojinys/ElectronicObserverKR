@@ -421,7 +421,7 @@ namespace ElectronicObserver.Window.Dialog
                     sb.Append(shiptype.Name);
                     if (specialShips.ContainsKey(shiptype.Type))
                     {
-                        sb.Append(" (").Append(string.Join(", ", specialShips[shiptype.Type])).Append("を除く)");
+                        sb.Append(" (").Append(string.Join(", ", specialShips[shiptype.Type])).Append(" 제외");
                     }
                     sb.AppendLine();
                 }

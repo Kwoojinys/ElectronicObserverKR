@@ -148,6 +148,7 @@ namespace ElectronicObserver.Data.ShipGroup
 			{ ".MasterShip.RemodelBeforeShipID", "개장전함선ID" },
 			{ ".MasterShip.RemodelAfterShipID", "개장후함선ID" },
 			//マスターのパラメータ系もおそらく意味がないので省略		
+			{ ".MasterShip.EquippableCategories", "장착 가능 장비" },
 		};
 
 		private static Dictionary<string, Type> ExpressionTypeTable = new Dictionary<string, Type>();
@@ -413,7 +414,16 @@ namespace ElectronicObserver.Data.ShipGroup
 						return $"{(int)this.RightOperand} (미정의)";
 				}
 			}
-			else if (this.LeftOperand.Contains("Rate") && this.RightOperand is double)
+            else if (LeftOperand == ".MasterShip.EquippableCategories")
+            {
+                var cat = KCDatabase.Instance.EquipmentTypes[(int)RightOperand];
+                if (cat != null)
+                    return cat.Name;
+                else
+                    return $"{(int)RightOperand} (미정의)";
+
+            }
+            else if (this.LeftOperand.Contains("Rate") && this.RightOperand is double)
 			{
 				return ((double)this.RightOperand).ToString("P0");
 
@@ -498,8 +508,4 @@ namespace ElectronicObserver.Data.ShipGroup
 			return this.Clone();
 		}
 	}
-
-
-
-
 }

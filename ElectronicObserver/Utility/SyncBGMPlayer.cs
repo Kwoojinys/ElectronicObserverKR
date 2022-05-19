@@ -125,8 +125,6 @@ namespace ElectronicObserver.Utility
 			foreach (SoundHandleID id in Enum.GetValues(typeof(SoundHandleID)))
                 this.Handles.Add(new SoundHandle(id));
 
-
-
 			#region API register
 			APIObserver o = APIObserver.Instance;
 
@@ -315,8 +313,6 @@ namespace ElectronicObserver.Utility
 				!string.IsNullOrWhiteSpace(sh.Path) &&
 				sh.HandleID != this._currentSoundHandleID)
 			{
-
-
 				if (File.Exists(sh.Path))
 				{
                     this._mp.Close();

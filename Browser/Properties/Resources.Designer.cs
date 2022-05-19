@@ -42,6 +42,7 @@ namespace Browser.Properties {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Browser.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
+
                 return resourceMan;
             }
         }

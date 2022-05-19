@@ -37,6 +37,7 @@ namespace ElectronicObserver.Window.Dialog
 		private DataTable _dtRightOperand_speed;
 		private DataTable _dtRightOperand_rarity;
 		private DataTable _dtRightOperand_equipment;
+		private DataTable _dtRightOperand_equipmentCategory;
 		#endregion
 
 		public DialogShipGroupFilter(ShipGroupData group)
@@ -226,6 +227,18 @@ namespace ElectronicObserver.Window.Dialog
                 this._dtRightOperand_equipment.Rows.Add(0, "(미개방)");
                 this._dtRightOperand_equipment.AcceptChanges();
 			}
+            {
+                this._dtRightOperand_equipmentCategory = new DataTable();
+                this._dtRightOperand_equipmentCategory.Columns.AddRange(new DataColumn[]{
+                    new DataColumn( "Value", typeof( int ) ),
+                    new DataColumn( "Display", typeof( string ) ) });
+                foreach (var category in KCDatabase.Instance.MasterEquipments.Values.Select(eq => eq.CategoryType).Distinct().OrderBy(i => i))
+                {
+                    var cat = KCDatabase.Instance.EquipmentTypes[(int)category];
+                    this._dtRightOperand_equipmentCategory.Rows.Add(cat.TypeID, cat.Name);
+                }
+                this._dtRightOperand_equipmentCategory.AcceptChanges();
+            }
 
             this.RightOperand_ComboBox.ValueMember = "Value";
             this.RightOperand_ComboBox.DisplayMember = "Display";
@@ -432,7 +445,23 @@ namespace ElectronicObserver.Window.Dialog
                 this.RightOperand_ComboBox.SelectedValue = right ?? 1;
 
 			}
-			else if (left == ".Range")
+            else if (left == ".MasterShip.EquippableCategories")
+            {
+                RightOperand_ComboBox.Visible = true;
+                RightOperand_ComboBox.Enabled = true;
+                RightOperand_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+                RightOperand_NumericUpDown.Visible = false;
+                RightOperand_NumericUpDown.Enabled = false;
+                RightOperand_TextBox.Visible = false;
+                RightOperand_TextBox.Enabled = false;
+                Operator.Enabled = true;
+                Operator.DataSource = this._dtOperator_array;
+
+                RightOperand_ComboBox.DataSource = this._dtRightOperand_equipmentCategory;
+                RightOperand_ComboBox.SelectedValue = right ?? 1;
+
+            }
+            else if (left == ".Range")
 			{
                 this.RightOperand_ComboBox.Visible = true;
                 this.RightOperand_ComboBox.Enabled = true;
