@@ -161,7 +161,7 @@ namespace ElectronicObserver.Observer
         public int Start(int portID, Control UIControl)
         {
 
-            Utility.Configuration.ConfigurationData.ConfigConnection c = Utility.Configuration.Config.Connection;
+            Utility.Configuration.ConfigurationData.ConfigConnection c = Configuration.Config.Connection;
 
 
             this.UIControl = UIControl;
@@ -184,13 +184,13 @@ namespace ElectronicObserver.Observer
 
                 ProxyStarted();
 
-                Utility.Logger.Add(2, string.Format("APIObserver: 포트 {0} 번에서 수신을 시작했습니다.", portID));
+                Logger.Add(LogType.Browser, string.Format("APIObserver: 포트 {0} 번에서 수신을 시작했습니다.", portID));
 
             }
             catch (Exception ex)
             {
 
-                Utility.Logger.Add(3, "APIObserver: 수신 시작에 실패했습니다." + ex.Message);
+                Logger.Add(LogType.Error, "APIObserver: 수신 시작에 실패했습니다." + ex.Message);
                 this.ProxyPort = 0;
             }
 
@@ -207,7 +207,7 @@ namespace ElectronicObserver.Observer
 
             HttpProxy.Shutdown();
 
-            Utility.Logger.Add(2, "APIObserver: 수신을 중지했습니다.");
+            Logger.Add(LogType.Browser, "APIObserver: 수신을 중지했습니다.");
         }
 
 
@@ -227,7 +227,7 @@ namespace ElectronicObserver.Observer
         void HttpProxy_AfterSessionComplete(Session session)
         {
 
-            Utility.Configuration.ConfigurationData.ConfigConnection c = Utility.Configuration.Config.Connection;
+            Utility.Configuration.ConfigurationData.ConfigConnection c = Configuration.Config.Connection;
 
             string baseurl = session.Request.PathAndQuery;
 
@@ -296,7 +296,7 @@ namespace ElectronicObserver.Observer
                             int index = tpath.IndexOf("?");
                             if (index != -1)
                             {
-                                if (Utility.Configuration.Config.Connection.ApplyVersion)
+                                if (Configuration.Config.Connection.ApplyVersion)
                                 {
                                     string over = tpath.Substring(index + 1);
                                     int vindex = over.LastIndexOf("VERSION=", StringComparison.CurrentCultureIgnoreCase);
@@ -328,19 +328,19 @@ namespace ElectronicObserver.Observer
                                     Directory.CreateDirectory(Path.GetDirectoryName(tpath));
 
                                     //System.Diagnostics.Debug.WriteLine( oSession.fullUrl + " => " + tpath );
-                                    using (var sw = new System.IO.BinaryWriter(System.IO.File.OpenWrite(tpath)))
+                                    using (var sw = new System.IO.BinaryWriter(File.OpenWrite(tpath)))
                                     {
                                         sw.Write(responseCopy);
                                     }
                                 }
 
-                                Utility.Logger.Add(1, string.Format("통신에서 {0} 파일을 저장했습니다.", tpath.Remove(0, saveDataPath.Length + 1)));
+                                Logger.Add(LogType.Browser, string.Format("통신에서 {0} 파일을 저장했습니다.", tpath.Remove(0, saveDataPath.Length + 1)));
 
                             }
                             catch (IOException ex)
                             {   //ファイルがロックされている; 頻繁に出るのでエラーレポートを残さない
 
-                                Utility.Logger.Add(3, "통신 내용 저장에 실패했습니다." + ex.Message);
+                                Logger.Add(LogType.Error, "통신 내용 저장에 실패했습니다." + ex.Message);
                             }
                         }));
 
@@ -350,7 +350,7 @@ namespace ElectronicObserver.Observer
                 catch (Exception ex)
                 {
 
-                    Utility.ErrorReporter.SendErrorReport(ex, "통신 내용 저장에 실패했습니다.");
+                    ErrorReporter.SendErrorReport(ex, "통신 내용 저장에 실패했습니다.");
                 }
 
             }
@@ -387,7 +387,7 @@ namespace ElectronicObserver.Observer
             try
             {
 
-                Utility.Logger.Add(1, "Request 를 수신했습니다 : " + shortpath);
+                Logger.Add(LogType.Browser, "Request 를 수신했습니다 : " + shortpath);
 
                 SystemEvents.UpdateTimerEnabled = false;
 
@@ -429,7 +429,7 @@ namespace ElectronicObserver.Observer
             try
             {
 
-                Utility.Logger.Add(1, "Response를 받았습니다 : " + shortpath);
+                Logger.Add(LogType.Browser, "Response를 받았습니다 : " + shortpath);
 
                 SystemEvents.UpdateTimerEnabled = false;
 
@@ -482,7 +482,7 @@ namespace ElectronicObserver.Observer
             try
             {
 
-                string tpath = string.Format("{0}\\{1}Q@{2}.json", Utility.Configuration.Config.Connection.SaveDataPath, DateTimeHelper.GetTimeStamp(), url.Substring(url.LastIndexOf("/kcsapi/") + 8).Replace("/", "@"));
+                string tpath = string.Format("{0}\\{1}Q@{2}.json", Configuration.Config.Connection.SaveDataPath, DateTimeHelper.GetTimeStamp(), url.Substring(url.LastIndexOf("/kcsapi/") + 8).Replace("/", "@"));
 
                 using (var sw = new System.IO.StreamWriter(tpath, false, Encoding.UTF8))
                 {
@@ -494,7 +494,7 @@ namespace ElectronicObserver.Observer
             catch (Exception ex)
             {
 
-                Utility.ErrorReporter.SendErrorReport(ex, "Request 저장에 실패했습니다.");
+                ErrorReporter.SendErrorReport(ex, "Request 저장에 실패했습니다.");
 
             }
         }
@@ -506,7 +506,7 @@ namespace ElectronicObserver.Observer
             try
             {
 
-                string tpath = string.Format("{0}\\{1}S@{2}.json", Utility.Configuration.Config.Connection.SaveDataPath, DateTimeHelper.GetTimeStamp(), url.Substring(url.LastIndexOf("/kcsapi/") + 8).Replace("/", "@"));
+                string tpath = string.Format("{0}\\{1}S@{2}.json", Configuration.Config.Connection.SaveDataPath, DateTimeHelper.GetTimeStamp(), url.Substring(url.LastIndexOf("/kcsapi/") + 8).Replace("/", "@"));
 
                 using (var sw = new System.IO.StreamWriter(tpath, false, Encoding.UTF8))
                 {
@@ -517,7 +517,7 @@ namespace ElectronicObserver.Observer
             catch (Exception ex)
             {
 
-                Utility.ErrorReporter.SendErrorReport(ex, "Response 저장에 실패했습니다.");
+                ErrorReporter.SendErrorReport(ex, "Response 저장에 실패했습니다.");
 
             }
 

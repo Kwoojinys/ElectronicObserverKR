@@ -18,12 +18,12 @@ namespace ElectronicObserver.Utility
         /// <summary>
         /// バージョン(英語)
         /// </summary>
-		public static string VersionKorean => "4.7.3 KRTL_R41";
+		public static string VersionKorean => "4.8.0 KRTL_R43";
 
         /// <summary>
         /// 更新日時
         /// </summary>
-        public static DateTime UpdateTime       => DateTimeHelper.CSVStringToTime("2022/05/19 12:00:00");
+        public static DateTime UpdateTime       => DateTimeHelper.CSVStringToTime("2022/06/03 23:00:00");
         public static DateTime MaintenanceTime  = DateTime.Now;
 
         private static System.Net.WebClient _client;
@@ -34,36 +34,36 @@ namespace ElectronicObserver.Utility
 
         public static void CheckUpdate()
         {
-            if (Utility.Configuration.Config.Life.CheckUpdateInformation == false)
+            if (Configuration.Config.Life.CheckUpdateInformation == false)
                 return;
 
-            if (SoftwareInformation._client == null)
+            if (_client == null)
             {
-                SoftwareInformation._client = new System.Net.WebClient
+                _client = new System.Net.WebClient
                 {
                     Encoding = new System.Text.UTF8Encoding(false)
                 };
 
-                SoftwareInformation._client.DownloadStringCompleted += DownloadStringCompleted;
+                _client.DownloadStringCompleted += DownloadStringCompleted;
             }
 
-            if (SoftwareInformation._client.IsBusy == false)
-                SoftwareInformation._client.DownloadStringAsync(_uri);
+            if (_client.IsBusy == false)
+                _client.DownloadStringAsync(_uri);
         }
 
         public static void CheckMaintenance()
         {
-            if (SoftwareInformation._maintenanceClient == null)
+            if (_maintenanceClient == null)
             {
-                SoftwareInformation._maintenanceClient = new System.Net.WebClient
+                _maintenanceClient = new System.Net.WebClient
                 {
                     Encoding = new System.Text.UTF8Encoding(false)
                 };
-                SoftwareInformation._maintenanceClient.DownloadStringCompleted += DownloadTimeCompleted;
+                _maintenanceClient.DownloadStringCompleted += DownloadTimeCompleted;
             }
 
-            if (SoftwareInformation._maintenanceClient.IsBusy == false)
-                SoftwareInformation._maintenanceClient.DownloadStringAsync(_maintenanceUri);
+            if (_maintenanceClient.IsBusy == false)
+                _maintenanceClient.DownloadStringAsync(_maintenanceUri);
         }
 
         public static string GetMaintenanceTime()
@@ -80,13 +80,13 @@ namespace ElectronicObserver.Utility
         {
             if (e.Error != null)
             {
-                Utility.ErrorReporter.SendErrorReport(e.Error, "점검 정보를 가져오는데 실패했습니다.");
+                ErrorReporter.SendErrorReport(e.Error, "점검 정보를 가져오는데 실패했습니다.");
                 return;
             }
 
             if (e.Result.StartsWith("<!DOCTYPE html>") == true)
             {
-                Utility.Logger.Add(3, "업데이트 정보의 URI가 잘못되었습니다.");
+                Logger.Add(LogType.Alert, "업데이트 정보의 URI가 잘못되었습니다.");
                 return;
             }
 
@@ -99,7 +99,7 @@ namespace ElectronicObserver.Utility
             }
             catch
             {
-                Utility.Logger.Add(3, "점검 내역을 불러오는데 실패했습니다.");
+                Logger.Add(LogType.Alert, "점검 내역을 불러오는데 실패했습니다.");
             }
         }
 
@@ -107,13 +107,13 @@ namespace ElectronicObserver.Utility
         {
             if (e.Error != null)
             {
-                Utility.ErrorReporter.SendErrorReport(e.Error, "업데이트 정보를 가져오는데 실패했습니다.");
+                ErrorReporter.SendErrorReport(e.Error, "업데이트 정보를 가져오는데 실패했습니다.");
                 return;
             }
 
             if (e.Result.StartsWith("<!DOCTYPE html>") == true)
             {
-                Utility.Logger.Add(3, "업데이트 정보의 URI가 잘못되었습니다.");
+                Logger.Add(LogType.Alert, "업데이트 정보의 URI가 잘못되었습니다.");
                 return;
             }
 
@@ -127,7 +127,7 @@ namespace ElectronicObserver.Utility
 
                     if (UpdateTime < date)
                     {
-                        Utility.Logger.Add(3, "새 버전이 출시되었습니다! : " + version);
+                        Logger.Add(LogType.Alert, "새 버전이 출시되었습니다! : " + version);
 
                         var result = System.Windows.Forms.MessageBox.Show(
                             string.Format("새 버전이 출시되었습니다! : {0}\r\n업데이트 내용 : \r\n{1}\r\n다운로드 페이지로 이동하시겠습니까?？\r\n(취소할경우 이후 표시하지 않습니다.)",
@@ -141,18 +141,18 @@ namespace ElectronicObserver.Utility
                         }
                         else if (result == System.Windows.Forms.DialogResult.Cancel)
                         {
-                            Utility.Configuration.Config.Life.CheckUpdateInformation = false;
+                            Configuration.Config.Life.CheckUpdateInformation = false;
                         }
                     }
                     else
                     {
-                        Utility.Logger.Add(1, "현재 버전이 최신 버전입니다.");
+                        Logger.Add(LogType.System, "현재 버전이 최신 버전입니다.");
                     }
                 }
             }
             catch (Exception ex)
             {
-                Utility.ErrorReporter.SendErrorReport(ex, "업데이트에 실패했습니다.");
+                ErrorReporter.SendErrorReport(ex, "업데이트에 실패했습니다.");
             }
         }
     }

@@ -578,14 +578,14 @@ namespace ElectronicObserver.Window.Dialog
 
 		private void DialogWhitecap_MouseClick(object sender, MouseEventArgs e)
 		{
-			if (e.Button == System.Windows.Forms.MouseButtons.Right)
+			if (e.Button == MouseButtons.Right)
 			{
                 this.UpdateTimer.Stop();
                 this.InitBoard();
                 this.UpdateTimer.Start();
 
 			}
-			else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
+			else if (e.Button == MouseButtons.Middle)
 			{
 
                 this.UpdateTimer.Stop();

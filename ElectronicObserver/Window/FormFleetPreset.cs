@@ -1,5 +1,6 @@
 ﻿using ElectronicObserver.Data;
 using ElectronicObserver.Resource;
+using ElectronicObserver.Utility;
 using ElectronicObserver.Window.Control;
 using ElectronicObserver.Window.Support;
 using System;
@@ -185,13 +186,17 @@ namespace ElectronicObserver.Window
             this.ConfigurationChanged();
 
             this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormFleetPreset]);
-		}
+            
+			this.ApplyLockLayoutState();
+        }
 
 		private void FormFleetPreset_Load(object sender, EventArgs e)
 		{
 			KCDatabase.Instance.FleetPreset.PresetChanged += this.Updated;
 
 			Utility.Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
+
+            this.ApplyLockLayoutState();
 		}
 
 		private void ConfigurationChanged()
@@ -213,7 +218,12 @@ namespace ElectronicObserver.Window
 					new ColumnStyle(SizeType.AutoSize));
 			ControlHelper.SetTableRowStyles(this.TablePresets, ControlHelper.GetDefaultRowStyle());
             this.TablePresets.ResumeLayout();
-		}
+
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
+        }
 
 		private void Updated()
 		{
@@ -260,7 +270,7 @@ namespace ElectronicObserver.Window
 
 		private void FormFleetPreset_Click(object sender, EventArgs e)
 		{
-			Utility.Logger.Add(1, this.Font.Name);
+			Utility.Logger.Add(Utility.LogType.Alert, this.Font.Name);
             this.ConfigurationChanged();
 		}
 	}

@@ -36,7 +36,8 @@ namespace ElectronicObserver.Data
                 if (Utility.Configuration.Config.FormCompass.ToAlphabet)
                 {
                     return NodeData.GetNodeName(this.MapAreaID, this.MapInfoID, this.Destination);
-                } else
+                } 
+				else
                 {
                     return this.Destination.ToString();
                 }

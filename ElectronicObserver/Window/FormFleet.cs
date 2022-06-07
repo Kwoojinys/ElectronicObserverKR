@@ -164,7 +164,7 @@ namespace ElectronicObserver.Window
                 this.Expeditions.Items.Clear();
                 foreach (var ex in KCDatabase.Instance.Mission.Values)
                 {
-                    this.Expeditions.Items.Add(Constants.GetVisualMissionId(ex.ID));
+                    this.Expeditions.Items.Add(ex.VisualMissionId);
                 }
 
                 this.Name.Text = fleet.Name;
@@ -200,6 +200,7 @@ namespace ElectronicObserver.Window
                     // 各艦ごとの ドラム缶 or 大発系 を搭載している個数
                     var transport = members.Select(s => s.AllSlotInstanceMaster.Count(eq => eq?.CategoryType == EquipmentTypes.TransportContainer));
                     var landing = members.Select(s => s.AllSlotInstanceMaster.Count(eq => eq?.CategoryType == EquipmentTypes.LandingCraft || eq?.CategoryType == EquipmentTypes.SpecialAmphibiousTank));
+                    var surfaceRader = members.Select(s => s.AllSlotInstanceMaster.Count(eq => eq.IsSurfaceRadar == true));
 
 
                     this.ToolTipInfo.SetToolTip(this.Name, string.Format(
@@ -242,7 +243,7 @@ namespace ElectronicObserver.Window
                 //制空戦力計算	
                 {
                     int airSuperiority = fleet.GetAirSuperiority();
-                    bool includeLevel = Utility.Configuration.Config.FormFleet.AirSuperiorityMethod == 1;
+                    bool includeLevel = Configuration.Config.FormFleet.AirSuperiorityMethod == 1;
                     this.AirSuperiority.Text = fleet.GetAirSuperiorityString();
                     this.ToolTipInfo.SetToolTip(this.AirSuperiority,
                         string.Format("확보: {0}\r\n우세: {1}\r\n균등: {2}\r\n열세: {3}\r\n({4}: {5})\r\n",
@@ -497,8 +498,8 @@ namespace ElectronicObserver.Window
 
                     if (this._cachedShip != null)
                     {
-                        if (this.isChanged(ship) && Utility.Configuration.Config.FormFleet.FocusModifiedFleet)
-                            if (Utility.Configuration.Config.FormFleet.FocusModifiedFleet)
+                        if (this.isChanged(ship) && Configuration.Config.FormFleet.FocusModifiedFleet)
+                            if (Configuration.Config.FormFleet.FocusModifiedFleet)
                                 this._parent.Show();
                     }
 
@@ -511,14 +512,14 @@ namespace ElectronicObserver.Window
                     this.Name.Tag = ship.ShipID;
                     this._toolTipInfo.SetToolTip(this.Name,
                         string.Format(
-                            "{0}{1} {2}\r\n화력: {3}/{4}\r\n뇌장: {5}/{6}\r\n대공: {7}/{8}\r\n장갑: {9}/{10}\r\n대잠: {11}/{12}\r\n회피: {13}/{14}\r\n색적: {15}/{16}\r\n운: {17}\r\n명중: {18:+#;-#;+0}\r\n폭장: {19:+#;-#;+0}\r\n사정: {20} / 속력: {21}\r\n(우클릭으로 도감에)\n",
+                            $"{0}{1} {2}\r\n화력: {3}/{4}\r\n뇌장: {5}/{6}\r\n대공: {7}/{8}\r\n장갑: {9}/{10}\r\n대잠: {11}/{12}/배율 : {13} \r\n회피: {14}/{15}\r\n색적: {16}/{17}\r\n운: {18}\r\n명중: {19:+#;-#;+0}\r\n폭장: {20:+#;-#;+0}\r\n사정: {21} / 속력: {22}\r\n(우클릭으로 도감에)\n",
                             ship.SallyArea > 0 ? $"[{ship.SallyArea}] " : "",
                             ship.MasterShip.ShipTypeName, ship.NameWithLevel,
                             ship.FirepowerBase, ship.FirepowerTotal,
                             ship.TorpedoBase, ship.TorpedoTotal,
                             ship.AABase, ship.AATotal,
                             ship.ArmorBase, ship.ArmorTotal,
-                            ship.ASWBase, ship.ASWTotal,
+                            ship.ASWBase, ship.ASWTotal, ship.CalculateAntiSubmarineSynergy(),
                             ship.EvasionBase, ship.EvasionTotal,
                             ship.LOSBase, ship.LOSTotal,
                             ship.LuckTotal,
@@ -528,20 +529,20 @@ namespace ElectronicObserver.Window
                             Constants.GetSpeed(ship.Speed)
                             ));
                     {
-                        var colorscheme = Utility.Configuration.Config.FormFleet.SallyAreaColorScheme;
+                        var colorscheme = Configuration.Config.FormFleet.SallyAreaColorScheme;
 
-                        if (Utility.Configuration.Config.FormFleet.AppliesSallyAreaColor &&
+                        if (Configuration.Config.FormFleet.AppliesSallyAreaColor &&
                             (colorscheme?.Count ?? 0) > 0 &&
                             ship.SallyArea >= 0)
                         {
-                            this.Name.ForeColor = ThemeManager.GetColor(Utility.ThemeColors.ExtraFontColor);
+                            this.Name.ForeColor = ThemeManager.GetColor(ThemeColors.ExtraFontColor);
 
                             this.Name.BackColor = colorscheme[Math.Min(ship.SallyArea, colorscheme.Count - 1)];
                         }
                         else
                         {
-                            this.Name.ForeColor = ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-                            this.Name.BackColor = ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
+                            this.Name.ForeColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+                            this.Name.BackColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
                         }
                     }
 
@@ -554,7 +555,7 @@ namespace ElectronicObserver.Window
                         StringBuilder tip = new StringBuilder();
                         tip.AppendFormat("Total: {0} exp.\r\n", ship.ExpTotal);
 
-                        if (!Utility.Configuration.Config.FormFleet.ShowNextExp)
+                        if (!Configuration.Config.FormFleet.ShowNextExp)
                             tip.AppendFormat("다음 레벨까지: {0} exp.\r\n", ship.ExpNext);
 
                         if (ship.MasterShip.RemodelAfterShipID != 0 && ship.Level < ship.MasterShip.RemodelAfterLevel)
@@ -601,7 +602,7 @@ namespace ElectronicObserver.Window
                     }
                     else
                     {
-                        this.HP.BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
+                        this.HP.BackColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
                     }
                     {
                         StringBuilder sb = new StringBuilder();
@@ -788,7 +789,7 @@ namespace ElectronicObserver.Window
                 {
                     int airsup_min;
                     int airsup_max;
-                    if (Utility.Configuration.Config.FormFleet.AirSuperiorityMethod == 1)
+                    if (Configuration.Config.FormFleet.AirSuperiorityMethod == 1)
                     {
                         airsup_min = Calculator.GetAirSuperiority(ship, false);
                         airsup_max = Calculator.GetAirSuperiority(ship, true);
@@ -803,7 +804,7 @@ namespace ElectronicObserver.Window
                     {
 
                         string airsup_str;
-                        if (Utility.Configuration.Config.FormFleet.ShowAirSuperiorityRange && airsup_min < airsup_max)
+                        if (Configuration.Config.FormFleet.ShowAirSuperiorityRange && airsup_min < airsup_max)
                         {
                             airsup_str = string.Format("{0} ～ {1}", airsup_min, airsup_max);
                         }
@@ -862,7 +863,7 @@ namespace ElectronicObserver.Window
                     cond < 30 ? Color.LightSalmon :
                     cond < 40 ? Color.Moccasin :
                     cond < 50 ? Color.Transparent :
-                    Utility.ThemeManager.GetColor(Utility.ThemeColors.GreenHighlight);
+                    ThemeManager.GetColor(ThemeColors.GreenHighlight);
             }
             else
             {
@@ -898,12 +899,12 @@ namespace ElectronicObserver.Window
             this.InitializeComponent();
 
             this.FleetID = fleetID;
-            Utility.SystemEvents.UpdateTimerTick += this.UpdateTimerTick;
+            SystemEvents.UpdateTimerTick += this.UpdateTimerTick;
 
             this.ConfigurationChanged();
 
-            this.MainFontColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-            this.SubFontColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.SubFontColor);
+            this.MainFontColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+            this.SubFontColor = ThemeManager.GetColor(ThemeColors.SubFontColor);
 
             this._anchorageRepairBound = 0;
 
@@ -930,14 +931,13 @@ namespace ElectronicObserver.Window
 
 
             this.ConfigurationChanged();     //fixme: 苦渋の決断
-
             this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormFleet]);
-
+            
+            this.ApplyLockLayoutState();
         }
 
         private void FormFleet_Load(object sender, EventArgs e)
         {
-
             this.Text = string.Format("#{0}", this.FleetID);
 
             APIObserver o = APIObserver.Instance;
@@ -975,7 +975,11 @@ namespace ElectronicObserver.Window
 
             //追加するときは FormFleetOverview にも同様に追加してください
 
-            Utility.Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
+            Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
         }
 
         void Updated(string apiname, dynamic data)
@@ -1046,7 +1050,7 @@ namespace ElectronicObserver.Window
 
 
             // anchorage repairing
-            if (fleet != null && Utility.Configuration.Config.FormFleet.ReflectAnchorageRepairHealing)
+            if (fleet != null && Configuration.Config.FormFleet.ReflectAnchorageRepairHealing)
             {
                 TimeSpan elapsed = DateTime.Now - KCDatabase.Instance.Fleet.AnchorageRepairingTimer;
 
@@ -1086,7 +1090,6 @@ namespace ElectronicObserver.Window
         //艦隊編成のコピー
         private void ContextMenuFleet_CopyFleet_Click(object sender, EventArgs e)
         {
-
             StringBuilder sb = new StringBuilder();
             KCDatabase db = KCDatabase.Instance;
             FleetData fleet = db.Fleet[this.FleetID];
@@ -1147,9 +1150,7 @@ namespace ElectronicObserver.Window
 
         private void ContextMenuFleet_Opening(object sender, CancelEventArgs e)
         {
-
-            this.ContextMenuFleet_Capture.Visible = Utility.Configuration.Config.Debug.EnableDebugMenu;
-
+            this.ContextMenuFleet_Capture.Visible = Configuration.Config.Debug.EnableDebugMenu;
         }
 
         /// <summary>
@@ -1158,78 +1159,13 @@ namespace ElectronicObserver.Window
         /// </summary>
         private void ContextMenuFleet_CopyFleetDeckBuilder_Click(object sender, EventArgs e)
         {
-
-            StringBuilder sb = new StringBuilder();
-            KCDatabase db = KCDatabase.Instance;
-
-            // 手書き json の悲しみ
-
-            sb.Append(@"{""version"":4,");
-
-            foreach (var fleet in db.Fleet.Fleets.Values)
-            {
-                if (fleet == null || fleet.MembersInstance.All(m => m == null)) continue;
-
-                sb.AppendFormat(@"""f{0}"":{{", fleet.FleetID);
-
-                int shipcount = 1;
-                foreach (var ship in fleet.MembersInstance)
-                {
-                    if (ship == null) break;
-
-                    sb.AppendFormat(@"""s{0}"":{{""id"":{1},""lv"":{2},""luck"":{3},""items"":{{",
-                        shipcount,
-                        ship.ShipID,
-                        ship.Level,
-                        ship.LuckBase);
-
-                    int eqcount = 1;
-                    foreach (var eq in ship.AllSlotInstance.Where(eq => eq != null))
-                    {
-                        if (eq == null) break;
-
-                        sb.AppendFormat(@"""i{0}"":{{""id"":{1},""rf"":{2},""mas"":{3}}},", eqcount >= 6 ? "x" : eqcount.ToString(), eq.EquipmentID, eq.Level, eq.AircraftLevel);
-
-                        eqcount++;
-                    }
-
-                    if (eqcount > 1)
-                        sb.Remove(sb.Length - 1, 1);        // remove ","
-                    sb.Append(@"}},");
-
-                    shipcount++;
-                }
-
-                if (shipcount > 0)
-                    sb.Remove(sb.Length - 1, 1);        // remove ","
-                sb.Append(@"},");
-
-            }
-
-            sb.Remove(sb.Length - 1, 1);        // remove ","
-            sb.Append(@"}");
-
-            Clipboard.SetData(DataFormats.StringFormat, sb.ToString());
+            Clipboard.SetData(DataFormats.StringFormat, ExternalDataReader.Instance.GenerateDeckBuilderCode());
         }
 
-        /// <summary>
-		/// 「艦隊分析 -艦これ-」の艦隊情報反映用フォーマットでコピー
-		/// https://kancolle-fleetanalysis.firebaseapp.com/#/
-		/// </summary>
-		private void ContextMenuFleet_CopyToFleetAnalysis_Click(object sender, EventArgs e)
+		private void ContextMenuFleet_OpenDeckBuilder_Click(object sender, EventArgs e)
         {
-            var sb = new StringBuilder();
-
-            sb.Append("[");
-            foreach (var ship in KCDatabase.Instance.Ships.Values.Where(s => s.IsLocked))
-            {
-                sb.AppendFormat(@"{{""api_ship_id"":{0},""api_lv"":{1},""api_kyouka"":[{2}]}},",
-                    ship.ShipID, ship.Level, string.Join(",", (int[])ship.RawData.api_kyouka));
-            }
-            sb.Remove(sb.Length - 1, 1);        // remove ","
-            sb.Append("]");
-
-            Clipboard.SetData(DataFormats.StringFormat, sb.ToString());
+            // 작업 체크포인트
+            System.Diagnostics.Process.Start($"https://noro6.github.io/kc-web?predeck={ExternalDataReader.Instance.GenerateDeckBuilderCode()}");
         }
 
         /// <summary>
@@ -1238,7 +1174,6 @@ namespace ElectronicObserver.Window
         /// </summary>
         private void ContextMenuFleet_CopyKanmusuList_Click(object sender, EventArgs e)
         {
-
             StringBuilder sb = new StringBuilder();
             KCDatabase db = KCDatabase.Instance;
 
@@ -1298,7 +1233,6 @@ namespace ElectronicObserver.Window
 
         private void ContextMenuFleet_AntiAirDetails_Click(object sender, EventArgs e)
         {
-
             var dialog = new DialogAntiAirDefense();
 
             dialog.SetFleetID(this.FleetID);
@@ -1329,14 +1263,14 @@ namespace ElectronicObserver.Window
         void ConfigurationChanged()
         {
 
-            var c = Utility.Configuration.Config;
+            var c = Configuration.Config;
 
             this.MainFont = this.Font = c.UI.MainFont;
             this.SubFont = c.UI.SubFont;
-            this.BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
-            this.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-            this.MainFontColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-            this.SubFontColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.SubFontColor);
+            this.BackColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
+            this.ForeColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+            this.MainFontColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+            this.SubFontColor = ThemeManager.GetColor(ThemeColors.SubFontColor);
 
             this.AutoScroll = c.FormFleet.IsScrollable;
 
@@ -1410,6 +1344,7 @@ namespace ElectronicObserver.Window
 
             this.TableMember.PerformLayout();        //fixme:サイズ変更に親パネルが追随しない
 
+            this.ApplyLockLayoutState();
         }
 
         private void TableMember_CellPaint(object sender, TableLayoutCellPaintEventArgs e)

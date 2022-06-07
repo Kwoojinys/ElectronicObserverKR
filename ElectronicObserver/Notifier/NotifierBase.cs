@@ -75,7 +75,7 @@ namespace ElectronicObserver.Notifier
 			set
 			{
                 this._soundVolume = value;
-				if (!Utility.Configuration.Config.Control.UseSystemVolume)
+				if (!Configuration.Config.Control.UseSystemVolume)
                     this.Sound.Volume = this._soundVolume;
 			}
 		}
@@ -195,7 +195,7 @@ namespace ElectronicObserver.Notifier
 			catch (Exception ex)
 			{
 
-				Utility.ErrorReporter.SendErrorReport(ex, string.Format("알림 시스템 : 알림 사운드 {0}의 로드에 실패했습니다.", path));
+                ErrorReporter.SendErrorReport(ex, string.Format("알림 시스템 : 알림 사운드 {0}의 로드에 실패했습니다.", path));
                 this.DisposeSound();
 
 			}
@@ -231,7 +231,7 @@ namespace ElectronicObserver.Notifier
 			catch (Exception ex)
 			{
 
-				Utility.Logger.Add(3, "알림 시스템 : 알림음 재생에 실패했습니다." + ex.Message);
+				Logger.Add(LogType.Alert, "알림 시스템 : 알림음 재생에 실패했습니다." + ex.Message);
 			}
 		}
 

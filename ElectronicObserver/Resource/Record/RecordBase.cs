@@ -1,11 +1,7 @@
 ﻿using ElectronicObserver.Utility.Mathematics;
+using ElectronicObserver.Utility;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ElectronicObserver.Resource.Record
@@ -44,7 +40,7 @@ namespace ElectronicObserver.Resource.Record
 			{
 				bool hasError = false;
 
-				using (StreamReader sr = new StreamReader(path, Utility.Configuration.Config.Log.FileEncoding))
+				using (StreamReader sr = new StreamReader(path, Configuration.Config.Log.FileEncoding))
 				{
                     this.ClearRecord();
 					bool ignoreError = false;
@@ -64,7 +60,7 @@ namespace ElectronicObserver.Resource.Record
                                 continue;
 
                             hasError = true;
-                            Utility.ErrorReporter.SendErrorReport(ex, $"기록 {Path.GetFileName(path)} 의 손상을 감지했습니다.");
+                            ErrorReporter.SendErrorReport(ex, $"기록 {Path.GetFileName(path)} 의 손상을 감지했습니다.");
 
                             switch (MessageBox.Show($"기록 {Path.GetFileName(path)} 에서 손상된 데이터를 감지했습니다.\r\n\r\n[중단]: 읽기를 중지합니다. 데이터를 잃을 수 있습니다.\r\n[재시도]: (권장)로드를 계속합니다.\r\n[무시]: 로드를 계속합니다.(이후 추가확인하지않습니다.)",
 								"기록 손상 감지", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2))
@@ -89,7 +85,7 @@ namespace ElectronicObserver.Resource.Record
                 {
                     string backupDestination = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + "_backup_" + DateTimeHelper.GetTimeStamp() + Path.GetExtension(path));
                     File.Copy(path, backupDestination);
-                    Utility.Logger.Add(3, $"복구전에 기록을 {backupDestination} 에 백업했습니다. 복구에 실패했을경우, 이 파일을 다시 이용해주세요.");
+                    Logger.Add(LogType.Error, $"복구전에 기록을 {backupDestination} 에 백업했습니다. 복구에 실패했을경우, 이 파일을 다시 이용해주세요.");
 
                     this.SaveAll(RecordManager.Instance.MasterPath);
                 }
@@ -100,12 +96,12 @@ namespace ElectronicObserver.Resource.Record
 			}
 			catch (FileNotFoundException)
 			{
-				Utility.Logger.Add(1, "기록 " + path + " 은 존재하지않습니다.");
+                Logger.Add(LogType.Error, "기록 " + path + " 은 존재하지않습니다.");
 
 			}
 			catch (Exception ex)
 			{
-				Utility.ErrorReporter.SendErrorReport(ex, "기록 " + path + " 로드에 실패했습니다.");
+                ErrorReporter.SendErrorReport(ex, "기록 " + path + " 로드에 실패했습니다.");
 			}
 
 			return false;
@@ -124,7 +120,7 @@ namespace ElectronicObserver.Resource.Record
 			try
 			{
 
-				using (StreamWriter sw = new StreamWriter(path, false, Utility.Configuration.Config.Log.FileEncoding))
+				using (StreamWriter sw = new StreamWriter(path, false, Configuration.Config.Log.FileEncoding))
 				{
 
 					sw.WriteLine(this.RecordHeader);
@@ -138,7 +134,7 @@ namespace ElectronicObserver.Resource.Record
 			}
 			catch (Exception ex)
 			{
-				Utility.ErrorReporter.SendErrorReport(ex, "기록 " + path + " 저장에 실패했습니다.");
+                ErrorReporter.SendErrorReport(ex, "기록 " + path + " 저장에 실패했습니다.");
 			}
 
 			return false;
@@ -162,7 +158,7 @@ namespace ElectronicObserver.Resource.Record
 			try
 			{
 
-				using (StreamWriter sw = new StreamWriter(path, true, Utility.Configuration.Config.Log.FileEncoding))
+				using (StreamWriter sw = new StreamWriter(path, true, Configuration.Config.Log.FileEncoding))
 				{
 
 					if (!exists)
@@ -177,7 +173,7 @@ namespace ElectronicObserver.Resource.Record
 			}
 			catch (Exception ex)
 			{
-				Utility.ErrorReporter.SendErrorReport(ex, "기록 " + path + " 저장에 실패했습니다.");
+                ErrorReporter.SendErrorReport(ex, "기록 " + path + " 저장에 실패했습니다.");
 			}
 
 			return false;

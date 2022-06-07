@@ -1,4 +1,5 @@
-﻿using ElectronicObserver.Window;
+﻿using ElectronicObserver.Utility;
+using ElectronicObserver.Window;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -141,8 +142,11 @@ namespace ElectronicObserver.Data.Battle
         /// 敵艦隊名 번역됨
         /// </summary>
         public string EnemyFleetName
-        { get
-            { return FormMain.Instance.Translator.GetTranslation(this.RawData.api_enemy_info.api_deck_name, Utility.TranslateType.OperationSortie); }
+        { 
+            get
+            { 
+                return ExternalDataReader.Instance.GetTranslation(this.RawData.api_enemy_info.api_deck_name, TranslateType.OperationSortie); 
+            }
         }
     //undone: 複数の battleresult に対応させる
 

@@ -54,7 +54,7 @@ namespace ElectronicObserver.Utility
             }
             catch (Exception e)
             {
-                Logger.Add(3, "번역 파일을 불러오는데 실패했습니다. : " + e.Message + ":" + type);
+                Logger.Add(LogType.Error, "번역 파일을 불러오는데 실패했습니다. : " + e.Message + ":" + type);
                 return jpString;
             }
 
@@ -137,7 +137,7 @@ namespace ElectronicObserver.Utility
                 return;
             
             KCDatabase db = KCDatabase.Instance;
-            if (db.Equipments[eqId].MasterEquipment.IsLargeGun)
+            if (db.Equipments[eqId].MasterEquipment.IsLargeGun == true)
             {
                 bool married        = db.Ships[shipId].IsMarried;
                 int masterShipId    = db.Ships[shipId].MasterShip.ID;

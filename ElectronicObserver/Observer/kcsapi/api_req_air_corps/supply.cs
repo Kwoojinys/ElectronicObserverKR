@@ -42,7 +42,7 @@ namespace ElectronicObserver.Observer.kcsapi.api_req_air_corps
 			baux -= KCDatabase.Instance.Material.Bauxite;
 
 			if (corps.ContainsKey(this._aircorpsID))
-				Utility.Logger.Add(2, string.Format("#{0}「{1}」에 보급을 실시했습니다. 소비: 연료x{2}, 보크사이트x{3}",
+				Utility.Logger.Add(Utility.LogType.Resupply, string.Format("#{0}「{1}」에 보급을 실시했습니다. 소비: 연료x{2}, 보크사이트x{3}",
 					corps[this._aircorpsID].MapAreaID, corps[this._aircorpsID].Name, fuel, baux));
 
 			base.OnResponseReceived((object)data);

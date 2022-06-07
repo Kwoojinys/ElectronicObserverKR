@@ -4,6 +4,7 @@ using ElectronicObserver.Data.Battle.Detail;
 using ElectronicObserver.Data.Battle.Phase;
 using ElectronicObserver.Observer;
 using ElectronicObserver.Resource;
+using ElectronicObserver.Utility;
 using ElectronicObserver.Window.Control;
 using ElectronicObserver.Window.Support;
 using System;
@@ -52,7 +53,7 @@ namespace ElectronicObserver.Window
                 this.HPBars.Add(new ShipStatusHP());
                 this.HPBars[i].Size = this.DefaultBarSize;
                 this.HPBars[i].AutoSize = false;
-                this.HPBars[i].AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+                this.HPBars[i].AutoSizeMode = AutoSizeMode.GrowAndShrink;
                 this.HPBars[i].Margin = new Padding(2, 0, 2, 0);
                 this.HPBars[i].Anchor = AnchorStyles.Left | AnchorStyles.Right;
                 this.HPBars[i].MainFont = this.MainFont;
@@ -99,7 +100,7 @@ namespace ElectronicObserver.Window
 
             this.BaseLayoutPanel.Visible = false;
 
-
+            this.ApplyLockLayoutState();
             this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormBattle]);
 
 		}
@@ -140,7 +141,10 @@ namespace ElectronicObserver.Window
             o["api_req_combined_battle/ld_shooting"].ResponseReceived += this.Updated;
 
             Utility.Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
-
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
 		}
 
 
@@ -1377,7 +1381,11 @@ namespace ElectronicObserver.Window
             this.TableTop.Height = this.TableTop.GetPreferredSize(this.BaseLayoutPanel.Size).Height;
             this.TableTop.ResumeLayout();
 
-		}
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
+        }
 
 
 

@@ -260,7 +260,6 @@ namespace ElectronicObserver.Window.Dialog
 			private void Update()
 			{
                 var equipment = this.Aircraft.SelectedItem as ComboBoxEquipment;
-
                 if (equipment == null || equipment.EquipmentID == -1)
                 {
                     this.AirSuperioritySortie.Text = "0";
@@ -980,7 +979,7 @@ namespace ElectronicObserver.Window.Dialog
 		private void TopMenu_Edit_Clear_Click(object sender, EventArgs e)
 		{
 			if (MessageBox.Show("편성을 모두 지웁니다. \r\n지우시겠습니까?", "편성 초기화", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-				== System.Windows.Forms.DialogResult.Yes)
+				== DialogResult.Yes)
 			{
 
 				for (int i = 0; i < this.BaseAirCorpsUIList.Length; i++)

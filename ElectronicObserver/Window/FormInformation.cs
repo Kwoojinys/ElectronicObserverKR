@@ -1,6 +1,7 @@
 ﻿using ElectronicObserver.Data;
 using ElectronicObserver.Observer;
 using ElectronicObserver.Resource;
+using ElectronicObserver.Utility;
 using ElectronicObserver.Utility.Data;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,8 @@ namespace ElectronicObserver.Window
             this.ConfigurationChanged();
 
             this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormInformation]);
+
+            this.ApplyLockLayoutState();
         }
 
 
@@ -59,6 +62,7 @@ namespace ElectronicObserver.Window
             o["api_req_mission/start"].RequestReceived += this.Updated;
 
             Utility.Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
+            this.ApplyLockLayoutState();
         }
 
         void ConfigurationChanged()
@@ -71,6 +75,7 @@ namespace ElectronicObserver.Window
             this.TextInformation.BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
             this.TextInformation.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
 
+            this.ApplyLockLayoutState();
         }
 
         void Updated(string apiname, dynamic data)
@@ -87,7 +92,7 @@ namespace ElectronicObserver.Window
 
                     if (this._inSortie != null)
                     {
-                        this.TextInformation.Text = GetConsumptionResource(data);
+                        this.TextInformation.Text = this.GetConsumptionResource(data);
                     }
                     this._inSortie = null;
 
@@ -97,7 +102,7 @@ namespace ElectronicObserver.Window
                     if (data.api_event_object() && data.api_event_object.api_m_flag2() && (int)data.api_event_object.api_m_flag2 > 0)
                     {
                         this.TextInformation.Text += "\r\n＊기믹해제＊\r\n";
-                        Utility.Logger.Add(2, "적세력의 약화를 확인했습니다!");
+                        Utility.Logger.Add(Utility.LogType.Gimick, "적세력의 약화를 확인했습니다!");
                     }
                     break;
 
@@ -131,7 +136,7 @@ namespace ElectronicObserver.Window
 
                 case "api_req_mission/start":
                     if (Utility.Configuration.Config.Control.ShowExpeditionAlertDialog)
-                        CheckExpeditionFleet(int.Parse(data["api_mission_id"]), int.Parse(data["api_deck_id"]));
+                        this.CheckExpeditionFleet(int.Parse(data["api_mission_id"]), int.Parse(data["api_deck_id"]));
                     break;
 
                 case "api_get_member/sortie_conditions":
@@ -389,7 +394,8 @@ namespace ElectronicObserver.Window
             int expeditionDestination = KCDatabase.Instance.Fleet[KCDatabase.Instance.Ships[(int)data.api_ship_id[1]].Fleet].ExpeditionDestination;
 
             sb.AppendLine("[원정 귀환]");
-            sb.AppendLine(FormMain.Instance.Translator.GetTranslation(data.api_quest_name, Utility.TranslateType.ExpeditionTitle, expeditionDestination) + "\r\n");
+            sb.AppendLine(Utility.ExternalDataReader.Instance.GetTranslation
+                (data.api_quest_name, Utility.TranslateType.ExpeditionTitle, expeditionDestination) + "\r\n");
             sb.AppendFormat("결과: {0}\r\n", Constants.GetExpeditionResult((int)data.api_clear_result));
             sb.AppendFormat("제독경험치: +{0}\r\n", (int)data.api_get_exp);
             sb.AppendFormat("함선경험치: +{0}\r\n", ((int[])data.api_get_ship_exp).Min());
@@ -401,7 +407,7 @@ namespace ElectronicObserver.Window
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("[전투종료]");
-            sb.AppendFormat("적함대명: {0}\r\n", FormMain.Instance.Translator.GetTranslation(data.api_enemy_info.api_deck_name, Utility.TranslateType.OperationSortie));
+            sb.AppendFormat("적함대명: {0}\r\n", Utility.ExternalDataReader.Instance.GetTranslation(data.api_enemy_info.api_deck_name, Utility.TranslateType.OperationSortie));
             sb.AppendFormat("승패판정: {0}\r\n", data.api_win_rank);
             sb.AppendFormat("제독경험치: +{0}\r\n", (int)data.api_get_exp);
 
@@ -414,7 +420,7 @@ namespace ElectronicObserver.Window
         {
             if ((data.api_m1() && data.api_m1 != 0) || (data.api_m2() && data.api_m2 != 0))
             {
-                Utility.Logger.Add(2, "해역의 변화를 확인하였습니다!");
+                Utility.Logger.Add(Utility.LogType.Gimick, "해역의 변화를 확인하였습니다!");
                 return "\r\n＊기믹 해제＊\r\n";
             }
 

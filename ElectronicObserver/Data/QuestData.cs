@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ElectronicObserver.Utility;
 using ElectronicObserver.Window;
 
 namespace ElectronicObserver.Data
@@ -52,7 +53,7 @@ namespace ElectronicObserver.Data
         /// </summary>
         public string Name
         {
-            get { return FormMain.Instance.Translator.GetTranslation((string)this.RawData.api_title, Utility.TranslateType.QuestTitle, this.ID); }
+            get { return ExternalDataReader.Instance.GetTranslation((string)this.RawData.api_title, TranslateType.QuestTitle, this.ID); }
         }
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace ElectronicObserver.Data
         {
             get
             {
-                return FormMain.Instance.Translator.GetTranslation((string)this.RawData.api_detail, Utility.TranslateType.QuestDetail, this.ID);
+                return ExternalDataReader.Instance.GetTranslation((string)this.RawData.api_detail, TranslateType.QuestDetail, this.ID);
             }
         }
 

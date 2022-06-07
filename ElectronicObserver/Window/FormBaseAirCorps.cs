@@ -1,5 +1,6 @@
 ﻿using ElectronicObserver.Data;
 using ElectronicObserver.Resource;
+using ElectronicObserver.Utility;
 using ElectronicObserver.Utility.Data;
 using ElectronicObserver.Utility.Mathematics;
 using ElectronicObserver.Window.Control;
@@ -361,6 +362,7 @@ namespace ElectronicObserver.Window
 
             this.ConfigurationChanged();
 
+            this.ApplyLockLayoutState();
             this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormBaseAirCorps]);
 		}
 
@@ -379,7 +381,10 @@ namespace ElectronicObserver.Window
 			api["api_req_air_corps/expand_base"].ResponseReceived += this.Updated;
 
 			Utility.Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
-
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
 		}
 
 
@@ -404,7 +409,12 @@ namespace ElectronicObserver.Window
 
             if (KCDatabase.Instance.BaseAirCorps.Any())
                 this.Updated(null, null);
-		}
+
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
+        }
 
 
 		void Updated(string apiname, dynamic data)

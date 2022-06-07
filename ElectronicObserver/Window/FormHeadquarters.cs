@@ -14,6 +14,7 @@ using WeifenLuo.WinFormsUI.Docking;
 using ElectronicObserver.Utility.Data;
 using ElectronicObserver.Window.Support;
 using ElectronicObserver.Resource.Record;
+using ElectronicObserver.Utility;
 
 namespace ElectronicObserver.Window
 {
@@ -69,7 +70,8 @@ namespace ElectronicObserver.Window
 
             this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormHeadQuarters]);
 
-		}
+            this.ApplyLockLayoutState();
+        }
 
 
 		private void FormHeadquarters_Load(object sender, EventArgs e)
@@ -109,7 +111,10 @@ namespace ElectronicObserver.Window
             this.FlowPanelResource.SetFlowBreak(this.Ammo, true);
 
             this.FlowPanelMaster.Visible = false;
-
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
 		}
 
 
@@ -162,7 +167,12 @@ namespace ElectronicObserver.Window
 			}
 
             this.UpdateDisplayUseItem();
-		}
+
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
+        }
 
 
 		/// <summary>
@@ -449,7 +459,7 @@ namespace ElectronicObserver.Window
 
 		private void Resource_MouseClick(object sender, MouseEventArgs e)
 		{
-			if (e.Button == System.Windows.Forms.MouseButtons.Right)
+			if (e.Button == MouseButtons.Right)
 				new Dialog.DialogResourceChart().Show(this._parentForm);
 		}
 
@@ -464,7 +474,7 @@ namespace ElectronicObserver.Window
 				}
 				catch (Exception ex)
 				{
-					Utility.Logger.Add(3, "자원의 클립보드 복사에 실패했습니다." + ex.Message);
+					Utility.Logger.Add(Utility.LogType.Error, "자원의 클립보드 복사에 실패했습니다." + ex.Message);
 				}
 			}
 		}

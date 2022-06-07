@@ -5,8 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ElectronicObserver.Utility;
 
 namespace ElectronicObserver.Data.Battle
 {
@@ -356,7 +355,7 @@ namespace ElectronicObserver.Data.Battle
 			// ロギング
 			if (this.IsPractice)
 			{
-				Utility.Logger.Add(2,
+                Logger.Add(LogType.Battle,
 					string.Format("연습에서「{0}」{1}의「{2}」와 교전했습니다.( 랭크: {3}, 제독 경험치+{4}, 함선 경험치+{5} )",
                         this.EnemyAdmiralName, this.EnemyAdmiralRank, this.Result.EnemyFleetName, this.Result.Rank, this.Result.AdmiralExp, this.Result.BaseExp));
 			}
@@ -366,14 +365,14 @@ namespace ElectronicObserver.Data.Battle
 				var damage = initialHPs.Zip(this.BattleDay.ResultHPs.Take(initialHPs.Count()), (initial, result) => initial - result).Sum();
 				var airraid = ((BattleBaseAirRaid)this.BattleDay).BaseAirRaid;
 
-				Utility.Logger.Add(2,
+                Logger.Add(LogType.Battle,
 					string.Format("{0}-{1}-{2} 로 기지에 공습을 받았습니다.( {3}, 대미지 합계: {4}, {5} )",
                         this.Compass.MapAreaID, this.Compass.MapInfoID, this.Compass.Destination,
 						Constants.GetAirSuperiority(airraid.IsAvailable ? airraid.AirSuperiority : -1), damage, Constants.GetAirRaidDamage(this.Compass.AirRaidDamageKind)));
 			}
 			else
 			{
-				Utility.Logger.Add(2,
+                Logger.Add(LogType.Battle,
 					string.Format("{0}-{1}-{2} 에서「{3}」와 교전했습니다. ( 랭크: {4}, 제독경험치+{5}, 함선경험치+{6} )",
                         this.Compass.MapAreaID, this.Compass.MapInfoID, this.Compass.Destination_Name, this.Result.EnemyFleetName, this.Result.Rank, this.Result.AdmiralExp, this.Result.BaseExp));
 			}
@@ -391,7 +390,7 @@ namespace ElectronicObserver.Data.Battle
 						var ship = this.FirstBattle.Initial.FriendFleet.MembersInstance[i];
 						int increment = Math.Max(lvup[i].Length - 2, 1);
 
-						Utility.Logger.Add(2, string.Format("{0} 가 Lv. {1} 이 되었습니다.", ship.Name, ship.Level + increment));
+                        Logger.Add(LogType.LevelUp, string.Format("{0} 가 Lv. {1} 이 되었습니다.", ship.Name, ship.Level + increment));
 					}
 				}
 
@@ -406,7 +405,7 @@ namespace ElectronicObserver.Data.Battle
 							var ship = this.FirstBattle.Initial.FriendFleetEscort.MembersInstance[i];
 							int increment = Math.Max(lvup[i].Length - 2, 1);
 
-							Utility.Logger.Add(2, string.Format("{0} 가 Lv. {1} 이 되었습니다.", ship.Name, ship.Level + increment));
+                            Logger.Add(LogType.LevelUp, string.Format("{0} 가 Lv. {1} 이 되었습니다.", ship.Name, ship.Level + increment));
 						}
 					}
 				}
@@ -423,7 +422,7 @@ namespace ElectronicObserver.Data.Battle
 				int shipID = this.Result.DroppedShipID;
 				int itemID = this.Result.DroppedItemID;
 				int eqID = this.Result.DroppedEquipmentID;
-				bool showLog = Utility.Configuration.Config.Log.ShowSpoiler;
+				bool showLog = Configuration.Config.Log.ShowSpoiler;
 
 				if (shipID != -1)
 				{
@@ -436,7 +435,7 @@ namespace ElectronicObserver.Data.Battle
                         this.DroppedEquipmentCount += defaultSlot.Count(id => id != -1);
 
 					if (showLog)
-						Utility.Logger.Add(2, string.Format("{0}「{1}」가 함대에 합류했습니다.", ship.ShipTypeName, ship.NameWithClass));
+                        Logger.Add(LogType.ShipDrop, string.Format("{0}「{1}」가 함대에 합류했습니다.", ship.ShipTypeName, ship.NameWithClass));
 				}
 
 				if (itemID != -1)
@@ -450,7 +449,7 @@ namespace ElectronicObserver.Data.Battle
 					{
 						var item = KCDatabase.Instance.UseItems[itemID];
 						var itemmaster = KCDatabase.Instance.MasterUseItems[itemID];
-						Utility.Logger.Add(2, string.Format("아이템「{0} 을 얻었습니다. ( 합계: {1}개 )", itemmaster?.Name ?? ("알수없는아이템 - ID:" + itemID), (item?.Count ?? 0) + this.DroppedItemCount[itemID]));
+                        Logger.Add(LogType.GetItem, string.Format("아이템「{0} 을 얻었습니다. ( 합계: {1}개 )", itemmaster?.Name ?? ("알수없는아이템 - ID:" + itemID), (item?.Count ?? 0) + this.DroppedItemCount[itemID]));
 					}
 				}
 
@@ -462,7 +461,7 @@ namespace ElectronicObserver.Data.Battle
 
 					if (showLog)
 					{
-						Utility.Logger.Add(2, string.Format("{0}「{1}」를 얻었습니다.", eq.CategoryTypeInstance.Name, eq.Name));
+                        Logger.Add(LogType.GetItem, string.Format("{0}「{1}」를 얻었습니다.", eq.CategoryTypeInstance.Name, eq.Name));
 					}
 				}
 
@@ -775,7 +774,7 @@ namespace ElectronicObserver.Data.Battle
         private void WriteBattleLog()
 		{
 
-			if (!Utility.Configuration.Config.Log.SaveBattleLog)
+			if (!Configuration.Config.Log.SaveBattleLog)
 				return;
 
 			try
@@ -793,7 +792,7 @@ namespace ElectronicObserver.Data.Battle
 
 				string path = $"{parent}\\{DateTimeHelper.GetTimeStamp()}@{info}.txt";
 
-				using (var sw = new StreamWriter(path, false, Utility.Configuration.Config.Log.FileEncoding))
+				using (var sw = new StreamWriter(path, false, Configuration.Config.Log.FileEncoding))
 				{
 					sw.Write(BattleDetailDescriptor.GetBattleDetail(this));
 				}
@@ -802,7 +801,7 @@ namespace ElectronicObserver.Data.Battle
 			catch (Exception ex)
 			{
 
-				Utility.ErrorReporter.SendErrorReport(ex, "전투 로그 출력을 실패했습니다.");
+                ErrorReporter.SendErrorReport(ex, "전투 로그 출력을 실패했습니다.");
 			}
 		}
 	}

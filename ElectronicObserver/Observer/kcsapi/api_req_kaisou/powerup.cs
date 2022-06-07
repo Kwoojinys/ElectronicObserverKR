@@ -35,7 +35,7 @@ namespace ElectronicObserver.Observer.kcsapi.api_req_kaisou
                     }
                 }
 
-                Utility.Logger.Add(2, ship.NameWithLevel + " 를 제적했습니다.");
+                Utility.Logger.Add(Utility.LogType.PowerUp, ship.NameWithLevel + " 를 제적했습니다.");
 				db.Ships.Remove(shipID);
 
 			}
@@ -59,7 +59,7 @@ namespace ElectronicObserver.Observer.kcsapi.api_req_kaisou
 				{
 					if ((int)data.api_powerup_flag == 0)
 					{
-						Utility.Logger.Add(2, ship.NameWithLevel + " 의 근대화 개수에 실패했습니다.");
+						Utility.Logger.Add(Utility.LogType.PowerUp, ship.NameWithLevel + " 의 근대화 개수에 실패했습니다.");
 
 					}
 					else
@@ -103,7 +103,7 @@ namespace ElectronicObserver.Observer.kcsapi.api_req_kaisou
 
 
 						sb.Append(string.Join(", ", contents)).Append(" )");
-						Utility.Logger.Add(2, sb.ToString());
+						Utility.Logger.Add(Utility.LogType.PowerUp, sb.ToString());
 					}
 				}
 				ship.LoadFromResponse(this.APIName, data.api_ship);

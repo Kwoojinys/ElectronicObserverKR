@@ -203,7 +203,7 @@ namespace ElectronicObserver.Window.Dialog
 			if (this.Searcher.IsBusy)
 			{
 				if (MessageBox.Show("검색을 취소 하시겠습니까?", "검색중입니다.", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2)
-					== System.Windows.Forms.DialogResult.Yes)
+					== DialogResult.Yes)
 				{
                     this.Searcher.CancelAsync();
 				}

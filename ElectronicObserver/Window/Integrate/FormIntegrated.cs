@@ -58,13 +58,13 @@ namespace ElectronicObserver.Window.Integrate
 			{
 				switch (this.MatchControl)
 				{
-					case FormIntegrate.MatchControl.Exact:
+					case MatchControl.Exact:
 						return (name == this.Name);
-					case FormIntegrate.MatchControl.Contains:
+					case MatchControl.Contains:
 						return name.Contains(this.Name);
-					case FormIntegrate.MatchControl.StartEnd:
+					case MatchControl.StartEnd:
 						return name.StartsWith(this.Name) || name.EndsWith(this.Name);
-					case FormIntegrate.MatchControl.Ignore:
+					case MatchControl.Ignore:
 						return true;
 				}
 				throw new NotImplementedException("サポートされていないMatchControl");
@@ -169,7 +169,7 @@ namespace ElectronicObserver.Window.Integrate
 
             this.TabPageContextMenuStrip = this.tabContextMenu;
 
-			Utility.Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
+            Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
             this.ConfigurationChanged();
 
 			parent.WindowCapture.AddCapturedWindow(this);
@@ -177,7 +177,7 @@ namespace ElectronicObserver.Window.Integrate
 
 		void ConfigurationChanged()
 		{
-            this.Font = Utility.Configuration.Config.UI.MainFont;
+            this.Font = Configuration.Config.UI.MainFont;
 		}
 
         private static int RunProgram(WindowInfo info)
@@ -199,7 +199,7 @@ namespace ElectronicObserver.Window.Integrate
                 P.Start();
                 return P.StartTime.Day;
             }
-        }
+		}
 
 
 		/// <summary>
@@ -219,7 +219,7 @@ namespace ElectronicObserver.Window.Integrate
                 int Run = RunProgram(info);
             } catch (Exception e)
             {
-                Logger.Add(3, "윈도우 캡쳐에 실패했습니다. : " + e.Message);
+                Logger.Add(LogType.Error, "윈도우 캡쳐에 실패했습니다. : " + e.Message);
             }
 
             return form;
@@ -250,7 +250,7 @@ namespace ElectronicObserver.Window.Integrate
 			StringBuilder className = new StringBuilder(256);
 			StringBuilder windowText = new StringBuilder(256);
 			IntPtr result = IntPtr.Zero;
-			int currentProcessId = System.Diagnostics.Process.GetCurrentProcess().Id;
+			int currentProcessId = Process.GetCurrentProcess().Id;
 			WindowInfo info = this.WindowData;
 
 			WinAPI.EnumWindows((WinAPI.EnumWindowsDelegate)((hWnd, lparam) =>
@@ -442,7 +442,7 @@ namespace ElectronicObserver.Window.Integrate
 		private void FormIntegrated_FormClosing(object sender, FormClosingEventArgs e)
 		{
             this.InternalDetach();
-			Utility.Configuration.Instance.ConfigurationChanged -= this.ConfigurationChanged;
+            Configuration.Instance.ConfigurationChanged -= this.ConfigurationChanged;
 		}
 
 		private void FormIntegrated_Resize(object sender, EventArgs e)
@@ -475,7 +475,7 @@ namespace ElectronicObserver.Window.Integrate
 
 			if (MessageBox.Show(stringBuilder.ToString() + "\r\n" + FormWindowCapture.WARNING_MESSAGE,
 				"윈도우 캡쳐 확인", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-				== System.Windows.Forms.DialogResult.Yes)
+				== DialogResult.Yes)
 			{
 
                 this.Attach(hWnd, false);

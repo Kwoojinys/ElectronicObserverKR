@@ -57,7 +57,7 @@ namespace ElectronicObserver.Observer.kcsapi.api_req_hokyu
 
 
 				sb.Remove(sb.Length - 2, 2);
-				Utility.Logger.Add(2, sb.ToString());
+				Utility.Logger.Add(Utility.LogType.Resupply, sb.ToString());
 			}
 
 

@@ -18,20 +18,66 @@ namespace ElectronicObserver.Observer.kcsapi.api_req_map
 
 			base.OnResponseReceived((object)data);
 
-
-			// 表示順の関係上、UIの更新をしてからデータを更新する
-			if (KCDatabase.Instance.Battle.Compass.EventID == 3)
-			{
-				EmulateWhirlpool();
-			}
-
+			switch (KCDatabase.Instance.Battle.Compass.EventID)
+            {
+				case 3:
+                    {
+                        EmulateWhirlpool();
+                        break;
+                    }
+				case 2:
+				case 6:
+                    {
+						this.GetMaterialInfo(KCDatabase.Instance.Battle.Compass);
+						break;
+                    }
+            }
 		}
 
+        private string GetMaterialInfo(CompassData compass)
+        {
+            var strs = new LinkedList<string>();
 
-		/// <summary>
-		/// 渦潮による燃料・弾薬の減少をエミュレートします。
-		/// </summary>
-		public static void EmulateWhirlpool()
+            foreach (var item in compass.GetItems)
+            {
+                string itemName;
+
+                if (item.ItemID == 4)
+                {
+                    itemName = Constants.GetMaterialName(item.Metadata);
+
+                }
+                else
+                {
+                    var itemMaster = KCDatabase.Instance.MasterUseItems[item.Metadata];
+                    if (itemMaster != null)
+                        itemName = itemMaster.Name;
+                    else
+                        itemName = "알수없는아이템";
+                }
+
+                Utility.Logger.Add(Utility.LogType.GetItem,
+                    $"{compass.MapAreaID}-{compass.MapInfoID}-{compass.Destination_Name} 에서 {itemName} {item.Amount}개를 획득했습니다.");
+                strs.AddLast(itemName + " x " + item.Amount);
+            }
+
+            if (!strs.Any())
+            {
+                return "(없음)";
+
+            }
+            else
+            {
+                return string.Join(", ", strs);
+            }
+
+
+        }
+
+        /// <summary>
+        /// 渦潮による燃料・弾薬の減少をエミュレートします。
+        /// </summary>
+        public static void EmulateWhirlpool()
 		{
 
 			int itemID = KCDatabase.Instance.Battle.Compass.WhirlpoolItemID;

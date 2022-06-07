@@ -18,10 +18,12 @@ namespace ElectronicObserver.Data
         /// </summary>
         public int MissionID	=> (int)this.RawData.api_id;
 
-        /// <summary>
-        /// 表示される遠征ID
-        /// </summary>
-        public string DisplayID => this.RawData.api_disp_no;
+		public string VisualMissionId => Constants.GetVisualMissionId((int)this.RawData.api_id);
+
+		/// <summary>
+		/// 表示される遠征ID
+		/// </summary>
+		public string DisplayID => this.RawData.api_disp_no;
 
         /// <summary>
         /// 海域カテゴリID
@@ -33,7 +35,7 @@ namespace ElectronicObserver.Data
 		/// </summary>
 		public string Name
         {
-            get { return FormMain.Instance.Translator.GetTranslation(string.Empty, Utility.TranslateType.ExpeditionTitle, (int)this.RawData.api_id); }
+            get { return Utility.ExternalDataReader.Instance.GetTranslation(string.Empty, Utility.TranslateType.ExpeditionTitle, (int)this.RawData.api_id); }
         }
 
         /// <summary>
@@ -41,7 +43,7 @@ namespace ElectronicObserver.Data
         /// </summary>
         public string Detail
         {
-            get { return FormMain.Instance.Translator.GetTranslation(this.RawData.api_name, Utility.TranslateType.ExpeditionDetail); }
+            get { return Utility.ExternalDataReader.Instance.GetTranslation(this.RawData.api_name, Utility.TranslateType.ExpeditionDetail); }
         }
 
         /// <summary>

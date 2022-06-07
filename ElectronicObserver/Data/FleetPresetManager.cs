@@ -28,7 +28,7 @@ namespace ElectronicObserver.Data
 			{
 				case "api_req_hensei/preset_delete":
                     this.Presets.Remove(int.Parse(data["api_preset_no"]));
-					PresetChanged();
+					this.PresetChanged?.Invoke();
 					break;
 			}
 		}
@@ -49,7 +49,7 @@ namespace ElectronicObserver.Data
 							preset.LoadFromResponse(apiname, elem.Value);
                             this.Presets.Add(preset);
 						}
-						PresetChanged();
+						this.PresetChanged?.Invoke();
 					}
 					break;
 
@@ -66,7 +66,8 @@ namespace ElectronicObserver.Data
 							preset.LoadFromResponse(apiname, data);
                             this.Presets.Add(preset);
 						}
-						PresetChanged();
+
+						this.PresetChanged?.Invoke();
 					}
 					break;
 			}

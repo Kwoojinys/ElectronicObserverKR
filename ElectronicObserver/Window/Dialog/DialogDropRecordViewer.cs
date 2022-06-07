@@ -111,7 +111,7 @@ namespace ElectronicObserver.Window.Dialog
                     this._mapCellTable.Add(p.Key, dtbase.Clone());
                     this._mapCellTable[p.Key].Rows.Add(-1, _mapAny);
 
-                    if (Utility.Configuration.Config.FormCompass.ToAlphabet == true)
+                    if (Configuration.Config.FormCompass.ToAlphabet == true)
                     {
                         foreach (var c in p.Value.OrderBy(k => k))
                             this._mapCellTable[p.Key].Rows.Add(c, c.ToString() + "(" + NodeData.GetNodeName(MapAreaID, MapInfoID, c) + ")");
@@ -354,7 +354,7 @@ namespace ElectronicObserver.Window.Dialog
             if (cell != -1)
             {
                 sb.Append("-");
-                if (Utility.Configuration.Config.FormCompass.ToAlphabet)
+                if (Configuration.Config.FormCompass.ToAlphabet)
                 {
                     sb.Append(NodeData.GetNodeName(maparea, mapinfo, cell));
                 }
@@ -419,7 +419,7 @@ namespace ElectronicObserver.Window.Dialog
             if (this.Searcher.IsBusy)
             {
                 if (MessageBox.Show("검색을 취소하시겠습니까?", "검색중입니다.", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2)
-                    == System.Windows.Forms.DialogResult.Yes)
+                    == DialogResult.Yes)
                 {
                     this.Searcher.CancelAsync();
                 }
@@ -545,7 +545,7 @@ namespace ElectronicObserver.Window.Dialog
                     if (args.MapInfoID != -1 && args.MapInfoID != r.MapInfoID)
                         continue;
 
-                    if (Utility.Configuration.Config.FormCompass.ToAlphabet == true)
+                    if (Configuration.Config.FormCompass.ToAlphabet == true)
                     {
                         if (args.MapCellID != -1 && sameNodes.Contains(r.CellID) == false)
                             continue;

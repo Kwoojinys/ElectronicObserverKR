@@ -9,7 +9,6 @@ using ElectronicObserver.Window.Integrate;
 using ElectronicObserver.Window.Support;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
@@ -73,9 +72,6 @@ namespace ElectronicObserver.Window
 
 		public static FormMain Instance;
 
-        public ExternalDataReader Translator { get; private set; }
-
-
         public FormMain()
         {
             ServicePointManager.Expect100Continue = true;
@@ -95,12 +91,11 @@ namespace ElectronicObserver.Window
             Thread.CurrentThread.CurrentCulture = c;
             Thread.CurrentThread.CurrentUICulture = ui;
 
-			this.Translator = ExternalDataReader.Instance;
-
             Instance = this;
             this.InitializeComponent();
             //this.Text = SoftwareInformation.VersionJapanese;
-            Utility.Configuration.Instance.Load(this);
+            Configuration.Instance.Load(this);
+            ExternalDataReader.Instance.Load();
 
             ThemeBase thm;
             switch (Configuration.Config.UI.Theme)
@@ -127,10 +122,10 @@ namespace ElectronicObserver.Window
 
 			if (!Directory.Exists("Settings"))
 				Directory.CreateDirectory("Settings");
-			//Utility.Configuration.Instance.Load(this);
+            //Utility.Configuration.Instance.Load(this);
 
 
-			Utility.Logger.Instance.LogAdded += new Utility.LogAddedEventHandler((Utility.Logger.LogData data) =>
+            Logger.Instance.LogAdded += new Utility.LogAddedEventHandler((Utility.Logger.LogData data) =>
 			{
 				if (this.InvokeRequired)
 				{
@@ -145,8 +140,8 @@ namespace ElectronicObserver.Window
 				}
 			});
 
-			Utility.Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
-			Utility.Logger.Add(2, SoftwareInformation.SoftwareNameKorean + " 를 시작합니다.");
+            Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
+            Logger.Add(LogType.System, SoftwareInformation.SoftwareNameKorean + " 를 시작합니다.");
 
 
 			ResourceManager.Instance.Load();
@@ -197,7 +192,7 @@ namespace ElectronicObserver.Window
 			#endregion
 
 
-			APIObserver.Instance.Start(Utility.Configuration.Config.Connection.Port, this);
+			APIObserver.Instance.Start(Configuration.Config.Connection.Port, this);
 
 
             this.MainDockPanel.Theme.Extender.FloatWindowFactory = new CustomFloatWindowFactory();
@@ -245,7 +240,7 @@ namespace ElectronicObserver.Window
 				catch (Exception ex)
 				{
 
-					Utility.Logger.Add(3, "API 로드를 실패했습니다." + ex.Message);
+                    Logger.Add(LogType.Error, "API 로드를 실패했습니다." + ex.Message);
 				}
 			}
 
@@ -265,14 +260,14 @@ namespace ElectronicObserver.Window
 
             SoftwareInformation.CheckMaintenance();
 
-            Utility.Logger.Add(3, "기동이 완료되었습니다.");
+            Logger.Add(LogType.Alert, "기동이 완료되었습니다.");
         }
 
 
 		private void FormMain_Shown(object sender, EventArgs e)
 		{
             // Load で設定すると無視されるかバグる(タスクバーに出なくなる)のでここで設定
-            this.TopMost = Utility.Configuration.Config.Life.TopMost;
+            this.TopMost = Configuration.Config.Life.TopMost;
 
             // HACK: タスクバーに表示されなくなる不具合への応急処置　効くかは知らない
             this.ShowInTaskbar = true;
@@ -287,14 +282,14 @@ namespace ElectronicObserver.Window
 
 		private void ConfigurationChanged()
 		{
-			var c = Utility.Configuration.Config;
+			var c = Configuration.Config;
 
-            this.BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
-            this.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-            this.StripMenu.BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
-            this.StripMenu.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-            this.StripStatus.BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
-            this.StripStatus.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
+            this.BackColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
+            this.ForeColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+            this.StripMenu.BackColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
+            this.StripMenu.ForeColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+            this.StripStatus.BackColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
+            this.StripStatus.ForeColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
 
             this.StripMenu_Debug.Enabled = this.StripMenu_Debug.Visible =
             this.StripMenu_View_Json.Enabled = this.StripMenu_View_Json.Visible =
@@ -312,27 +307,27 @@ namespace ElectronicObserver.Window
             //StripMenu.Font = Font;
             this.StripStatus.Font = this.Font;
 
-
             this.MainDockPanel.Theme.Skin.AutoHideStripSkin.TextFont = this.Font;
             this.MainDockPanel.Theme.Skin.DockPaneStripSkin.TextFont = this.Font;
 
             if (c.Life.LockLayout)
-			{
+            {
                 this.MainDockPanel.AllowChangeLayout = false;
                 this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             }
-			else
-			{
+            else
+            {
                 this.MainDockPanel.AllowChangeLayout = true;
                 this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
-			}
+            }
 
-            this.StripMenu_File_Layout_LockLayout.Checked	= c.Life.LockLayout;
-            this.MainDockPanel.CanCloseFloatWindowInLock	= c.Life.CanCloseFloatWindowInLock;
-            this.MainDockPanel.CanSizableFloatWindowInLock	= c.Life.CanSizableFloatWindowInLock;
-            this.StripMenu_File_Layout_TopMost.Checked		= c.Life.TopMost;
+            this.StripMenu_File_Layout_LockLayout.Checked = c.Life.LockLayout;
+            this.MainDockPanel.CanCloseFloatWindowInLock = c.Life.CanCloseFloatWindowInLock;
+			this.MainDockPanel.CanSizableFloatWindowInLock = c.Life.CanSizableFloatWindowInLock;
 
-            this.StripMenu_File_Notification_MuteAll.Checked = Notifier.NotifierManager.Instance.GetNotifiers().All(n => n.IsSilenced);
+			this.StripMenu_File_Layout_TopMost.Checked = c.Life.TopMost;
+
+            this.StripMenu_File_Notification_MuteAll.Checked = NotifierManager.Instance.GetNotifiers().All(n => n.IsSilenced);
 
 			if (!c.Control.UseSystemVolume)
                 this._volumeUpdateState = -1;
@@ -405,14 +400,14 @@ namespace ElectronicObserver.Window
 			// WMP コントロールによって音量が勝手に変えられてしまうため、前回終了時の音量の再設定を試みる。
 			// 10回試行してダメなら諦める(例外によるラグを防ぐため)
 			// 起動直後にやらないのはちょっと待たないと音量設定が有効にならないから
-			if (this._volumeUpdateState != -1 && this._volumeUpdateState < 10 && Utility.Configuration.Config.Control.UseSystemVolume)
+			if (this._volumeUpdateState != -1 && this._volumeUpdateState < 10 && Configuration.Config.Control.UseSystemVolume)
 			{
 
 				try
 				{
 					uint id = (uint)System.Diagnostics.Process.GetCurrentProcess().Id;
-					float volume = Utility.Configuration.Config.Control.LastVolume;
-					bool mute = Utility.Configuration.Config.Control.LastIsMute;
+					float volume = Configuration.Config.Control.LastVolume;
+					bool mute = Configuration.Config.Control.LastIsMute;
 
 					BrowserLib.VolumeManager.SetApplicationVolume(id, volume);
 					BrowserLib.VolumeManager.SetApplicationMute(id, mute);
@@ -439,10 +434,10 @@ namespace ElectronicObserver.Window
 		private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
 		{
 
-			if (Utility.Configuration.Config.Life.ConfirmOnClosing)
+			if (Configuration.Config.Life.ConfirmOnClosing)
 			{
 				if (MessageBox.Show(SoftwareInformation.SoftwareNameKorean + "를 종료하시겠습니까？", "확인", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
-					== System.Windows.Forms.DialogResult.No)
+					== DialogResult.No)
 				{
 					e.Cancel = true;
 					return;
@@ -450,7 +445,7 @@ namespace ElectronicObserver.Window
 			}
 
 
-			Utility.Logger.Add(2, SoftwareInformation.SoftwareNameKorean + "를 종료합니다…");
+            Logger.Add(LogType.System, SoftwareInformation.SoftwareNameKorean + "를 종료합니다…");
 
             this.UIUpdateTimer.Stop();
 
@@ -468,8 +463,8 @@ namespace ElectronicObserver.Window
 				try
 				{
 					uint id = (uint)System.Diagnostics.Process.GetCurrentProcess().Id;
-					Utility.Configuration.Config.Control.LastVolume = BrowserLib.VolumeManager.GetApplicationVolume(id);
-					Utility.Configuration.Config.Control.LastIsMute = BrowserLib.VolumeManager.GetApplicationMute(id);
+                    Configuration.Config.Control.LastVolume = BrowserLib.VolumeManager.GetApplicationVolume(id);
+                    Configuration.Config.Control.LastIsMute = BrowserLib.VolumeManager.GetApplicationMute(id);
 
 				}
 				catch (Exception)
@@ -483,15 +478,15 @@ namespace ElectronicObserver.Window
 		private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			NotifierManager.Instance.ApplyToConfiguration();
-			Utility.Configuration.Instance.Save();
+            Configuration.Instance.Save();
 			RecordManager.Instance.SavePartial();
 			KCDatabase.Instance.Save();
 			APIObserver.Instance.Stop();
 
-			Utility.Logger.Add(2, "종료가 완료되었습니다.");
+            Logger.Add(LogType.System, "종료가 완료되었습니다.");
 
-			if (Utility.Configuration.Config.Log.SaveLogFlag)
-				Utility.Logger.Save();
+			if (Configuration.Config.Log.SaveLogFlag)
+                Logger.Save();
 		}
 
 
@@ -599,7 +594,7 @@ namespace ElectronicObserver.Window
 			catch (Exception ex)
 			{
 
-				Utility.ErrorReporter.SendErrorReport(ex, "서브윈도우 레이아웃 복원에 실패했습니다.");
+                ErrorReporter.SendErrorReport(ex, "서브윈도우 레이아웃 복원에 실패했습니다.");
 			}
 
 		}
@@ -617,7 +612,7 @@ namespace ElectronicObserver.Window
 			catch (Exception ex)
 			{
 
-				Utility.ErrorReporter.SendErrorReport(ex, "서브 윈도우 레이아웃 저장에 실패했습니다.");
+                ErrorReporter.SendErrorReport(ex, "서브 윈도우 레이아웃 저장에 실패했습니다.");
 			}
 
 		}
@@ -637,13 +632,13 @@ namespace ElectronicObserver.Window
                     this.LoadSubWindowsLayout(archive.GetEntry("SubWindowLayout.xml").Open());
 				}
 
-				Utility.Logger.Add(2, path + " 에서 레이아웃을 로드했습니다.");
+                Logger.Add(LogType.System, path + " 에서 레이아웃을 로드했습니다.");
 
 			}
 			catch (FileNotFoundException)
 			{
 
-				Utility.Logger.Add(3, string.Format("레이아웃 파일이 잘못되었습니다."));
+                Logger.Add(LogType.Error, string.Format("레이아웃 파일이 잘못되었습니다."));
 				MessageBox.Show("레이아웃이 초기화 되었습니다.\r\n'보기'메뉴에서 원하는 창을 추가하십시오.", "레이아웃 파일이 잘못되었습니다.",
 					MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -653,7 +648,7 @@ namespace ElectronicObserver.Window
 			catch (DirectoryNotFoundException)
 			{
 
-				Utility.Logger.Add(3, string.Format("레이아웃 파일이 존재하지 않습니다."));
+                Logger.Add(LogType.Error, string.Format("레이아웃 파일이 존재하지 않습니다."));
 				MessageBox.Show("레이아웃이 초기화 되었습니다.\r\n'보기'메뉴에서 원하는 창을 추가하십시오.", "레이아웃 파일이 존재하지 않습니다.",
 					MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -663,7 +658,7 @@ namespace ElectronicObserver.Window
 			catch (Exception ex)
 			{
 
-				Utility.ErrorReporter.SendErrorReport(ex, "레이아웃 복원에 실패했습니다.");
+                ErrorReporter.SendErrorReport(ex, "레이아웃 복원에 실패했습니다.");
 
 			}
 			finally
@@ -696,13 +691,13 @@ namespace ElectronicObserver.Window
 				}
 
 
-				Utility.Logger.Add(2, path + " 에 레이아웃을 저장했습니다.");
+                Logger.Add(LogType.System, path + " 에 레이아웃을 저장했습니다.");
 
 			}
 			catch (Exception ex)
 			{
 
-				Utility.ErrorReporter.SendErrorReport(ex, "레이아웃 저장에 실패했습니다.");
+                ErrorReporter.SendErrorReport(ex, "레이아웃 저장에 실패했습니다.");
 			}
 
 		}
@@ -735,13 +730,13 @@ namespace ElectronicObserver.Window
 		{
             this.UpdatePlayTime();
 
-			using (var dialog = new DialogConfiguration(Utility.Configuration.Config))
+			using (var dialog = new DialogConfiguration(Configuration.Config))
 			{
-				if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 
-					dialog.ToConfiguration(Utility.Configuration.Config);
-					Utility.Configuration.Instance.OnConfigurationChanged();
+					dialog.ToConfiguration(Configuration.Config);
+                    Configuration.Instance.OnConfigurationChanged();
 
 				}
 			}
@@ -762,7 +757,7 @@ namespace ElectronicObserver.Window
 		{
 			if (MessageBox.Show("저장하지 않은 기록이 소실될 수 있습니다.\r\n로드하시겠습니까?", "확인",
 					MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
-				== System.Windows.Forms.DialogResult.Yes)
+				== DialogResult.Yes)
 			{
 
 				RecordManager.Instance.Load();
@@ -778,11 +773,11 @@ namespace ElectronicObserver.Window
 
 				ofd.Title = "API리스트를 로드";
 				ofd.Filter = "API List|*.txt|File|*";
-				ofd.InitialDirectory = Utility.Configuration.Config.Connection.SaveDataPath;
-                if (!string.IsNullOrWhiteSpace(Utility.Configuration.Config.Debug.APIListPath))
-                    ofd.FileName = Utility.Configuration.Config.Debug.APIListPath;
+				ofd.InitialDirectory = Configuration.Config.Connection.SaveDataPath;
+                if (!string.IsNullOrWhiteSpace(Configuration.Config.Debug.APIListPath))
+                    ofd.FileName = Configuration.Config.Debug.APIListPath;
 
-                if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (ofd.ShowDialog() == DialogResult.OK)
 				{
 
 					try
@@ -887,7 +882,7 @@ namespace ElectronicObserver.Window
 				ofd.Title = "이전 api_start2 에서 기록";
 				ofd.Filter = "api_start2|*api_start2*.json|JSON|*.json|File|*";
 
-				if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				if (ofd.ShowDialog() == DialogResult.OK)
 				{
 
 					try
@@ -936,9 +931,9 @@ namespace ElectronicObserver.Window
 
                 ofd.Title = "이전 api_start2 에서 기록";
                 ofd.Filter = "api_start2|*api_start2*.json|JSON|*.json|File|*";
-                ofd.InitialDirectory = Utility.Configuration.Config.Connection.SaveDataPath;
+                ofd.InitialDirectory = Configuration.Config.Connection.SaveDataPath;
 
-				if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				if (ofd.ShowDialog() == DialogResult.OK)
 				{
 
 					try
@@ -962,7 +957,7 @@ namespace ElectronicObserver.Window
 							}
 						}
 
-						Utility.Logger.Add(1, "이전 api_start2 에서 데이터를 복원했습니다.");
+                        Logger.Add(LogType.System, "이전 api_start2 에서 데이터를 복원했습니다.");
 
 					}
 					catch (Exception ex)
@@ -1025,7 +1020,7 @@ namespace ElectronicObserver.Window
         private async void StripMenu_Debug_DeleteOldAPI_Click(object sender, EventArgs e)
 		{
 			if (MessageBox.Show("이전 API 데이터를 삭제합니다.\r\n실행하시겠습니까?", "확인", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
-				== System.Windows.Forms.DialogResult.Yes)
+				== DialogResult.Yes)
 			{
 
 				try
@@ -1051,7 +1046,7 @@ namespace ElectronicObserver.Window
 
 			var apilist = new Dictionary<string, List<KeyValuePair<string, string>>>();
 
-			foreach (string s in Directory.EnumerateFiles(Utility.Configuration.Config.Connection.SaveDataPath, "*.json", SearchOption.TopDirectoryOnly))
+			foreach (string s in Directory.EnumerateFiles(Configuration.Config.Connection.SaveDataPath, "*.json", SearchOption.TopDirectoryOnly))
 			{
 
 				int start = s.IndexOf('@');
@@ -1103,7 +1098,7 @@ namespace ElectronicObserver.Window
 			if (MessageBox.Show("저장된 함선 이름을 가진 파일 및 폴더를 다시 로드합니다.\r\n" +
 				"대상은 지정된 폴더 아래의 모든 파일 및 폴더입니다.\r\n" +
 				"계속 하시겠습니까?", "함선 파일의 이름을 변경", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-				== System.Windows.Forms.DialogResult.Yes)
+				== DialogResult.Yes)
 			{
 
 				string path = null;
@@ -1111,7 +1106,7 @@ namespace ElectronicObserver.Window
 				using (FolderBrowserDialog dialog = new FolderBrowserDialog())
 				{
 					dialog.SelectedPath = Configuration.Config.Connection.SaveDataPath;
-					if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+					if (dialog.ShowDialog() == DialogResult.OK)
 					{
 						path = dialog.SelectedPath;
 					}
@@ -1131,7 +1126,7 @@ namespace ElectronicObserver.Window
 				catch (Exception ex)
 				{
 
-					Utility.ErrorReporter.SendErrorReport(ex, "함선 파일 이름 바꾸기에 실패했습니다.");
+                    ErrorReporter.SendErrorReport(ex, "함선 파일 이름 바꾸기에 실패했습니다.");
 					MessageBox.Show("함선 파일 이름 바꾸기에 실패했습니다.\r\n" + ex.Message, "애러", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 				}
@@ -1200,7 +1195,7 @@ namespace ElectronicObserver.Window
 		{
 			if (MessageBox.Show("외부 브라우저에서 온라인 메뉴얼을 엽니다.\r\n계속 하시겠습니까?", "도움말",
 				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-				== System.Windows.Forms.DialogResult.Yes)
+				== DialogResult.Yes)
 			{
 
 				System.Diagnostics.Process.Start("https://github.com/TheLokis/ElectronicObserver/wiki");
@@ -1214,12 +1209,12 @@ namespace ElectronicObserver.Window
 
 		private void StripMenu_File_Layout_Load_Click(object sender, EventArgs e)
         {
-            this.LoadLayout(Utility.Configuration.Config.Life.LayoutFilePath);
+            this.LoadLayout(Configuration.Config.Life.LayoutFilePath);
 		}
 
 		private void StripMenu_File_Layout_Save_Click(object sender, EventArgs e)
 		{
-            this.SaveLayout(Utility.Configuration.Config.Life.LayoutFilePath);
+            this.SaveLayout(Configuration.Config.Life.LayoutFilePath);
 		}
 
 		private void StripMenu_File_Layout_Open_Click(object sender, EventArgs e)
@@ -1231,13 +1226,13 @@ namespace ElectronicObserver.Window
 				dialog.Title = "레이아웃 파일 열기";
 
 
-				PathHelper.InitOpenFileDialog(Utility.Configuration.Config.Life.LayoutFilePath, dialog);
+				PathHelper.InitOpenFileDialog(Configuration.Config.Life.LayoutFilePath, dialog);
 
-				if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				if (dialog.ShowDialog() == DialogResult.OK)
 				{
 
-					Utility.Configuration.Config.Life.LayoutFilePath = PathHelper.GetPathFromOpenFileDialog(dialog);
-                    this.LoadLayout(Utility.Configuration.Config.Life.LayoutFilePath);
+                    Configuration.Config.Life.LayoutFilePath = PathHelper.GetPathFromOpenFileDialog(dialog);
+                    this.LoadLayout(Configuration.Config.Life.LayoutFilePath);
 
 				}
 			}
@@ -1250,12 +1245,12 @@ namespace ElectronicObserver.Window
 				dialog.Filter = "Layout Archive|*.zip|File|*";
 				dialog.Title = "레이아웃 파일 저장";
 
-				PathHelper.InitSaveFileDialog(Utility.Configuration.Config.Life.LayoutFilePath, dialog);
+				PathHelper.InitSaveFileDialog(Configuration.Config.Life.LayoutFilePath, dialog);
 
-				if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				if (dialog.ShowDialog() == DialogResult.OK)
 				{
-					Utility.Configuration.Config.Life.LayoutFilePath = PathHelper.GetPathFromSaveFileDialog(dialog);
-                    this.SaveLayout(Utility.Configuration.Config.Life.LayoutFilePath);
+                    Configuration.Config.Life.LayoutFilePath = PathHelper.GetPathFromSaveFileDialog(dialog);
+                    this.SaveLayout(Configuration.Config.Life.LayoutFilePath);
 				}
 			}
 		}
@@ -1363,13 +1358,17 @@ namespace ElectronicObserver.Window
 
         private void StripMenu_File_Layout_LockLayout_Click(object sender, EventArgs e)
 		{
-			Utility.Configuration.Config.Life.LockLayout = this.StripMenu_File_Layout_LockLayout.Checked;
+            Configuration.Config.Life.LockLayout = this.StripMenu_File_Layout_LockLayout.Checked;
+            Configuration.Instance.OnConfigurationChanged();
+
             this.ConfigurationChanged();
 		}
 
 		private void StripMenu_File_Layout_TopMost_Click(object sender, EventArgs e)
 		{
-			Utility.Configuration.Config.Life.TopMost = this.StripMenu_File_Layout_TopMost.Checked;
+            Configuration.Config.Life.TopMost = this.StripMenu_File_Layout_TopMost.Checked;
+            Configuration.Instance.OnConfigurationChanged();
+
             this.ConfigurationChanged();
 		}
 
@@ -1405,7 +1404,7 @@ namespace ElectronicObserver.Window
 
 		private void UpdatePlayTime()
 		{
-			var c = Utility.Configuration.Config.Log;
+			var c = Configuration.Config.Log;
 			DateTime now = DateTime.Now;
 
 			double span = (now - this._prevPlayTimeRecorded).TotalSeconds;

@@ -239,7 +239,8 @@ namespace ElectronicObserver.Data
 
 						//debug
 						if (Utility.Configuration.Config.Debug.EnableDebugMenu)
-							Utility.Logger.Add(1, "아카시 수리: 타이머를 재설정합니다.");
+							Utility.Logger.Add(Utility.LogType.Alert, "아카시 수리: 타이머를 재설정합니다.");
+
 						return;
 					}
 

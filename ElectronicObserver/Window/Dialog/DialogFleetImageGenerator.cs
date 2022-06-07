@@ -72,7 +72,7 @@ namespace ElectronicObserver.Window.Dialog
 
 		private void LoadConfiguration()
 		{
-			var config = Utility.Configuration.Config.FleetImageGenerator;
+			var config = Configuration.Config.FleetImageGenerator;
 
             this.CurrentArgument = config.Argument.Clone();
 
@@ -113,7 +113,7 @@ namespace ElectronicObserver.Window.Dialog
 
 		private void SaveConfiguration()
 		{
-			var config = Utility.Configuration.Config.FleetImageGenerator;
+			var config = Configuration.Config.FleetImageGenerator;
 
 			if (config.Argument != null)
 				config.Argument.DisposeResources();
@@ -354,7 +354,7 @@ namespace ElectronicObserver.Window.Dialog
 				{
 					if (MessageBox.Show(Path.GetFileName(this.OutputPath.Text) + "\r\n은 이미 존재하는 파일입니다.\r\n덮어 쓰시겠습니까?", "덮어쓰기 확인",
 						MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2)
-						== System.Windows.Forms.DialogResult.No)
+						== DialogResult.No)
 					{
 						args.DisposeResources();
 						return;
@@ -440,7 +440,7 @@ namespace ElectronicObserver.Window.Dialog
                 this.CurrentArgument = args;
                 this.SaveConfiguration();
 
-				Utility.Logger.Add(2, "편성 이미지를 출력했습니다.");
+                Logger.Add(LogType.System, "편성 이미지를 출력했습니다.");
 
 			}
 			catch (Exception ex)
@@ -543,7 +543,7 @@ namespace ElectronicObserver.Window.Dialog
 
 			bool visibility = false;
 
-            if (!Utility.Configuration.Config.Connection.SaveReceivedData || !Utility.Configuration.Config.Connection.SaveOtherFile)
+            if (!Configuration.Config.Connection.SaveReceivedData || !Configuration.Config.Connection.SaveOtherFile)
             {
 
                 visibility = true;
@@ -566,14 +566,14 @@ namespace ElectronicObserver.Window.Dialog
 
 		private void ButtonAlert_Click(object sender, EventArgs e)
 		{
-            var config = Utility.Configuration.Config.Connection;
+            var config = Configuration.Config.Connection;
 
             if (!config.SaveReceivedData || !config.SaveOtherFile)
             {
 
                 if (MessageBox.Show("편성 이미지를 출력하기 위해서는 함선 이미지 저장 설정을 활성화해야합니다.\r\n활성화 하시겠습니까?",
 					"함선 이미지 저장 설정이 잘못되었습니다.", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
-					== System.Windows.Forms.DialogResult.Yes)
+					== DialogResult.Yes)
 				{
 
                     if (!config.SaveReceivedData)
@@ -629,7 +629,7 @@ namespace ElectronicObserver.Window.Dialog
 
 			if (MessageBox.Show("폰트를 기본 설정으로 되돌립니다.\r\n진행하시겠습니까?", "초기화 확인",
 				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
-				 == System.Windows.Forms.DialogResult.Yes)
+				 == DialogResult.Yes)
 			{
 
 				if (this.GeneralFont != null)
@@ -746,13 +746,13 @@ namespace ElectronicObserver.Window.Dialog
 
 			try
 			{
-                this.SaveImageDialog.FileName = System.IO.Path.GetFileName(this.OutputPath.Text);
-                this.SaveImageDialog.InitialDirectory = string.IsNullOrWhiteSpace(this.OutputPath.Text) ? "" : System.IO.Path.GetDirectoryName(this.OutputPath.Text);
+                this.SaveImageDialog.FileName = Path.GetFileName(this.OutputPath.Text);
+                this.SaveImageDialog.InitialDirectory = string.IsNullOrWhiteSpace(this.OutputPath.Text) ? "" : Path.GetDirectoryName(this.OutputPath.Text);
 			}
 			catch (Exception)
 			{
 			}
-			if (this.SaveImageDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (this.SaveImageDialog.ShowDialog() == DialogResult.OK)
 			{
                 this.OutputPath.Text = this.SaveImageDialog.FileName;
 			}

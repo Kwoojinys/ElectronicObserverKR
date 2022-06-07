@@ -1,17 +1,13 @@
 ﻿using ElectronicObserver.Data;
 using ElectronicObserver.Observer;
 using ElectronicObserver.Resource;
+using ElectronicObserver.Utility;
 using ElectronicObserver.Utility.Mathematics;
 using ElectronicObserver.Window.Control;
 using ElectronicObserver.Window.Support;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -92,7 +88,7 @@ namespace ElectronicObserver.Window
 
 				KCDatabase db = KCDatabase.Instance;
 				ArsenalData arsenal = db.Arsenals[arsenalID];
-				bool showShipName = Utility.Configuration.Config.FormArsenal.ShowShipName;
+				bool showShipName = Configuration.Config.FormArsenal.ShowShipName;
 
                 this.CompletionTime.BackColor = Color.Transparent;
                 this.tooltip.SetToolTip(this.ShipName, null);
@@ -149,16 +145,16 @@ namespace ElectronicObserver.Window
 
                     this.CompletionTime.Text = DateTimeHelper.ToTimeRemainString(time);
 
-					if (Utility.Configuration.Config.FormArsenal.BlinkAtCompletion && (time - DateTime.Now).TotalMilliseconds <= Utility.Configuration.Config.NotifierConstruction.AccelInterval)
+					if (Configuration.Config.FormArsenal.BlinkAtCompletion && (time - DateTime.Now).TotalMilliseconds <= Configuration.Config.NotifierConstruction.AccelInterval)
 					{
-                        this.CompletionTime.BackColor = DateTime.Now.Second % 2 == 0 ? Utility.ThemeManager.GetColor(Utility.ThemeColors.GreenHighlight) : Color.Transparent;
+                        this.CompletionTime.BackColor = DateTime.Now.Second % 2 == 0 ? ThemeManager.GetColor(ThemeColors.GreenHighlight) : Color.Transparent;
 					}
 
 				}
-				else if (Utility.Configuration.Config.FormArsenal.BlinkAtCompletion && !string.IsNullOrWhiteSpace(this.CompletionTime.Text))
+				else if (Configuration.Config.FormArsenal.BlinkAtCompletion && !string.IsNullOrWhiteSpace(this.CompletionTime.Text))
 				{
                     //完成しているので
-                    this.CompletionTime.BackColor = DateTime.Now.Second % 2 == 0 ? Utility.ThemeManager.GetColor(Utility.ThemeColors.GreenHighlight) : Color.Transparent;
+                    this.CompletionTime.BackColor = DateTime.Now.Second % 2 == 0 ? ThemeManager.GetColor(ThemeColors.GreenHighlight) : Color.Transparent;
 				}
 			}
 
@@ -166,7 +162,7 @@ namespace ElectronicObserver.Window
 			public void ConfigurationChanged(FormArsenal parent)
 			{
 
-				var config = Utility.Configuration.Config.FormArsenal;
+				var config = Configuration.Config.FormArsenal;
 
                 this.ShipName.Font = parent.Font;
                 this.CompletionTime.Font = parent.Font;
@@ -192,7 +188,7 @@ namespace ElectronicObserver.Window
 		{
             this.InitializeComponent();
 
-			Utility.SystemEvents.UpdateTimerTick += this.UpdateTimerTick;
+            SystemEvents.UpdateTimerTick += this.UpdateTimerTick;
 
 			ControlHelper.SetDoubleBuffered(this.TableArsenal);
 
@@ -207,6 +203,12 @@ namespace ElectronicObserver.Window
             this._buildingID = -1;
 
             this.ConfigurationChanged();
+
+
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
 
             this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormArsenal]);
 		}
@@ -225,8 +227,11 @@ namespace ElectronicObserver.Window
 			o["api_req_kousyou/getship"].ResponseReceived += this.Updated;
 			o["api_get_member/require_info"].ResponseReceived += this.Updated;
 
-			Utility.Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
-
+            Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
 		}
 
 
@@ -240,7 +245,7 @@ namespace ElectronicObserver.Window
 				ShipDataMaster ship = KCDatabase.Instance.MasterShips[arsenal.ShipID];
 				string name;
 
-				if (Utility.Configuration.Config.Log.ShowSpoiler && Utility.Configuration.Config.FormArsenal.ShowShipName)
+				if (Configuration.Config.Log.ShowSpoiler && Configuration.Config.FormArsenal.ShowShipName)
 				{
 
 					name = string.Format("{0}「{1}」", ship.ShipTypeName, ship.NameWithClass);
@@ -252,7 +257,7 @@ namespace ElectronicObserver.Window
 					name = "함명";
 				}
 
-				Utility.Logger.Add(2, string.Format("공창독 #{0}에 {1}의 건조를 시작했습니다. ({2}/{3}/{4}/{5}-{6} 비서함: {7})",
+                Logger.Add(LogType.Arsenal, string.Format("공창독 #{0}에 {1}의 건조를 시작했습니다. ({2}/{3}/{4}/{5}-{6} 비서함: {7})",
                     this._buildingID,
 					name,
 					arsenal.Fuel,
@@ -300,11 +305,11 @@ namespace ElectronicObserver.Window
 
 		void ConfigurationChanged()
 		{
+            this.Font = Configuration.Config.UI.MainFont;
+            this.MenuMain_ShowShipName.Checked = Configuration.Config.FormArsenal.ShowShipName;
+            this.ForeColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+            this.BackColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
 
-            this.Font = Utility.Configuration.Config.UI.MainFont;
-            this.MenuMain_ShowShipName.Checked = Utility.Configuration.Config.FormArsenal.ShowShipName;
-            this.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-            this.BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
             if (this.ControlArsenal != null)
 			{
                 this.TableArsenal.SuspendLayout();
@@ -317,13 +322,13 @@ namespace ElectronicObserver.Window
                 this.TableArsenal.ResumeLayout();
 			}
 
-
+            this.ApplyLockLayoutState();
         }
 
 
-		private void MenuMain_ShowShipName_CheckedChanged(object sender, EventArgs e)
+        private void MenuMain_ShowShipName_CheckedChanged(object sender, EventArgs e)
 		{
-			Utility.Configuration.Config.FormArsenal.ShowShipName = this.MenuMain_ShowShipName.Checked;
+            Configuration.Config.FormArsenal.ShowShipName = this.MenuMain_ShowShipName.Checked;
 
             this.UpdateUI();
 		}

@@ -143,7 +143,7 @@ namespace ElectronicObserver.Window
 
             public string GetAirSuperiorityString()
             {
-                switch (Utility.Configuration.Config.FormFleet.AirSuperiorityMethod)
+                switch (Configuration.Config.FormFleet.AirSuperiorityMethod)
                 {
                     case 0:
                     default:
@@ -153,7 +153,7 @@ namespace ElectronicObserver.Window
                             int min = Calculator.GetAirSuperiority(KCDatabase.Instance.Fleet[1], false) + Calculator.GetAirSuperiority(KCDatabase.Instance.Fleet[2], false);
                             int max = Calculator.GetAirSuperiority(KCDatabase.Instance.Fleet[1], true) + Calculator.GetAirSuperiority(KCDatabase.Instance.Fleet[2], true);
 
-                            if (Utility.Configuration.Config.FormFleet.ShowAirSuperiorityRange && min < max)
+                            if (Configuration.Config.FormFleet.ShowAirSuperiorityRange && min < max)
                                 return string.Format("{0} ～ {1}", min, max);
                             else
                                 return min.ToString();
@@ -217,7 +217,7 @@ namespace ElectronicObserver.Window
                 //制空戦力計算	
                 {
                     int airSuperiority = fleet1.GetAirSuperiority() + fleet2.GetAirSuperiority();
-                    bool includeLevel = Utility.Configuration.Config.FormFleet.AirSuperiorityMethod == 1;
+                    bool includeLevel = Configuration.Config.FormFleet.AirSuperiorityMethod == 1;
                     this.TotalAirSuperiority.Text   = this.GetAirSuperiorityString();
                     this.Fleet1AirSuperiority.Text  = fleet1.GetAirSuperiorityString();
                     this.Fleet2AirSuperiority.Text  = fleet2.GetAirSuperiorityString();
@@ -312,6 +312,7 @@ namespace ElectronicObserver.Window
                 this.AntiAirPower.Font = parent.MainFont;
 
                 ControlHelper.SetTableRowStyles(parent.TableFleet, ControlHelper.GetDefaultRowStyle());
+
             }
 
             public void Dispose()
@@ -458,19 +459,19 @@ namespace ElectronicObserver.Window
                             Constants.GetSpeed(ship.Speed)
                             ));
                     {
-                        var colorscheme = Utility.Configuration.Config.FormFleet.SallyAreaColorScheme;
+                        var colorscheme = Configuration.Config.FormFleet.SallyAreaColorScheme;
 
-                        if (Utility.Configuration.Config.FormFleet.AppliesSallyAreaColor &&
+                        if (Configuration.Config.FormFleet.AppliesSallyAreaColor &&
                             (colorscheme?.Count ?? 0) > 0 &&
                             ship.SallyArea >= 0)
                         {
-                            this.Name.ForeColor = ThemeManager.GetColor(Utility.ThemeColors.ExtraFontColor);
+                            this.Name.ForeColor = ThemeManager.GetColor(ThemeColors.ExtraFontColor);
                             this.Name.BackColor = colorscheme[Math.Min(ship.SallyArea, colorscheme.Count - 1)];
                         }
                         else
                         {
-                            this.Name.ForeColor = ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-                            this.Name.BackColor = ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
+                            this.Name.ForeColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+                            this.Name.BackColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
                         }
                     }
 
@@ -500,7 +501,7 @@ namespace ElectronicObserver.Window
                     }
                     else
                     {
-                        this.HP.BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
+                        this.HP.BackColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
                     }
                     {
                         StringBuilder sb = new StringBuilder();
@@ -658,7 +659,7 @@ namespace ElectronicObserver.Window
                 {
                     int airsup_min;
                     int airsup_max;
-                    if (Utility.Configuration.Config.FormFleet.AirSuperiorityMethod == 1)
+                    if (Configuration.Config.FormFleet.AirSuperiorityMethod == 1)
                     {
                         airsup_min = Calculator.GetAirSuperiority(ship, false);
                         airsup_max = Calculator.GetAirSuperiority(ship, true);
@@ -673,7 +674,7 @@ namespace ElectronicObserver.Window
                     {
 
                         string airsup_str;
-                        if (Utility.Configuration.Config.FormFleet.ShowAirSuperiorityRange && airsup_min < airsup_max)
+                        if (Configuration.Config.FormFleet.ShowAirSuperiorityRange && airsup_min < airsup_max)
                         {
                             airsup_str = string.Format("{0} ～ {1}", airsup_min, airsup_max);
                         }
@@ -711,7 +712,7 @@ namespace ElectronicObserver.Window
                     else if (cond < 50)
                         this.Condition.BackColor = Color.Transparent;
                     else
-                        this.Condition.BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.GreenHighlight);
+                        this.Condition.BackColor = ThemeManager.GetColor(ThemeColors.GreenHighlight);
 
                 }
                 else
@@ -764,12 +765,12 @@ namespace ElectronicObserver.Window
         {
             this.InitializeComponent();
 
-            Utility.SystemEvents.UpdateTimerTick += this.UpdateTimerTick;
+            SystemEvents.UpdateTimerTick += this.UpdateTimerTick;
 
             this.ConfigurationChanged();
 
-            this.MainFontColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-            this.SubFontColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.SubFontColor);
+            this.MainFontColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+            this.SubFontColor = ThemeManager.GetColor(ThemeColors.SubFontColor);
 
             this._anchorageRepairBound = 0;
 
@@ -803,6 +804,10 @@ namespace ElectronicObserver.Window
 
             this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormFleet]);
 
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
         }
 
         private void FormCombinedFleet_Load(object sender, EventArgs e)
@@ -840,7 +845,11 @@ namespace ElectronicObserver.Window
             o["api_req_kaisou/slot_deprive"].ResponseReceived += this.Updated;
             o["api_req_kaisou/marriage"].ResponseReceived += this.Updated;
 
-            Utility.Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
+            Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
         }
 
         void Updated(string apiname, dynamic data)
@@ -958,14 +967,14 @@ namespace ElectronicObserver.Window
 
         void ConfigurationChanged()
         {
-            var c = Utility.Configuration.Config;
+            var c = Configuration.Config;
 
             this.MainFont = this.Font = c.UI.MainFont;
             this.SubFont = c.UI.SubFont;
-            this.BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
-            this.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-            this.MainFontColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-            this.SubFontColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.SubFontColor);
+            this.BackColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
+            this.ForeColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+            this.MainFontColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+            this.SubFontColor = ThemeManager.GetColor(ThemeColors.SubFontColor);
 
             this.AutoScroll = c.FormFleet.IsScrollable;
             for (int i = 0; i < this._controlFleet.Length; i++)
@@ -1037,6 +1046,8 @@ namespace ElectronicObserver.Window
 
                 this.TableMember.PerformLayout();        //fixme:サイズ変更に親パネルが追随しない
             }
+
+            this.ApplyLockLayoutState();
         }
 
         protected override string GetPersistString()

@@ -1,4 +1,5 @@
 ﻿using ElectronicObserver.Resource;
+using ElectronicObserver.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,22 +17,23 @@ namespace ElectronicObserver.Window
 	public partial class FormLog : DockContent
 	{
 
-
 		public FormLog(FormMain parent)
 		{
             this.InitializeComponent();
 
             this.ConfigurationChanged();
-		}
+
+            this.ApplyLockLayoutState();
+        }
 
 		private void FormLog_Load(object sender, EventArgs e)
 		{
-
 			foreach (var log in Utility.Logger.Log)
 			{
-				if (log.Priority >= Utility.Configuration.Config.Log.LogLevel)
+				if (Utility.Configuration.Config.Log.VisibleLogList[(int)log.Type] == true)
                     this.LogList.Items.Add(log.ToString());
 			}
+
             this.LogList.TopIndex = this.LogList.Items.Count - 1;
 
 			Utility.Logger.Instance.LogAdded += new Utility.LogAddedEventHandler((Utility.Logger.LogData data) =>
@@ -50,8 +52,11 @@ namespace ElectronicObserver.Window
 			});
 
 			Utility.Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
-
-            this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormLog]);
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
+			this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormLog]);
 		}
 
 
@@ -64,6 +69,11 @@ namespace ElectronicObserver.Window
             this.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
             this.LogList.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
             this.LogList.BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
+
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
         }
 
 

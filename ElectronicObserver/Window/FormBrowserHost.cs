@@ -1,6 +1,7 @@
 ﻿using BrowserLib;
 using ElectronicObserver.Observer;
 using ElectronicObserver.Resource;
+using ElectronicObserver.Utility;
 using ElectronicObserver.Utility.Mathematics;
 using mshtml;
 using System;
@@ -98,7 +99,9 @@ namespace ElectronicObserver.Window
 		private void FormBrowser_Load(object sender, EventArgs e)
 		{
             this.LaunchBrowserProcess();
-		}
+
+            this.ApplyLockLayoutState();
+        }
 
 
 		private void LaunchBrowserProcess()
@@ -111,12 +114,12 @@ namespace ElectronicObserver.Window
 			{
 				// プロセス起動
 
-				if (System.IO.File.Exists(BrowserExeName))
+				if (File.Exists(BrowserExeName))
                     this.BrowserProcess = Process.Start(BrowserExeName, this.ServerUri);
 
 				else    //デバッグ環境用 作業フォルダにかかわらず自分と同じフォルダのを参照する
                     this.BrowserProcess = Process.Start(
-						System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + BrowserExeName,
+                        Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + BrowserExeName,
                         this.ServerUri);
 
 				// 残りはサーバに接続してきたブラウザプロセスがドライブする
@@ -138,6 +141,11 @@ namespace ElectronicObserver.Window
             this.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
             this.Browser.AsyncRemoteRun(() => this.Browser.Proxy.ConfigurationChanged(this.Configuration));
             this.Browser.AsyncRemoteRun(() => this.Browser.Proxy.ConfigurationChanged(this.Configuration));
+
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
         }
 
 
@@ -214,9 +222,9 @@ namespace ElectronicObserver.Window
 			Utility.ErrorReporter.SendErrorReport(new Exception(exceptionName), message);
 		}
 
-		public void AddLog(int priority, string message)
+		public void AddLog(int type, string message)
 		{
-			Utility.Logger.Add(priority, message);
+			Utility.Logger.Add((Utility.LogType) type, message);
 		}
 
 
@@ -258,24 +266,24 @@ namespace ElectronicObserver.Window
 
 			var c = Utility.Configuration.Config.FormBrowser;
 
-			c.ZoomRate = config.ZoomRate;
-			c.ZoomFit = config.ZoomFit;
-			c.LogInPageURL = config.LogInPageURL;
-			c.IsEnabled = config.IsEnabled;
-			c.ScreenShotPath = config.ScreenShotPath;
-			c.ScreenShotFormat = config.ScreenShotFormat;
-			c.ScreenShotSaveMode = config.ScreenShotSaveMode;
-			c.StyleSheet = config.StyleSheet;
-			c.IsScrollable = config.IsScrollable;
-			c.AppliesStyleSheet = config.AppliesStyleSheet;
-			c.IsDMMreloadDialogDestroyable = config.IsDMMreloadDialogDestroyable;
-			c.AvoidTwitterDeterioration = config.AvoidTwitterDeterioration;
-			c.ToolMenuDockStyle = (DockStyle)config.ToolMenuDockStyle;
-			c.IsToolMenuVisible = config.IsToolMenuVisible;
-			c.ConfirmAtRefresh = config.ConfirmAtRefresh;
-            c.HardwareAccelerationEnabled = config.HardwareAccelerationEnabled;
-            c.ForceColorProfile = config.ForceColorProfile;
-            c.PreserveDrawingBuffer = config.PreserveDrawingBuffer;
+			c.ZoomRate						= config.ZoomRate;
+			c.ZoomFit						= config.ZoomFit;
+			c.LogInPageURL					= config.LogInPageURL;
+			c.IsEnabled						= config.IsEnabled;
+			c.ScreenShotPath				= config.ScreenShotPath;
+			c.ScreenShotFormat				= config.ScreenShotFormat;
+			c.ScreenShotSaveMode			= config.ScreenShotSaveMode;
+			c.StyleSheet					= config.StyleSheet;
+			c.IsScrollable					= config.IsScrollable;
+			c.AppliesStyleSheet				= config.AppliesStyleSheet;
+			c.IsDMMreloadDialogDestroyable	= config.IsDMMreloadDialogDestroyable;
+			c.AvoidTwitterDeterioration		= config.AvoidTwitterDeterioration;
+			c.ToolMenuDockStyle				= (DockStyle)config.ToolMenuDockStyle;
+			c.IsToolMenuVisible				= config.IsToolMenuVisible;
+			c.ConfirmAtRefresh				= config.ConfirmAtRefresh;
+            c.HardwareAccelerationEnabled	= config.HardwareAccelerationEnabled;
+            c.ForceColorProfile				= config.ForceColorProfile;
+            c.PreserveDrawingBuffer			= config.PreserveDrawingBuffer;
             //Utility.Configuration.Config.Debug.EnableDebugMenu = config.EnableDebugMenu;
 
             // volume
@@ -283,7 +291,12 @@ namespace ElectronicObserver.Window
 			{
 				Utility.SyncBGMPlayer.Instance.IsMute = config.IsMute;
 			}
-		}
+
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
+        }
 
 		public void GetIconResource()
 		{
@@ -330,7 +343,7 @@ namespace ElectronicObserver.Window
 			{
 				dialog.InputtedText = baseurl;
 
-				if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				if (dialog.ShowDialog() == DialogResult.OK)
 				{
 
                     this.Navigate(dialog.InputtedText);
@@ -341,7 +354,7 @@ namespace ElectronicObserver.Window
 
         public async void ClearCache()
         {
-            Utility.Logger.Add(2, "캐시 삭제를 위해 브라우저를 종료합니다.");
+            Utility.Logger.Add(Utility.LogType.System, "캐시 삭제를 위해 브라우저를 종료합니다.");
 
             try
             {
@@ -359,7 +372,7 @@ namespace ElectronicObserver.Window
 
             await this.ClearCacheAsync().ContinueWith(task =>
             {
-                Utility.Logger.Add(2, "캐시 삭제가 완료되었습니다. 브라우저를 재시작합니다.");
+                Utility.Logger.Add(Utility.LogType.System, "캐시 삭제가 완료되었습니다. 브라우저를 재시작합니다.");
 
                 this._initializationStage = InitializationStageFlag.InitialAPILoaded;
                 try

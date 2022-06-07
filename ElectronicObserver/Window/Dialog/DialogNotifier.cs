@@ -53,7 +53,7 @@ namespace ElectronicObserver.Window.Dialog
 			}
 
 			if (!this.DialogData.HasFormBorder)
-                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                this.FormBorderStyle = FormBorderStyle.None;
 
 			data.CloseAll += this.data_CloseAll;
 
@@ -66,7 +66,7 @@ namespace ElectronicObserver.Window.Dialog
 		{
 
 
-			Rectangle screen = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea;
+			Rectangle screen = Screen.PrimaryScreen.WorkingArea;
 			switch (this.DialogData.Alignment)
 			{
 
@@ -117,8 +117,8 @@ namespace ElectronicObserver.Window.Dialog
 					{
 
 						g.Clear(Color.FromArgb(0, 0, 0, 0));
-						g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-						g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+						g.SmoothingMode = SmoothingMode.HighQuality;
+						g.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
 						if (this.DialogData.Image != null)
 							g.DrawImage(this.DialogData.Image, new Rectangle(0, 0, bmp.Width, bmp.Height));
@@ -215,7 +215,7 @@ namespace ElectronicObserver.Window.Dialog
 
 			var flag = this.DialogData.ClickFlag;
 
-			if ((e.Button & System.Windows.Forms.MouseButtons.Left) != 0)
+			if ((e.Button & MouseButtons.Left) != 0)
 			{
 				if ((flag & NotifierDialogClickFlags.Left) != 0 ||
 				   ((flag & NotifierDialogClickFlags.LeftDouble) != 0 && e.Clicks > 1))
@@ -225,7 +225,7 @@ namespace ElectronicObserver.Window.Dialog
 				}
 			}
 
-			if ((e.Button & System.Windows.Forms.MouseButtons.Right) != 0)
+			if ((e.Button & MouseButtons.Right) != 0)
 			{
 				if ((flag & NotifierDialogClickFlags.Right) != 0 ||
 				   ((flag & NotifierDialogClickFlags.RightDouble) != 0 && e.Clicks > 1))
@@ -235,7 +235,7 @@ namespace ElectronicObserver.Window.Dialog
 				}
 			}
 
-			if ((e.Button & System.Windows.Forms.MouseButtons.Middle) != 0)
+			if ((e.Button & MouseButtons.Middle) != 0)
 			{
 				if ((flag & NotifierDialogClickFlags.Middle) != 0 ||
 				   ((flag & NotifierDialogClickFlags.MiddleDouble) != 0 && e.Clicks > 1))

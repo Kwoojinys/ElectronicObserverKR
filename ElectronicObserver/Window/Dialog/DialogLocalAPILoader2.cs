@@ -35,7 +35,7 @@ namespace ElectronicObserver.Window.Dialog
 
             this.FolderBrowser.SelectedPath = Utility.Configuration.Config.Connection.SaveDataPath;
 
-			if (this.FolderBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (this.FolderBrowser.ShowDialog() == DialogResult.OK)
 			{
                 this.LoadFiles(this.FolderBrowser.SelectedPath);
 			}
@@ -64,7 +64,7 @@ namespace ElectronicObserver.Window.Dialog
                 this.APICaller.RunWorkerAsync(this.APIView.SelectedRows.Cast<DataGridViewRow>().Select(row => row.Cells[this.APIView_FileName.Index].Value as string).OrderBy(s => s));
 			else
 				if (MessageBox.Show("이미 실행 중입니다.\n중단 하시겠습니까?", "확인", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-					== System.Windows.Forms.DialogResult.Yes)
+					== DialogResult.Yes)
 			{
                 this.APICaller.CancelAsync();
 			}
@@ -179,7 +179,7 @@ namespace ElectronicObserver.Window.Dialog
 				}
 				catch (Exception ex)
 				{
-					Utility.Logger.Add(3, string.Format("API파일 {0} 로드에 실패했습니다. {1}", filename, ex.Message));
+					Utility.Logger.Add(Utility.LogType.Error, string.Format("API파일 {0} 로드에 실패했습니다. {1}", filename, ex.Message));
 					return;
 				}
 
@@ -361,7 +361,7 @@ namespace ElectronicObserver.Window.Dialog
 			}
 			catch (Exception ex)
 			{
-				Utility.Logger.Add(1, $"API 파일의 시작에 실패했습니다. {ex.GetType().Name}: {ex.Message}");
+				Utility.Logger.Add(Utility.LogType.Error, $"API 파일의 시작에 실패했습니다. {ex.GetType().Name}: {ex.Message}");
 			}
 		}
 	}

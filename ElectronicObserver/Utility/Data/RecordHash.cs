@@ -31,7 +31,7 @@ namespace ElectronicObserver.Utility.Data
 			}
 			catch (Exception)
 			{
-				Utility.Logger.Add(1, "RecordHash: System.Security.Cryptography.MD5 해시를 사용할수 없습니다. 자체 구현을 사용합니다.");
+                Logger.Add(LogType.Alert, "RecordHash: System.Security.Cryptography.MD5 해시를 사용할수 없습니다. 자체 구현을 사용합니다.");
 
 				k = new uint[64];
 

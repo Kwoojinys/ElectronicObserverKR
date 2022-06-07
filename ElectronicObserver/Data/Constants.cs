@@ -1132,9 +1132,9 @@ namespace ElectronicObserver.Data
 
 		public static string GetVisualMissionId(int expeditionId)
         {
-			if (Constants.VisualMissionId.ContainsKey(expeditionId) == true)
+			if (VisualMissionId.ContainsKey(expeditionId) == true)
             {
-				return Constants.VisualMissionId[expeditionId];
+				return VisualMissionId[expeditionId];
             }
 
 			return expeditionId.ToString("D3");
@@ -1142,9 +1142,9 @@ namespace ElectronicObserver.Data
 
 		public static int GetRealMissionId(string expeditionId)
         {
-			if (Constants.VisualMissionId.ContainsValue(expeditionId) == true)
+			if (VisualMissionId.ContainsValue(expeditionId) == true)
             {
-				return Constants.VisualMissionId.First(i => i.Value.Equals(expeditionId)).Key;
+				return VisualMissionId.First(i => i.Value.Equals(expeditionId)).Key;
             }
 
 			return int.Parse(expeditionId);

@@ -41,7 +41,7 @@ namespace ElectronicObserver.Observer.kcsapi.api_req_map
 
 
 
-			Utility.Logger.Add(2, string.Format("#{0}「{1}」가「{2}-{3} {4}」에 출격했습니다.", deckID, KCDatabase.Instance.Fleet[deckID].Name, maparea, mapinfo, KCDatabase.Instance.MapInfo[maparea * 10 + mapinfo].Name));
+			Utility.Logger.Add(Utility.LogType.Battle, string.Format("#{0}「{1}」가「{2}-{3} {4}」에 출격했습니다.", deckID, KCDatabase.Instance.Fleet[deckID].Name, maparea, mapinfo, KCDatabase.Instance.MapInfo[maparea * 10 + mapinfo].Name));
 
 			base.OnRequestReceived(data);
 		}

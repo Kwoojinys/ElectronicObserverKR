@@ -4,7 +4,6 @@ using CefSharp;
 using CefSharp.WinForms;
 using Nekoxy;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
@@ -15,7 +14,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.ServiceModel;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -116,8 +114,8 @@ namespace Browser
             this.ServerUri = serverUri;
             this.StyleSheetApplied = false;
 
-			// 音量設定用コントロールの追加
-			{
+            // 音量設定用コントロールの追加
+            {
 				var control = new NumericUpDown();
 				control.Name = "ToolMenu_Other_Volume_VolumeControl";
 				control.Maximum = 100;
@@ -210,7 +208,7 @@ namespace Browser
 			{
 				BrowserSubprocessPath = Path.Combine(
 						AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
-						Environment.Is64BitProcess ? "x64" : "x86",
+						"CefSharp",
 						"CefSharp.BrowserSubprocess.exe"),
 				CachePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), this.BrowserCachePath),
 				Locale = "ja",
@@ -230,7 +228,7 @@ namespace Browser
             Cef.Initialize(settings, false, (IBrowserProcessHandler)null);
 
             var requestHandler = new CustomRequestHandler(pixiSettingEnabled: this.Configuration.PreserveDrawingBuffer);
-            requestHandler.RenderProcessTerminated += (mes) => this.AddLog(3, mes);
+            requestHandler.RenderProcessTerminated += (mes) => this.AddLog(0, mes);
 
             this.Browser = new ChromiumWebBrowser(@"about:blank")
 			{
@@ -249,7 +247,7 @@ namespace Browser
 
             if (Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"CefEOBrowser"))) {
                 Directory.Delete(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"CefEOBrowser"), true);
-                this.AddLog(3, "해당 버전에서 이전버전의 브라우저 관련 쓸모없는 파일들을 삭제하였습니다.");
+                this.AddLog(1, "해당 버전에서 이전버전의 브라우저 관련 쓸모없는 파일들을 삭제하였습니다.");
             }
 		}
 
@@ -631,7 +629,7 @@ namespace Browser
 
             if (kancolleFrame == null)
             {
-                this.AddLog(3, string.Format("칸코레가 실행되지 않아 스크린 샷을 찍을 수 없습니다."));
+                this.AddLog(2, string.Format("칸코레가 실행되지 않아 스크린 샷을 찍을 수 없습니다."));
 				System.Media.SystemSounds.Beep.Play();
                 return null;
             }
@@ -755,7 +753,7 @@ namespace Browser
 						image.Save(path, imgFormat);
                         this._lastScreenShotPath = path;
 
-                        this.AddLog(2, $"스크린 샷을 {path} 에 저장 했습니다.");
+                        this.AddLog(3, $"스크린 샷을 {path} 에 저장 했습니다.");
 					}
 					catch (Exception ex)
 					{
@@ -772,7 +770,7 @@ namespace Browser
 						Clipboard.SetImage(image);
 
 						if ((savemode & 3) != 3)
-                            this.AddLog(2, "스크린 샷을 클립 보드에 복사했습니다.");
+                            this.AddLog(3, "스크린 샷을 클립 보드에 복사했습니다.");
 					}
 					catch (Exception ex)
 					{
@@ -796,20 +794,26 @@ namespace Browser
 		public void SetProxy(string proxy)
 		{
 			ushort port;
-			if (ushort.TryParse(proxy, out port))
+			try
 			{
-				WinInetUtil.SetProxyInProcessForNekoxy(port);
-                this.ProxySettings = "http=127.0.0.1:" + port;           // todo: 動くには動くが正しいかわからない
-			}
-			else
-			{
-				WinInetUtil.SetProxyInProcess(proxy, "local");
-                this.ProxySettings = proxy;
-			}
+				if (ushort.TryParse(proxy, out port))
+				{
+					WinInetUtil.SetProxyInProcessForNekoxy(port);
+					this.ProxySettings = "http=127.0.0.1:" + port;           // todo: 動くには動くが正しいかわからない
+				}
+				else
+				{
+					WinInetUtil.SetProxyInProcess(proxy, "local");
+					this.ProxySettings = proxy;
+				}
 
-            this.InitializeBrowser();
+				this.InitializeBrowser();
 
-            this.BrowserHost.AsyncRemoteRun(() => this.BrowserHost.Proxy.SetProxyCompleted());
+				this.BrowserHost.AsyncRemoteRun(() => this.BrowserHost.Proxy.SetProxyCompleted());
+			} catch (System.Exception e)
+            {
+				this.SendErrorReport(e.InnerException.ToString(), e.Message);
+            }
 		}
 
 
@@ -1246,7 +1250,7 @@ namespace Browser
 					using (var img = new Bitmap(this._lastScreenShotPath))
 					{
 						Clipboard.SetImage(img);
-                        this.AddLog(2, string.Format("스크린 샷 {0}을 클립 보드에 복사했습니다.", this._lastScreenShotPath));
+                        this.AddLog(3, string.Format("스크린 샷 {0}을 클립 보드에 복사했습니다.", this._lastScreenShotPath));
 					}
 				}
 				catch (Exception ex)

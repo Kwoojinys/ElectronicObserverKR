@@ -57,20 +57,20 @@ namespace ElectronicObserver.Data
                     return result
                         .CheckFlagshipLevel(6)
                         .CheckShipCount(6);
-                case 100:   // 兵站強化任務
+                case 100:   // 兵站強化任務 A1
                     return result
                         .CheckFlagshipLevel(5)
                         .CheckLevelSum(10)
                         .CheckShipCount(4)
                         .CheckSmallShipCount(3);
-                case 101:   // 海峡警備行動
+                case 101:   // 海峡警備行動 A2
                     return result
                         .CheckFlagshipLevel(20)
                         .CheckSmallShipCount(4)
                         .CheckFirepower(50)
                         .CheckAA(70)
                         .CheckASW(180);
-                case 102:   // 長時間対潜警戒
+                case 102:   // 長時間対潜警戒 A3
                     return result
                         .CheckFlagshipLevel(35)
                         .CheckLevelSum(185)
@@ -79,7 +79,7 @@ namespace ElectronicObserver.Data
                         .CheckAA(59)
                         .CheckASW(280)
                         .CheckLOS(60);
-                case 103:   // 南西方面連絡線哨戒
+                case 103:   // 南西方面連絡線哨戒 A4
                     return result
                         .CheckFlagshipLevel(40)
                         .CheckLevelSum(200)
@@ -89,7 +89,7 @@ namespace ElectronicObserver.Data
                         .CheckAA(200)
                         .CheckASW(200)
                         .CheckLOS(120);
-                case 104:   // 小笠原沖哨戒線
+                case 104:   // 小笠原沖哨戒線 A5
                     return result
                         .CheckFlagshipLevel(45)
                         .CheckLevelSum(230)
@@ -99,8 +99,8 @@ namespace ElectronicObserver.Data
                         .CheckAA(220)
                         .CheckASW(240)
                         .CheckLOS(150);
-                case 105:   // 小笠原沖戦闘哨戒
-                    return result
+                case 105:   // 小笠原沖戦闘哨戒 A6
+                    return result 
                         .CheckFlagshipLevel(55)
                         .CheckLevelSum(290)
                         .CheckShipCount(6)

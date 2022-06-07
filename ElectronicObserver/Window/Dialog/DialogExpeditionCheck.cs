@@ -70,7 +70,7 @@ namespace ElectronicObserver.Window.Dialog
                     results[2],
                     results[3]);
 
-                row.Cells[1].ToolTipText = $"ID: {mission.MissionID}";
+                row.Cells[1].ToolTipText = $"ID: {mission.MissionID} / {mission.VisualMissionId}";
 
                 for (int i = 0; i < 4; i++)
                 {
@@ -131,7 +131,7 @@ namespace ElectronicObserver.Window.Dialog
             else if (e.ColumnIndex == this.CheckView_ID.Index)
             {
                 var mission = KCDatabase.Instance.Mission[(int)e.Value];
-                e.Value = $"{mission.DisplayID}:{KCDatabase.Instance.MapArea[mission.MapAreaID].Name}";
+                e.Value = $"{mission.VisualMissionId}:{KCDatabase.Instance.MapArea[mission.MapAreaID].Name}";
                 e.FormattingApplied = true;
             }
         }

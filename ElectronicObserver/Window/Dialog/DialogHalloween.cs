@@ -51,7 +51,7 @@ namespace ElectronicObserver.Window.Dialog
 				}
 				catch (Exception ex)
 				{
-					Utility.Logger.Add(1, "[PumpkinHead] Failed to gather fairies. Boo... " + ex.Message);
+					Utility.Logger.Add(Utility.LogType.Error, "[PumpkinHead] Failed to gather fairies. Boo... " + ex.Message);
                     this.Close();
 					return;
 				}

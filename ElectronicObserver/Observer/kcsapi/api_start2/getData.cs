@@ -236,7 +236,7 @@ namespace ElectronicObserver.Observer.kcsapi.api_start2
             }
 
 
-            Utility.Logger.Add(2, "제독이 진수부에 착임했습니다. 지금 부터 함대의 지휘를 맡습니다.");
+            Utility.Logger.Add(Utility.LogType.System, "제독이 진수부에 착임했습니다. 지금 부터 함대의 지휘를 맡습니다.");
 
 			base.OnResponseReceived((object)data);
 		}

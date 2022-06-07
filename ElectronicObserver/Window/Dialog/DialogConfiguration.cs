@@ -110,7 +110,7 @@ namespace ElectronicObserver.Window.Dialog
 
             this.FontSelector.Font = this.UI_MainFont.Font;
 
-			if (this.FontSelector.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+			if (this.FontSelector.ShowDialog(this) == DialogResult.OK)
 			{
 
 				SerializableFont font = new SerializableFont(this.FontSelector.Font);
@@ -128,7 +128,7 @@ namespace ElectronicObserver.Window.Dialog
 
             this.FontSelector.Font = this.UI_SubFont.Font;
 
-			if (this.FontSelector.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+			if (this.FontSelector.ShowDialog(this) == DialogResult.OK)
 			{
 
 				SerializableFont font = new SerializableFont(this.FontSelector.Font);
@@ -188,10 +188,10 @@ namespace ElectronicObserver.Window.Dialog
 			{
 				dialog.Filter = "Proxy Script|*.pac|File|*";
 				dialog.Title = "자동 프록시 설정 스크립트를 저장";
-				dialog.InitialDirectory = System.IO.Directory.GetCurrentDirectory();
-				dialog.FileName = System.IO.Directory.GetCurrentDirectory() + "\\proxy.pac";
+				dialog.InitialDirectory = Directory.GetCurrentDirectory();
+				dialog.FileName = Directory.GetCurrentDirectory() + "\\proxy.pac";
 
-				if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 
 					try
@@ -219,7 +219,7 @@ namespace ElectronicObserver.Window.Dialog
 					catch (Exception ex)
 					{
 
-						Utility.ErrorReporter.SendErrorReport(ex, "자동 프록시 구성 스크립트를 저장하는데 실패했습니다.");
+                        ErrorReporter.SendErrorReport(ex, "자동 프록시 구성 스크립트를 저장하는데 실패했습니다.");
 						MessageBox.Show("자동 프록시 구성 스크립트를 저장하는데 실패했습니다.\r\n" + ex.Message, "에러",
 							MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -371,7 +371,6 @@ namespace ElectronicObserver.Window.Dialog
 			}
 
             //[ログ]
-            this.Log_LogLevel.Value = config.Log.LogLevel;
             this.Log_SaveLogFlag.Checked = config.Log.SaveLogFlag;
             this.Log_SaveErrorReport.Checked = config.Log.SaveErrorReport;
             this.Log_FileEncodingID.SelectedIndex = config.Log.FileEncodingID;
@@ -380,6 +379,12 @@ namespace ElectronicObserver.Window.Dialog
             this.UpdatePlayTime();
             this.Log_SaveBattleLog.Checked = config.Log.SaveBattleLog;
             this.Log_SaveLogImmediately.Checked = config.Log.SaveLogImmediately;
+            this.ShowLogTypeListCheckBox.Items.Clear();
+            this.ShowLogTypeListCheckBox.Items.AddRange(Logger.GetLogTypeNames().ToArray());
+            for (int i = 0; i < this.ShowLogTypeListCheckBox.Items.Count; i++)
+            {
+                this.ShowLogTypeListCheckBox.SetItemChecked(i, config.Log.VisibleLogList[i]);
+            }
 
             //[動作]
             this.Control_ConditionBorder.Value = config.Control.ConditionBorder;
@@ -446,10 +451,10 @@ namespace ElectronicObserver.Window.Dialog
 
 			{
                 this.FormHeadquarters_DisplayUseItemID.Items.AddRange(
-					ElectronicObserver.Data.KCDatabase.Instance.MasterUseItems.Values
+                    Data.KCDatabase.Instance.MasterUseItems.Values
 						.Where(i => i.Name.Length > 0 && i.Description.Length > 0 && !this.IgnoredItems.Contains(i.ItemID))
 						.Select(i => i.Name).ToArray());
-				var item = ElectronicObserver.Data.KCDatabase.Instance.MasterUseItems[config.FormHeadquarters.DisplayUseItemID];
+				var item = Data.KCDatabase.Instance.MasterUseItems[config.FormHeadquarters.DisplayUseItemID];
 
 				if (item != null)
 				{
@@ -595,8 +600,14 @@ namespace ElectronicObserver.Window.Dialog
             config.UI.Theme = theme;
 
             //[ログ]
-            config.Log.LogLevel = (int)this.Log_LogLevel.Value;
-			config.Log.SaveLogFlag = this.Log_SaveLogFlag.Checked;
+			{
+                var list = new List<bool>();
+                for (int i = 0; i < this.ShowLogTypeListCheckBox.Items.Count; i++)
+                    list.Add(this.ShowLogTypeListCheckBox.GetItemChecked(i));
+                config.Log.VisibleLogList = list;
+            }
+
+            config.Log.SaveLogFlag = this.Log_SaveLogFlag.Checked;
 			config.Log.SaveErrorReport = this.Log_SaveErrorReport.Checked;
 			config.Log.FileEncodingID = this.Log_FileEncodingID.SelectedIndex;
 			config.Log.ShowSpoiler = this.Log_ShowSpoiler.Checked;
@@ -626,7 +637,7 @@ namespace ElectronicObserver.Window.Dialog
 			config.Life.ClockFormat = this.Life_ClockFormat.SelectedIndex;
 			config.Life.LockLayout = this.Life_LockLayout.Checked;
 			config.Life.CanCloseFloatWindowInLock = this.Life_CanCloseFloatWindowInLock.Checked;
-            config.Life.CanSizableFloatWindowInLock = this.Life_CanSizableFloatWindowInLock.Checked;
+			config.Life.CanSizableFloatWindowInLock = this.Life_CanSizableFloatWindowInLock.Checked;
 
             //[サブウィンドウ]
             config.FormArsenal.ShowShipName = this.FormArsenal_ShowShipName.Checked;
@@ -673,7 +684,7 @@ namespace ElectronicObserver.Window.Dialog
 				}
 				else
 				{
-					var item = ElectronicObserver.Data.KCDatabase.Instance.MasterUseItems.Values.FirstOrDefault(p => p.Name == name);
+					var item = Data.KCDatabase.Instance.MasterUseItems.Values.FirstOrDefault(p => p.Name == name);
 
 					if (item != null)
 					{
@@ -803,7 +814,7 @@ namespace ElectronicObserver.Window.Dialog
 
 				using (var dialog = new DialogConfigurationBGMPlayer(this.BGMHandles[handleID]))
 				{
-					if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+					if (dialog.ShowDialog(this) == DialogResult.OK)
 					{
                         this.BGMHandles[handleID] = dialog.ResultHandle;
 					}
@@ -840,7 +851,7 @@ namespace ElectronicObserver.Window.Dialog
 		{
 
 			if (MessageBox.Show("모든 BGM의 볼륨을 " + (int)this.BGMPlayer_VolumeAll.Value + " 로 적용합니다. \r\n괜찮으십니까?\r\n", "볼륨 일괄 설정 확인",
-				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes)
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
 			{
 
 				foreach (var h in this.BGMHandles.Values)
@@ -866,7 +877,7 @@ namespace ElectronicObserver.Window.Dialog
 		private void UpdatePlayTime()
 		{
 			double elapsed = (DateTime.Now - this._shownTime).TotalSeconds;
-            this.Log_PlayTime.Text = "플레이시간: " + ElectronicObserver.Utility.Mathematics.DateTimeHelper.ToTimeElapsedString(TimeSpan.FromSeconds(this._playTimeCache + elapsed));
+            this.Log_PlayTime.Text = "플레이시간: " + Utility.Mathematics.DateTimeHelper.ToTimeElapsedString(TimeSpan.FromSeconds(this._playTimeCache + elapsed));
 		}
 
 		private void PlayTimeTimer_Tick(object sender, EventArgs e)

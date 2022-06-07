@@ -1,6 +1,7 @@
 ﻿using ElectronicObserver.Data;
 using ElectronicObserver.Observer;
 using ElectronicObserver.Resource;
+using ElectronicObserver.Utility;
 using ElectronicObserver.Utility.Mathematics;
 using ElectronicObserver.Window.Control;
 using ElectronicObserver.Window.Support;
@@ -199,7 +200,8 @@ namespace ElectronicObserver.Window
 
             this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormDock]);
 
-		}
+            this.ApplyLockLayoutState();
+        }
 
 
 		private void FormDock_Load(object sender, EventArgs e)
@@ -214,6 +216,10 @@ namespace ElectronicObserver.Window
 			o.APIList["api_get_member/ndock"].ResponseReceived += this.Updated;
 
 			Utility.Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
 		}
 
 
@@ -266,10 +272,15 @@ namespace ElectronicObserver.Window
 
                 this.TableDock.ResumeLayout();
 			}
-		}
+
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
+        }
 
 
-		protected override string GetPersistString()
+        protected override string GetPersistString()
 		{
 			return "Dock";
 		}

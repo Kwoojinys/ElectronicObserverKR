@@ -32,11 +32,7 @@ namespace ElectronicObserver.Data
         /// 艦種名 번역됨
         /// </summary>
         //public string Name => RawData.api_name;
-        public string Name
-        {
-            get { return FormMain.Instance.Translator.GetTranslation(this.RawData.api_name, Utility.TranslateType.ShipType); }
-        }
-
+        public string Name => Utility.ExternalDataReader.Instance.GetTranslation(this.RawData.api_name, Utility.TranslateType.ShipType); 
 
 
         /// <summary>

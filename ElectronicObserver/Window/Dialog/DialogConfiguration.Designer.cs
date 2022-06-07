@@ -73,6 +73,7 @@ namespace ElectronicObserver.Window.Dialog
             this.UI_MainFont = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.ShowLogTypeListCheckBox = new System.Windows.Forms.CheckedListBox();
             this.Log_SaveLogImmediately = new System.Windows.Forms.CheckBox();
             this.Log_SaveBattleLog = new System.Windows.Forms.CheckBox();
             this.Log_ShowSpoiler = new System.Windows.Forms.CheckBox();
@@ -81,7 +82,6 @@ namespace ElectronicObserver.Window.Dialog
             this.Log_FileEncodingID = new System.Windows.Forms.ComboBox();
             this.Log_SaveErrorReport = new System.Windows.Forms.CheckBox();
             this.Log_SaveLogFlag = new System.Windows.Forms.CheckBox();
-            this.Log_LogLevel = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.Control_ShowExpeditionAlertDialog = new System.Windows.Forms.CheckBox();
@@ -101,7 +101,6 @@ namespace ElectronicObserver.Window.Dialog
             this.Debug_APIListPathSearch = new System.Windows.Forms.Button();
             this.Debug_EnableDebugMenu = new System.Windows.Forms.CheckBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.Life_CanSizableFloatWindowInLock = new System.Windows.Forms.CheckBox();
             this.Life_CanCloseFloatWindowInLock = new System.Windows.Forms.CheckBox();
             this.Life_LockLayout = new System.Windows.Forms.CheckBox();
             this.label24 = new System.Windows.Forms.Label();
@@ -229,6 +228,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label31 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.tabPage11 = new System.Windows.Forms.TabPage();
+            this.Notification_BaseAirCorps = new System.Windows.Forms.Button();
             this.silenceFullscreen = new System.Windows.Forms.CheckBox();
             this.Notification_Silencio = new System.Windows.Forms.CheckBox();
             this.Notification_AnchorageRepair = new System.Windows.Forms.Button();
@@ -257,7 +257,7 @@ namespace ElectronicObserver.Window.Dialog
             this.APIListBrowser = new System.Windows.Forms.OpenFileDialog();
             this.Log_PlayTime = new System.Windows.Forms.Label();
             this.PlayTimeTimer = new System.Windows.Forms.Timer(this.components);
-            this.Notification_BaseAirCorps = new System.Windows.Forms.Button();
+            this.Life_CanSizableFloatWindowInLock = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Connection_UpstreamProxyPort)).BeginInit();
@@ -267,7 +267,6 @@ namespace ElectronicObserver.Window.Dialog
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UI_RenderingTestChanger)).BeginInit();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Log_LogLevel)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Control_ConditionBorder)).BeginInit();
             this.tabPage5.SuspendLayout();
@@ -352,7 +351,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label19.ForeColor = System.Drawing.Color.Red;
             this.label19.Location = new System.Drawing.Point(32, 278);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(282, 15);
+            this.label19.Size = new System.Drawing.Size(273, 15);
             this.label19.TabIndex = 13;
             this.label19.Text = "* 브라우저 통신 설정은 다시 시작할때 반영됩니다.";
             // 
@@ -362,7 +361,7 @@ namespace ElectronicObserver.Window.Dialog
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Connection_UpstreamProxyAddress.Location = new System.Drawing.Point(250, 35);
             this.Connection_UpstreamProxyAddress.Name = "Connection_UpstreamProxyAddress";
-            this.Connection_UpstreamProxyAddress.Size = new System.Drawing.Size(432, 23);
+            this.Connection_UpstreamProxyAddress.Size = new System.Drawing.Size(432, 21);
             this.Connection_UpstreamProxyAddress.TabIndex = 12;
             this.ToolTipInfo.SetToolTip(this.Connection_UpstreamProxyAddress, "업스트림 프록시 주소를 설정합니다.\r\n기본값은 127.0.0.1 입니다.");
             // 
@@ -371,7 +370,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Connection_DownstreamProxyLabel.AutoSize = true;
             this.Connection_DownstreamProxyLabel.Location = new System.Drawing.Point(6, 67);
             this.Connection_DownstreamProxyLabel.Name = "Connection_DownstreamProxyLabel";
-            this.Connection_DownstreamProxyLabel.Size = new System.Drawing.Size(153, 15);
+            this.Connection_DownstreamProxyLabel.Size = new System.Drawing.Size(150, 15);
             this.Connection_DownstreamProxyLabel.TabIndex = 11;
             this.Connection_DownstreamProxyLabel.Text = "다운스트림 프록시(고급)：";
             // 
@@ -381,7 +380,7 @@ namespace ElectronicObserver.Window.Dialog
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Connection_DownstreamProxy.Location = new System.Drawing.Point(164, 64);
             this.Connection_DownstreamProxy.Name = "Connection_DownstreamProxy";
-            this.Connection_DownstreamProxy.Size = new System.Drawing.Size(524, 23);
+            this.Connection_DownstreamProxy.Size = new System.Drawing.Size(524, 21);
             this.Connection_DownstreamProxy.TabIndex = 10;
             this.ToolTipInfo.SetToolTip(this.Connection_DownstreamProxy, "다운스트림 프록시 주소를 설정합니다.\r\n이 설정은 위의 포트 설정보다 우선시됩니다.\r\n입력하지 않은경우 자동 설정됩니다.\r\n이 기능을 이해하시는 " +
         "경우만 이용해주세요.");
@@ -391,7 +390,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Connection_UseSystemProxy.AutoSize = true;
             this.Connection_UseSystemProxy.Location = new System.Drawing.Point(147, 7);
             this.Connection_UseSystemProxy.Name = "Connection_UseSystemProxy";
-            this.Connection_UseSystemProxy.Size = new System.Drawing.Size(130, 19);
+            this.Connection_UseSystemProxy.Size = new System.Drawing.Size(128, 19);
             this.Connection_UseSystemProxy.TabIndex = 9;
             this.Connection_UseSystemProxy.Text = "시스템 프록시 사용";
             this.ToolTipInfo.SetToolTip(this.Connection_UseSystemProxy, "컴퓨터의 프록시 설정을 사용합니다.");
@@ -406,7 +405,7 @@ namespace ElectronicObserver.Window.Dialog
             0,
             0});
             this.Connection_UpstreamProxyPort.Name = "Connection_UpstreamProxyPort";
-            this.Connection_UpstreamProxyPort.Size = new System.Drawing.Size(80, 23);
+            this.Connection_UpstreamProxyPort.Size = new System.Drawing.Size(80, 21);
             this.Connection_UpstreamProxyPort.TabIndex = 4;
             this.Connection_UpstreamProxyPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.ToolTipInfo.SetToolTip(this.Connection_UpstreamProxyPort, "다른 툴, 브라우저에서 사용하는 포트 번호를 지정합니다.");
@@ -416,7 +415,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Connection_UseUpstreamProxy.AutoSize = true;
             this.Connection_UseUpstreamProxy.Location = new System.Drawing.Point(6, 36);
             this.Connection_UseUpstreamProxy.Name = "Connection_UseUpstreamProxy";
-            this.Connection_UseUpstreamProxy.Size = new System.Drawing.Size(147, 19);
+            this.Connection_UseUpstreamProxy.Size = new System.Drawing.Size(143, 19);
             this.Connection_UseUpstreamProxy.TabIndex = 3;
             this.Connection_UseUpstreamProxy.Text = "업스트림 프록시 사용:";
             this.ToolTipInfo.SetToolTip(this.Connection_UseUpstreamProxy, "다른 프록시를 이용하는 툴, 브라우저와 함께 이용할때 사용합니다.");
@@ -428,7 +427,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Connection_RegisterAsSystemProxy.Enabled = false;
             this.Connection_RegisterAsSystemProxy.Location = new System.Drawing.Point(288, 7);
             this.Connection_RegisterAsSystemProxy.Name = "Connection_RegisterAsSystemProxy";
-            this.Connection_RegisterAsSystemProxy.Size = new System.Drawing.Size(130, 19);
+            this.Connection_RegisterAsSystemProxy.Size = new System.Drawing.Size(128, 19);
             this.Connection_RegisterAsSystemProxy.TabIndex = 2;
             this.Connection_RegisterAsSystemProxy.Text = "시스템 프록시 등록";
             this.ToolTipInfo.SetToolTip(this.Connection_RegisterAsSystemProxy, "프록시를 시스템에 등록하고 자동으로 사용하게 변경합니다.\r\n프록시 설정이 필요없어지나, 부작용이 있을수 있습니다.\r\n자세한 내용은 온라인 메뉴얼을" +
@@ -451,7 +450,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(138, 95);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(195, 15);
+            this.label4.Size = new System.Drawing.Size(190, 15);
             this.label4.TabIndex = 6;
             this.label4.Text = "＊용량을 많이 차지할 수 있습니다.";
             // 
@@ -476,7 +475,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Connection_ApplyVersion.AutoSize = true;
             this.Connection_ApplyVersion.Location = new System.Drawing.Point(237, 32);
             this.Connection_ApplyVersion.Name = "Connection_ApplyVersion";
-            this.Connection_ApplyVersion.Size = new System.Drawing.Size(68, 19);
+            this.Connection_ApplyVersion.Size = new System.Drawing.Size(67, 19);
             this.Connection_ApplyVersion.TabIndex = 9;
             this.Connection_ApplyVersion.Text = "Version";
             this.ToolTipInfo.SetToolTip(this.Connection_ApplyVersion, "버전 이름을 파일에 추가합니다.");
@@ -487,7 +486,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Connection_SaveOtherFile.AutoSize = true;
             this.Connection_SaveOtherFile.Location = new System.Drawing.Point(172, 32);
             this.Connection_SaveOtherFile.Name = "Connection_SaveOtherFile";
-            this.Connection_SaveOtherFile.Size = new System.Drawing.Size(59, 19);
+            this.Connection_SaveOtherFile.Size = new System.Drawing.Size(56, 19);
             this.Connection_SaveOtherFile.TabIndex = 8;
             this.Connection_SaveOtherFile.Text = "Other";
             this.ToolTipInfo.SetToolTip(this.Connection_SaveOtherFile, "모든 통신 파일을 저장합니다.");
@@ -498,7 +497,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Connection_SaveResponse.AutoSize = true;
             this.Connection_SaveResponse.Location = new System.Drawing.Point(85, 32);
             this.Connection_SaveResponse.Name = "Connection_SaveResponse";
-            this.Connection_SaveResponse.Size = new System.Drawing.Size(81, 19);
+            this.Connection_SaveResponse.Size = new System.Drawing.Size(82, 19);
             this.Connection_SaveResponse.TabIndex = 6;
             this.Connection_SaveResponse.Text = "Response";
             this.ToolTipInfo.SetToolTip(this.Connection_SaveResponse, "API의 Response 부분을 저장합니다.");
@@ -509,7 +508,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Connection_SaveRequest.AutoSize = true;
             this.Connection_SaveRequest.Location = new System.Drawing.Point(6, 32);
             this.Connection_SaveRequest.Name = "Connection_SaveRequest";
-            this.Connection_SaveRequest.Size = new System.Drawing.Size(73, 19);
+            this.Connection_SaveRequest.Size = new System.Drawing.Size(72, 19);
             this.Connection_SaveRequest.TabIndex = 5;
             this.Connection_SaveRequest.Text = "Request";
             this.ToolTipInfo.SetToolTip(this.Connection_SaveRequest, "API의 Request 부분을 저장합니다.");
@@ -542,7 +541,7 @@ namespace ElectronicObserver.Window.Dialog
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Connection_SaveDataPath.Location = new System.Drawing.Point(64, 3);
             this.Connection_SaveDataPath.Name = "Connection_SaveDataPath";
-            this.Connection_SaveDataPath.Size = new System.Drawing.Size(572, 23);
+            this.Connection_SaveDataPath.Size = new System.Drawing.Size(572, 21);
             this.Connection_SaveDataPath.TabIndex = 3;
             this.Connection_SaveDataPath.TextChanged += new System.EventHandler(this.Connection_SaveDataPath_TextChanged);
             // 
@@ -551,7 +550,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Connection_SaveReceivedData.AutoSize = true;
             this.Connection_SaveReceivedData.Location = new System.Drawing.Point(6, 94);
             this.Connection_SaveReceivedData.Name = "Connection_SaveReceivedData";
-            this.Connection_SaveReceivedData.Size = new System.Drawing.Size(106, 19);
+            this.Connection_SaveReceivedData.Size = new System.Drawing.Size(104, 19);
             this.Connection_SaveReceivedData.TabIndex = 5;
             this.Connection_SaveReceivedData.Text = "통신 내용 저장";
             this.Connection_SaveReceivedData.UseVisualStyleBackColor = true;
@@ -566,7 +565,7 @@ namespace ElectronicObserver.Window.Dialog
             0,
             0});
             this.Connection_Port.Name = "Connection_Port";
-            this.Connection_Port.Size = new System.Drawing.Size(80, 23);
+            this.Connection_Port.Size = new System.Drawing.Size(80, 21);
             this.Connection_Port.TabIndex = 1;
             this.Connection_Port.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.ToolTipInfo.SetToolTip(this.Connection_Port, "포트 번호를 설정합니다.");
@@ -607,7 +606,7 @@ namespace ElectronicObserver.Window.Dialog
             this.labelThemeRestartWarning.AutoSize = true;
             this.labelThemeRestartWarning.Location = new System.Drawing.Point(8, 155);
             this.labelThemeRestartWarning.Name = "labelThemeRestartWarning";
-            this.labelThemeRestartWarning.Size = new System.Drawing.Size(283, 15);
+            this.labelThemeRestartWarning.Size = new System.Drawing.Size(277, 15);
             this.labelThemeRestartWarning.TabIndex = 19;
             this.labelThemeRestartWarning.Text = "테마 변경은 프로그램 재실행시 완전히 적용됩니다.";
             // 
@@ -677,7 +676,7 @@ namespace ElectronicObserver.Window.Dialog
             this.UI_RenderingTest.PrevValue = 401;
             this.UI_RenderingTest.RepairTime = new System.DateTime(2017, 6, 18, 0, 0, 59, 159);
             this.UI_RenderingTest.RepairTimeShowMode = ElectronicObserver.Window.Control.ShipStatusHPRepairTimeShowMode.Invisible;
-            this.UI_RenderingTest.Size = new System.Drawing.Size(136, 20);
+            this.UI_RenderingTest.Size = new System.Drawing.Size(131, 20);
             this.UI_RenderingTest.TabIndex = 12;
             this.UI_RenderingTest.Text = "Rendering Test: ";
             this.ToolTipInfo.SetToolTip(this.UI_RenderingTest, "렌더링 미리보기. \r\n아래에서 값을 조정할수있습니다.");
@@ -690,7 +689,7 @@ namespace ElectronicObserver.Window.Dialog
             this.UI_IsLayoutFixed.ForeColor = System.Drawing.SystemColors.ControlText;
             this.UI_IsLayoutFixed.Location = new System.Drawing.Point(8, 89);
             this.UI_IsLayoutFixed.Name = "UI_IsLayoutFixed";
-            this.UI_IsLayoutFixed.Size = new System.Drawing.Size(106, 19);
+            this.UI_IsLayoutFixed.Size = new System.Drawing.Size(104, 19);
             this.UI_IsLayoutFixed.TabIndex = 13;
             this.UI_IsLayoutFixed.Text = "폰트 크기 조정";
             this.ToolTipInfo.SetToolTip(this.UI_IsLayoutFixed, "활성화 하면, 어떤 폰트라도 UI 열의 높이가 동일하게 됩니다.(ver. 2.6.2 이전처럼)。\r\n비활성화 된 경우, 폰트 크기에 따라 열의 높이" +
@@ -702,7 +701,7 @@ namespace ElectronicObserver.Window.Dialog
             this.UI_BarColorMorphing.AutoSize = true;
             this.UI_BarColorMorphing.Location = new System.Drawing.Point(8, 64);
             this.UI_BarColorMorphing.Name = "UI_BarColorMorphing";
-            this.UI_BarColorMorphing.Size = new System.Drawing.Size(166, 19);
+            this.UI_BarColorMorphing.Size = new System.Drawing.Size(164, 19);
             this.UI_BarColorMorphing.TabIndex = 11;
             this.UI_BarColorMorphing.Text = "게이지바를 부드럽게 표현";
             this.ToolTipInfo.SetToolTip(this.UI_BarColorMorphing, "HP, 자원등의 바 색상을 칸코레 UI처럼 부드럽게 변화시킬지 설정합니다.");
@@ -726,7 +725,7 @@ namespace ElectronicObserver.Window.Dialog
             | System.Windows.Forms.AnchorStyles.Right)));
             this.UI_SubFont.Location = new System.Drawing.Point(92, 35);
             this.UI_SubFont.Name = "UI_SubFont";
-            this.UI_SubFont.Size = new System.Drawing.Size(558, 23);
+            this.UI_SubFont.Size = new System.Drawing.Size(558, 21);
             this.UI_SubFont.TabIndex = 5;
             this.UI_SubFont.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UI_SubFont_KeyDown);
             this.UI_SubFont.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.UI_SubFont_PreviewKeyDown);
@@ -737,7 +736,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(8, 38);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(71, 15);
+            this.label8.Size = new System.Drawing.Size(70, 15);
             this.label8.TabIndex = 4;
             this.label8.Text = "서브 폰트：";
             // 
@@ -758,7 +757,7 @@ namespace ElectronicObserver.Window.Dialog
             | System.Windows.Forms.AnchorStyles.Right)));
             this.UI_MainFont.Location = new System.Drawing.Point(92, 6);
             this.UI_MainFont.Name = "UI_MainFont";
-            this.UI_MainFont.Size = new System.Drawing.Size(558, 23);
+            this.UI_MainFont.Size = new System.Drawing.Size(558, 21);
             this.UI_MainFont.TabIndex = 1;
             this.UI_MainFont.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UI_MainFont_KeyDown);
             this.UI_MainFont.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.UI_MainFont_PreviewKeyDown);
@@ -769,12 +768,13 @@ namespace ElectronicObserver.Window.Dialog
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(8, 9);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(71, 15);
+            this.label5.Size = new System.Drawing.Size(70, 15);
             this.label5.TabIndex = 0;
             this.label5.Text = "메인 폰트：";
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.ShowLogTypeListCheckBox);
             this.tabPage3.Controls.Add(this.Log_SaveLogImmediately);
             this.tabPage3.Controls.Add(this.Log_SaveBattleLog);
             this.tabPage3.Controls.Add(this.Log_ShowSpoiler);
@@ -783,7 +783,6 @@ namespace ElectronicObserver.Window.Dialog
             this.tabPage3.Controls.Add(this.Log_FileEncodingID);
             this.tabPage3.Controls.Add(this.Log_SaveErrorReport);
             this.tabPage3.Controls.Add(this.Log_SaveLogFlag);
-            this.tabPage3.Controls.Add(this.Log_LogLevel);
             this.tabPage3.Controls.Add(this.label6);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
@@ -793,12 +792,24 @@ namespace ElectronicObserver.Window.Dialog
             this.tabPage3.Text = "로그";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // ShowLogTypeListCheckBox
+            // 
+            this.ShowLogTypeListCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.ShowLogTypeListCheckBox.CheckOnClick = true;
+            this.ShowLogTypeListCheckBox.FormattingEnabled = true;
+            this.ShowLogTypeListCheckBox.IntegralHeight = false;
+            this.ShowLogTypeListCheckBox.Location = new System.Drawing.Point(11, 28);
+            this.ShowLogTypeListCheckBox.Name = "ShowLogTypeListCheckBox";
+            this.ShowLogTypeListCheckBox.Size = new System.Drawing.Size(150, 280);
+            this.ShowLogTypeListCheckBox.TabIndex = 10;
+            // 
             // Log_SaveLogImmediately
             // 
             this.Log_SaveLogImmediately.AutoSize = true;
-            this.Log_SaveLogImmediately.Location = new System.Drawing.Point(153, 6);
+            this.Log_SaveLogImmediately.Location = new System.Drawing.Point(362, 296);
             this.Log_SaveLogImmediately.Name = "Log_SaveLogImmediately";
-            this.Log_SaveLogImmediately.Size = new System.Drawing.Size(106, 19);
+            this.Log_SaveLogImmediately.Size = new System.Drawing.Size(104, 19);
             this.Log_SaveLogImmediately.TabIndex = 9;
             this.Log_SaveLogImmediately.Text = "로그 즉시 저장";
             this.ToolTipInfo.SetToolTip(this.Log_SaveLogImmediately, "로그 추가와 동시에 로그 파일에 기록할지 설정합니다.\r\n비활성화 한 경우엔 프로그램 종료 시에 로그가 기록됩니다.\r\n활성화 하면 강제 종료등의 문" +
@@ -809,9 +820,9 @@ namespace ElectronicObserver.Window.Dialog
             // Log_SaveBattleLog
             // 
             this.Log_SaveBattleLog.AutoSize = true;
-            this.Log_SaveBattleLog.Location = new System.Drawing.Point(8, 140);
+            this.Log_SaveBattleLog.Location = new System.Drawing.Point(240, 321);
             this.Log_SaveBattleLog.Name = "Log_SaveBattleLog";
-            this.Log_SaveBattleLog.Size = new System.Drawing.Size(106, 19);
+            this.Log_SaveBattleLog.Size = new System.Drawing.Size(104, 19);
             this.Log_SaveBattleLog.TabIndex = 8;
             this.Log_SaveBattleLog.Text = "전투 로그 저장";
             this.ToolTipInfo.SetToolTip(this.Log_SaveBattleLog, "전투 로그를 저장할지 여부를 설정합니다.\r\n전투 로그는 BattleLog 폴더에 저장됩니다.");
@@ -820,9 +831,9 @@ namespace ElectronicObserver.Window.Dialog
             // Log_ShowSpoiler
             // 
             this.Log_ShowSpoiler.AutoSize = true;
-            this.Log_ShowSpoiler.Location = new System.Drawing.Point(197, 32);
+            this.Log_ShowSpoiler.Location = new System.Drawing.Point(240, 271);
             this.Log_ShowSpoiler.Name = "Log_ShowSpoiler";
-            this.Log_ShowSpoiler.Size = new System.Drawing.Size(102, 19);
+            this.Log_ShowSpoiler.Size = new System.Drawing.Size(101, 19);
             this.Log_ShowSpoiler.TabIndex = 3;
             this.Log_ShowSpoiler.Text = "결과 미리보기";
             this.ToolTipInfo.SetToolTip(this.Log_ShowSpoiler, "개발한 아이템 이름이나 건조시 결과를 미리 볼지 여부를 설정합니다.\r\n");
@@ -831,18 +842,18 @@ namespace ElectronicObserver.Window.Dialog
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(5, 111);
+            this.label12.Location = new System.Drawing.Point(6, 346);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(279, 15);
+            this.label12.Size = new System.Drawing.Size(271, 15);
             this.label12.TabIndex = 7;
             this.label12.Text = "＊설정 기록을 읽을 수 없게 될 가능성이 있습니다.";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(5, 88);
+            this.label11.Location = new System.Drawing.Point(6, 320);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(71, 15);
+            this.label11.Size = new System.Drawing.Size(70, 15);
             this.label11.TabIndex = 5;
             this.label11.Text = "문자 코드：";
             // 
@@ -856,7 +867,7 @@ namespace ElectronicObserver.Window.Dialog
             "UTF-16",
             "UTF-16(BOM)",
             "Shift-JIS"});
-            this.Log_FileEncodingID.Location = new System.Drawing.Point(80, 85);
+            this.Log_FileEncodingID.Location = new System.Drawing.Point(82, 317);
             this.Log_FileEncodingID.Name = "Log_FileEncodingID";
             this.Log_FileEncodingID.Size = new System.Drawing.Size(112, 23);
             this.Log_FileEncodingID.TabIndex = 6;
@@ -866,9 +877,9 @@ namespace ElectronicObserver.Window.Dialog
             // Log_SaveErrorReport
             // 
             this.Log_SaveErrorReport.AutoSize = true;
-            this.Log_SaveErrorReport.Location = new System.Drawing.Point(8, 60);
+            this.Log_SaveErrorReport.Location = new System.Drawing.Point(240, 296);
             this.Log_SaveErrorReport.Name = "Log_SaveErrorReport";
-            this.Log_SaveErrorReport.Size = new System.Drawing.Size(118, 19);
+            this.Log_SaveErrorReport.Size = new System.Drawing.Size(116, 19);
             this.Log_SaveErrorReport.TabIndex = 4;
             this.Log_SaveErrorReport.Text = "오류 보고서 저장";
             this.ToolTipInfo.SetToolTip(this.Log_SaveErrorReport, "오류가 발생했을 때 기록을 남깁니다.\r\n보고서를 보내주시면 버그 수정에 도움이 될 수 있습니다.\r\n기본적으론 실행 폴더의 ErrorReport 폴" +
@@ -878,33 +889,19 @@ namespace ElectronicObserver.Window.Dialog
             // Log_SaveLogFlag
             // 
             this.Log_SaveLogFlag.AutoSize = true;
-            this.Log_SaveLogFlag.Location = new System.Drawing.Point(8, 6);
+            this.Log_SaveLogFlag.Location = new System.Drawing.Point(362, 321);
             this.Log_SaveLogFlag.Name = "Log_SaveLogFlag";
-            this.Log_SaveLogFlag.Size = new System.Drawing.Size(130, 19);
+            this.Log_SaveLogFlag.Size = new System.Drawing.Size(128, 19);
             this.Log_SaveLogFlag.TabIndex = 0;
             this.Log_SaveLogFlag.Text = "로그를 파일에 저장";
             this.Log_SaveLogFlag.UseVisualStyleBackColor = true;
             // 
-            // Log_LogLevel
-            // 
-            this.Log_LogLevel.Location = new System.Drawing.Point(111, 31);
-            this.Log_LogLevel.Maximum = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            this.Log_LogLevel.Name = "Log_LogLevel";
-            this.Log_LogLevel.Size = new System.Drawing.Size(80, 23);
-            this.Log_LogLevel.TabIndex = 2;
-            this.Log_LogLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.ToolTipInfo.SetToolTip(this.Log_LogLevel, "로그 기록 수준을 설정합니다. 높은 단계 일수록 중요한 로그만 저장합니다.\r\n1: 디버그 수준\r\n2: 보통(권장)\r\n3: 에러만");
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(5, 33);
+            this.label6.Location = new System.Drawing.Point(8, 10);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(99, 15);
+            this.label6.Size = new System.Drawing.Size(97, 15);
             this.label6.TabIndex = 1;
             this.label6.Text = "로그 기록 수준：";
             // 
@@ -932,7 +929,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Control_ShowExpeditionAlertDialog.AutoSize = true;
             this.Control_ShowExpeditionAlertDialog.Location = new System.Drawing.Point(9, 143);
             this.Control_ShowExpeditionAlertDialog.Name = "Control_ShowExpeditionAlertDialog";
-            this.Control_ShowExpeditionAlertDialog.Size = new System.Drawing.Size(154, 19);
+            this.Control_ShowExpeditionAlertDialog.Size = new System.Drawing.Size(152, 19);
             this.Control_ShowExpeditionAlertDialog.TabIndex = 8;
             this.Control_ShowExpeditionAlertDialog.Text = "원정편성 미충족시 경고";
             this.ToolTipInfo.SetToolTip(this.Control_ShowExpeditionAlertDialog, "편성 기준에 맞지 않는 함대가 원정에 출발 할 때 경고 대화 상자를 표시할지 여부를 지정합니다.");
@@ -943,7 +940,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Control_ShowSallyAreaAlertDialog.AutoSize = true;
             this.Control_ShowSallyAreaAlertDialog.Location = new System.Drawing.Point(9, 118);
             this.Control_ShowSallyAreaAlertDialog.Name = "Control_ShowSallyAreaAlertDialog";
-            this.Control_ShowSallyAreaAlertDialog.Size = new System.Drawing.Size(226, 19);
+            this.Control_ShowSallyAreaAlertDialog.Size = new System.Drawing.Size(221, 19);
             this.Control_ShowSallyAreaAlertDialog.TabIndex = 7;
             this.Control_ShowSallyAreaAlertDialog.Text = "출격 딱지가 없는 칸무스 출격시 경고";
             this.ToolTipInfo.SetToolTip(this.Control_ShowSallyAreaAlertDialog, "출격 딱지가 없는 칸무스가 이벤트 해역에 출격시, 경고를 표시할지 여부를 설정합니다.\r\n얻을 수 있는 정보가 불완전할 수 있는 게임 특성상, 오판" +
@@ -970,7 +967,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label29.AutoSize = true;
             this.label29.Location = new System.Drawing.Point(6, 67);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(71, 15);
+            this.label29.Size = new System.Drawing.Size(70, 15);
             this.label29.TabIndex = 4;
             this.label29.Text = "교전 형태：";
             // 
@@ -979,7 +976,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Control_UseSystemVolume.AutoSize = true;
             this.Control_UseSystemVolume.Location = new System.Drawing.Point(9, 93);
             this.Control_UseSystemVolume.Name = "Control_UseSystemVolume";
-            this.Control_UseSystemVolume.Size = new System.Drawing.Size(209, 19);
+            this.Control_UseSystemVolume.Size = new System.Drawing.Size(204, 19);
             this.Control_UseSystemVolume.TabIndex = 6;
             this.Control_UseSystemVolume.Text = "알림, BGM 볼륨 시스템 설정 사용";
             this.ToolTipInfo.SetToolTip(this.Control_UseSystemVolume, "알림, BGM등의 볼륨 설정을 시스템 볼륨으로 설정할지 여부를 설정합니다.\r\n비활성화 한경우 개별적으로 볼륨 설정이 가능하나, 볼륨 믹서 등으로 " +
@@ -1005,7 +1002,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(6, 38);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(99, 15);
+            this.label9.Size = new System.Drawing.Size(97, 15);
             this.label9.TabIndex = 2;
             this.label9.Text = "기록 자동 저장：";
             // 
@@ -1018,7 +1015,7 @@ namespace ElectronicObserver.Window.Dialog
             0,
             0});
             this.Control_ConditionBorder.Name = "Control_ConditionBorder";
-            this.Control_ConditionBorder.Size = new System.Drawing.Size(80, 23);
+            this.Control_ConditionBorder.Size = new System.Drawing.Size(80, 21);
             this.Control_ConditionBorder.TabIndex = 1;
             this.Control_ConditionBorder.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1027,7 +1024,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 8);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(83, 15);
+            this.label7.Size = new System.Drawing.Size(82, 15);
             this.label7.TabIndex = 0;
             this.label7.Text = "피로도 경계：";
             // 
@@ -1049,7 +1046,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Debug_AlertOnError.AutoSize = true;
             this.Debug_AlertOnError.Location = new System.Drawing.Point(8, 31);
             this.Debug_AlertOnError.Name = "Debug_AlertOnError";
-            this.Debug_AlertOnError.Size = new System.Drawing.Size(118, 19);
+            this.Debug_AlertOnError.Size = new System.Drawing.Size(116, 19);
             this.Debug_AlertOnError.TabIndex = 2;
             this.Debug_AlertOnError.Text = "에러시 소리 울림";
             this.Debug_AlertOnError.UseVisualStyleBackColor = true;
@@ -1064,7 +1061,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Debug_SealingPanel.Controls.Add(this.Debug_APIListPathSearch);
             this.Debug_SealingPanel.Location = new System.Drawing.Point(0, 56);
             this.Debug_SealingPanel.Name = "Debug_SealingPanel";
-            this.Debug_SealingPanel.Size = new System.Drawing.Size(696, 243);
+            this.Debug_SealingPanel.Size = new System.Drawing.Size(696, 239);
             this.Debug_SealingPanel.TabIndex = 1;
             // 
             // Debug_APIListPath
@@ -1074,7 +1071,7 @@ namespace ElectronicObserver.Window.Dialog
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Debug_APIListPath.Location = new System.Drawing.Point(8, 28);
             this.Debug_APIListPath.Name = "Debug_APIListPath";
-            this.Debug_APIListPath.Size = new System.Drawing.Size(642, 23);
+            this.Debug_APIListPath.Size = new System.Drawing.Size(642, 21);
             this.Debug_APIListPath.TabIndex = 1;
             // 
             // Debug_LoadAPIListOnLoad
@@ -1082,7 +1079,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Debug_LoadAPIListOnLoad.AutoSize = true;
             this.Debug_LoadAPIListOnLoad.Location = new System.Drawing.Point(8, 3);
             this.Debug_LoadAPIListOnLoad.Name = "Debug_LoadAPIListOnLoad";
-            this.Debug_LoadAPIListOnLoad.Size = new System.Drawing.Size(154, 19);
+            this.Debug_LoadAPIListOnLoad.Size = new System.Drawing.Size(149, 19);
             this.Debug_LoadAPIListOnLoad.TabIndex = 0;
             this.Debug_LoadAPIListOnLoad.Text = "시작시 API 목록을 로드";
             this.ToolTipInfo.SetToolTip(this.Debug_LoadAPIListOnLoad, "시작할때, 지정된 API 목록을 자동으로 로드합니다.\r\nAPI 목록의 서식과 사용법은 온라인 메뉴얼을 참조하십시오.");
@@ -1104,7 +1101,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Debug_EnableDebugMenu.AutoSize = true;
             this.Debug_EnableDebugMenu.Location = new System.Drawing.Point(8, 6);
             this.Debug_EnableDebugMenu.Name = "Debug_EnableDebugMenu";
-            this.Debug_EnableDebugMenu.Size = new System.Drawing.Size(130, 19);
+            this.Debug_EnableDebugMenu.Size = new System.Drawing.Size(128, 19);
             this.Debug_EnableDebugMenu.TabIndex = 0;
             this.Debug_EnableDebugMenu.Text = "디버그 메뉴 활성화";
             this.ToolTipInfo.SetToolTip(this.Debug_EnableDebugMenu, "메인 창에서 디버그 메뉴를 활성화합니다.\r\n디버깅용 기능이므로, 일반 사용자의 조작은 권장되지 않습니다.\r\n사용시 에러등은 보증되지 않았으므로＊自" +
@@ -1134,24 +1131,12 @@ namespace ElectronicObserver.Window.Dialog
             this.tabPage6.Text = "윈도우";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // Life_CanSizableFloatWindowInLock
-            // 
-            this.Life_CanSizableFloatWindowInLock.AutoSize = true;
-            this.Life_CanSizableFloatWindowInLock.Location = new System.Drawing.Point(213, 85);
-            this.Life_CanSizableFloatWindowInLock.Name = "Life_CanSizableFloatWindowInLock";
-            this.Life_CanSizableFloatWindowInLock.Size = new System.Drawing.Size(322, 19);
-            this.Life_CanSizableFloatWindowInLock.TabIndex = 11;
-            this.Life_CanSizableFloatWindowInLock.Text = "레이아웃 잠금중 플로트 윈도우 크기조정가능하게 설정";
-            this.ToolTipInfo.SetToolTip(this.Life_CanSizableFloatWindowInLock, "레이아웃이 잠금상태인 경우에도,\r\n플로트 윈도우(본체로부터 분리된 창. 이 경우 \'보기\'에서 열수있는 메뉴들이 해당됩니다.)\r\n의 크기를 조정할 " +
-        "수 있게 해줍니다.");
-            this.Life_CanSizableFloatWindowInLock.UseVisualStyleBackColor = true;
-            // 
             // Life_CanCloseFloatWindowInLock
             // 
             this.Life_CanCloseFloatWindowInLock.AutoSize = true;
             this.Life_CanCloseFloatWindowInLock.Location = new System.Drawing.Point(213, 60);
             this.Life_CanCloseFloatWindowInLock.Name = "Life_CanCloseFloatWindowInLock";
-            this.Life_CanCloseFloatWindowInLock.Size = new System.Drawing.Size(286, 19);
+            this.Life_CanCloseFloatWindowInLock.Size = new System.Drawing.Size(281, 19);
             this.Life_CanCloseFloatWindowInLock.TabIndex = 10;
             this.Life_CanCloseFloatWindowInLock.Text = "레이아웃 잠금중 플로트 윈도우 닫을수있게 설정";
             this.ToolTipInfo.SetToolTip(this.Life_CanCloseFloatWindowInLock, "레이아웃이 잠금상태인 경우에도,\r\n플로트 윈도우(본체로부터 분리된 창. 이 경우 \'보기\'에서 열수있는 메뉴들이 해당됩니다.)\r\n를 닫을 수 있게 " +
@@ -1163,7 +1148,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Life_LockLayout.AutoSize = true;
             this.Life_LockLayout.Location = new System.Drawing.Point(213, 35);
             this.Life_LockLayout.Name = "Life_LockLayout";
-            this.Life_LockLayout.Size = new System.Drawing.Size(102, 19);
+            this.Life_LockLayout.Size = new System.Drawing.Size(101, 19);
             this.Life_LockLayout.TabIndex = 9;
             this.Life_LockLayout.Text = "레이아웃 잠금";
             this.ToolTipInfo.SetToolTip(this.Life_LockLayout, "크기와 레이아웃의 변경을 비활성화합니다.");
@@ -1174,7 +1159,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label24.AutoSize = true;
             this.label24.Location = new System.Drawing.Point(8, 138);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(71, 15);
+            this.label24.Size = new System.Drawing.Size(70, 15);
             this.label24.TabIndex = 8;
             this.label24.Text = "시간 표시：";
             // 
@@ -1196,7 +1181,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Life_ShowStatusBar.AutoSize = true;
             this.Life_ShowStatusBar.Location = new System.Drawing.Point(11, 110);
             this.Life_ShowStatusBar.Name = "Life_ShowStatusBar";
-            this.Life_ShowStatusBar.Size = new System.Drawing.Size(130, 19);
+            this.Life_ShowStatusBar.Size = new System.Drawing.Size(128, 19);
             this.Life_ShowStatusBar.TabIndex = 6;
             this.Life_ShowStatusBar.Text = "상태 표시줄을 표시";
             this.Life_ShowStatusBar.UseVisualStyleBackColor = true;
@@ -1206,7 +1191,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Life_CheckUpdateInformation.AutoSize = true;
             this.Life_CheckUpdateInformation.Location = new System.Drawing.Point(11, 85);
             this.Life_CheckUpdateInformation.Name = "Life_CheckUpdateInformation";
-            this.Life_CheckUpdateInformation.Size = new System.Drawing.Size(102, 19);
+            this.Life_CheckUpdateInformation.Size = new System.Drawing.Size(101, 19);
             this.Life_CheckUpdateInformation.TabIndex = 5;
             this.Life_CheckUpdateInformation.Text = "업데이트 확인";
             this.Life_CheckUpdateInformation.UseVisualStyleBackColor = true;
@@ -1228,7 +1213,7 @@ namespace ElectronicObserver.Window.Dialog
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Life_LayoutFilePath.Location = new System.Drawing.Point(103, 6);
             this.Life_LayoutFilePath.Name = "Life_LayoutFilePath";
-            this.Life_LayoutFilePath.Size = new System.Drawing.Size(547, 23);
+            this.Life_LayoutFilePath.Size = new System.Drawing.Size(547, 21);
             this.Life_LayoutFilePath.TabIndex = 1;
             // 
             // label14
@@ -1236,7 +1221,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(8, 9);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(95, 15);
+            this.label14.Size = new System.Drawing.Size(94, 15);
             this.label14.TabIndex = 0;
             this.label14.Text = "레이아웃 파일：";
             // 
@@ -1245,7 +1230,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Life_TopMost.AutoSize = true;
             this.Life_TopMost.Location = new System.Drawing.Point(11, 60);
             this.Life_TopMost.Name = "Life_TopMost";
-            this.Life_TopMost.Size = new System.Drawing.Size(94, 19);
+            this.Life_TopMost.Size = new System.Drawing.Size(92, 19);
             this.Life_TopMost.TabIndex = 4;
             this.Life_TopMost.Text = "맨 위에 표시";
             this.Life_TopMost.UseVisualStyleBackColor = true;
@@ -1255,7 +1240,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Life_ConfirmOnClosing.AutoSize = true;
             this.Life_ConfirmOnClosing.Location = new System.Drawing.Point(11, 35);
             this.Life_ConfirmOnClosing.Name = "Life_ConfirmOnClosing";
-            this.Life_ConfirmOnClosing.Size = new System.Drawing.Size(102, 19);
+            this.Life_ConfirmOnClosing.Size = new System.Drawing.Size(101, 19);
             this.Life_ConfirmOnClosing.TabIndex = 3;
             this.Life_ConfirmOnClosing.Text = "종료시에 확인";
             this.Life_ConfirmOnClosing.UseVisualStyleBackColor = true;
@@ -1333,7 +1318,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormFleet_FocusModifiedFleet.AutoSize = true;
             this.FormFleet_FocusModifiedFleet.Location = new System.Drawing.Point(358, 213);
             this.FormFleet_FocusModifiedFleet.Name = "FormFleet_FocusModifiedFleet";
-            this.FormFleet_FocusModifiedFleet.Size = new System.Drawing.Size(186, 19);
+            this.FormFleet_FocusModifiedFleet.Size = new System.Drawing.Size(182, 19);
             this.FormFleet_FocusModifiedFleet.TabIndex = 26;
             this.FormFleet_FocusModifiedFleet.Text = "함대 정보 변경시 함대 포커싱";
             this.ToolTipInfo.SetToolTip(this.FormFleet_FocusModifiedFleet, "함대의 정보가 변경되면 해당 함대 패널에 포커싱을 줍니다. 여러패널이 겹쳐있으면 함대패널을 위로 띄웁니다.");
@@ -1344,7 +1329,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormFleet_AppliesSallyAreaColor.AutoSize = true;
             this.FormFleet_AppliesSallyAreaColor.Location = new System.Drawing.Point(358, 188);
             this.FormFleet_AppliesSallyAreaColor.Name = "FormFleet_AppliesSallyAreaColor";
-            this.FormFleet_AppliesSallyAreaColor.Size = new System.Drawing.Size(204, 19);
+            this.FormFleet_AppliesSallyAreaColor.Size = new System.Drawing.Size(199, 19);
             this.FormFleet_AppliesSallyAreaColor.TabIndex = 25;
             this.FormFleet_AppliesSallyAreaColor.Text = "출격 해역(딱지)따라 함명 색지정";
             this.ToolTipInfo.SetToolTip(this.FormFleet_AppliesSallyAreaColor, "출격 해역(딱지)에 따라 함명의 배경색을 설정합니다.");
@@ -1369,7 +1354,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label44.AutoSize = true;
             this.label44.Location = new System.Drawing.Point(6, 257);
             this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(148, 15);
+            this.label44.Size = new System.Drawing.Size(142, 15);
             this.label44.TabIndex = 23;
             this.label44.Text = "경험치 계산기 정렬 순서 :";
             // 
@@ -1378,7 +1363,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label43.AutoSize = true;
             this.label43.Location = new System.Drawing.Point(6, 33);
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(99, 15);
+            this.label43.Size = new System.Drawing.Size(97, 15);
             this.label43.TabIndex = 22;
             this.label43.Text = "함대 상태 표시：";
             // 
@@ -1401,7 +1386,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormFleet_EmphasizesSubFleetInPort.AutoSize = true;
             this.FormFleet_EmphasizesSubFleetInPort.Location = new System.Drawing.Point(358, 163);
             this.FormFleet_EmphasizesSubFleetInPort.Name = "FormFleet_EmphasizesSubFleetInPort";
-            this.FormFleet_EmphasizesSubFleetInPort.Size = new System.Drawing.Size(162, 19);
+            this.FormFleet_EmphasizesSubFleetInPort.Size = new System.Drawing.Size(158, 19);
             this.FormFleet_EmphasizesSubFleetInPort.TabIndex = 20;
             this.FormFleet_EmphasizesSubFleetInPort.Text = "원정 함대 미 출격시 알림";
             this.ToolTipInfo.SetToolTip(this.FormFleet_EmphasizesSubFleetInPort, "제 2~4 함대가 모항에 존재할 때 색으로 표시하도록 합니다.");
@@ -1412,7 +1397,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormFleet_BlinkAtDamaged.AutoSize = true;
             this.FormFleet_BlinkAtDamaged.Location = new System.Drawing.Point(358, 138);
             this.FormFleet_BlinkAtDamaged.Name = "FormFleet_BlinkAtDamaged";
-            this.FormFleet_BlinkAtDamaged.Size = new System.Drawing.Size(90, 19);
+            this.FormFleet_BlinkAtDamaged.Size = new System.Drawing.Size(89, 19);
             this.FormFleet_BlinkAtDamaged.TabIndex = 19;
             this.FormFleet_BlinkAtDamaged.Text = "대파시 점멸";
             this.ToolTipInfo.SetToolTip(this.FormFleet_BlinkAtDamaged, "모항에서 대파함이 있을때 점멸 표시할지 여부를 설정합니다.\r\n출격시에는 항상 점멸합니다.");
@@ -1423,7 +1408,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormFleet_ReflectAnchorageRepairHealing.AutoSize = true;
             this.FormFleet_ReflectAnchorageRepairHealing.Location = new System.Drawing.Point(159, 163);
             this.FormFleet_ReflectAnchorageRepairHealing.Name = "FormFleet_ReflectAnchorageRepairHealing";
-            this.FormFleet_ReflectAnchorageRepairHealing.Size = new System.Drawing.Size(170, 19);
+            this.FormFleet_ReflectAnchorageRepairHealing.Size = new System.Drawing.Size(167, 19);
             this.FormFleet_ReflectAnchorageRepairHealing.TabIndex = 16;
             this.FormFleet_ReflectAnchorageRepairHealing.Text = "아카시 수리의 회복을 반영";
             this.ToolTipInfo.SetToolTip(this.FormFleet_ReflectAnchorageRepairHealing, "활성화 하면 아카시 수리시에 함대창의 HP가 갱신됩니다.");
@@ -1434,7 +1419,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormFleet_ShowAirSuperiorityRange.AutoSize = true;
             this.FormFleet_ShowAirSuperiorityRange.Location = new System.Drawing.Point(6, 213);
             this.FormFleet_ShowAirSuperiorityRange.Name = "FormFleet_ShowAirSuperiorityRange";
-            this.FormFleet_ShowAirSuperiorityRange.Size = new System.Drawing.Size(114, 19);
+            this.FormFleet_ShowAirSuperiorityRange.Size = new System.Drawing.Size(113, 19);
             this.FormFleet_ShowAirSuperiorityRange.TabIndex = 14;
             this.FormFleet_ShowAirSuperiorityRange.Text = "제공치 범위보기";
             this.ToolTipInfo.SetToolTip(this.FormFleet_ShowAirSuperiorityRange, "제공치의 범위를 내부 숙련도 최소~최대로 범위 표시할지 여부를 설정합니다.\r\n일반적으로는 최소 내부 숙련도로 계산됩니다.");
@@ -1445,7 +1430,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormFleet_ShowAircraftLevelByNumber.AutoSize = true;
             this.FormFleet_ShowAircraftLevelByNumber.Location = new System.Drawing.Point(159, 213);
             this.FormFleet_ShowAircraftLevelByNumber.Name = "FormFleet_ShowAircraftLevelByNumber";
-            this.FormFleet_ShowAircraftLevelByNumber.Size = new System.Drawing.Size(182, 19);
+            this.FormFleet_ShowAircraftLevelByNumber.Size = new System.Drawing.Size(179, 19);
             this.FormFleet_ShowAircraftLevelByNumber.TabIndex = 18;
             this.FormFleet_ShowAircraftLevelByNumber.Text = "함재기 숙련도를 숫자로 표시";
             this.ToolTipInfo.SetToolTip(this.FormFleet_ShowAircraftLevelByNumber, "함재기 숙련도를 기호 (I, << 등) 대신, 숫자 (1,7 등)으로 표시할지 설정합니다.");
@@ -1456,7 +1441,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label35.AutoSize = true;
             this.label35.Location = new System.Drawing.Point(225, 114);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(21, 15);
+            this.label35.Size = new System.Drawing.Size(20, 15);
             this.label35.TabIndex = 10;
             this.label35.Text = "px";
             // 
@@ -1474,7 +1459,7 @@ namespace ElectronicObserver.Window.Dialog
             0,
             0});
             this.FormFleet_FixedShipNameWidth.Name = "FormFleet_FixedShipNameWidth";
-            this.FormFleet_FixedShipNameWidth.Size = new System.Drawing.Size(60, 23);
+            this.FormFleet_FixedShipNameWidth.Size = new System.Drawing.Size(60, 21);
             this.FormFleet_FixedShipNameWidth.TabIndex = 9;
             this.FormFleet_FixedShipNameWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.ToolTipInfo.SetToolTip(this.FormFleet_FixedShipNameWidth, "함명 가로 고정이 활성화됬을때의 크기를 설정합니다.");
@@ -1489,7 +1474,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormFleet_ShowConditionIcon.AutoSize = true;
             this.FormFleet_ShowConditionIcon.Location = new System.Drawing.Point(6, 188);
             this.FormFleet_ShowConditionIcon.Name = "FormFleet_ShowConditionIcon";
-            this.FormFleet_ShowConditionIcon.Size = new System.Drawing.Size(130, 19);
+            this.FormFleet_ShowConditionIcon.Size = new System.Drawing.Size(128, 19);
             this.FormFleet_ShowConditionIcon.TabIndex = 13;
             this.FormFleet_ShowConditionIcon.Text = "피로도 아이콘 표시";
             this.ToolTipInfo.SetToolTip(this.FormFleet_ShowConditionIcon, "피로도 아이콘을 표시할지 여부를 설정합니다.\r\n비활성화 한 경우, 배경색으로 구분됩니다.");
@@ -1519,7 +1504,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label28.AutoSize = true;
             this.label28.Location = new System.Drawing.Point(156, 89);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(99, 15);
+            this.label28.Size = new System.Drawing.Size(97, 15);
             this.label28.TabIndex = 6;
             this.label28.Text = "장비 정보 표시：";
             // 
@@ -1528,7 +1513,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormFleet_BlinkAtCompletion.AutoSize = true;
             this.FormFleet_BlinkAtCompletion.Location = new System.Drawing.Point(159, 188);
             this.FormFleet_BlinkAtCompletion.Name = "FormFleet_BlinkAtCompletion";
-            this.FormFleet_BlinkAtCompletion.Size = new System.Drawing.Size(130, 19);
+            this.FormFleet_BlinkAtCompletion.Size = new System.Drawing.Size(128, 19);
             this.FormFleet_BlinkAtCompletion.TabIndex = 17;
             this.FormFleet_BlinkAtCompletion.Text = "타이머 완료시 점멸";
             this.ToolTipInfo.SetToolTip(this.FormFleet_BlinkAtCompletion, "원정, 입거등이 완료되면 창을 점멸시킬지 설정합니다.");
@@ -1539,7 +1524,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormFleet_ShowAnchorageRepairingTimer.AutoSize = true;
             this.FormFleet_ShowAnchorageRepairingTimer.Location = new System.Drawing.Point(159, 138);
             this.FormFleet_ShowAnchorageRepairingTimer.Name = "FormFleet_ShowAnchorageRepairingTimer";
-            this.FormFleet_ShowAnchorageRepairingTimer.Size = new System.Drawing.Size(142, 19);
+            this.FormFleet_ShowAnchorageRepairingTimer.Size = new System.Drawing.Size(140, 19);
             this.FormFleet_ShowAnchorageRepairingTimer.TabIndex = 15;
             this.FormFleet_ShowAnchorageRepairingTimer.Text = "아카시 타이머를 표시";
             this.ToolTipInfo.SetToolTip(this.FormFleet_ShowAnchorageRepairingTimer, "아카시 타이머를 표시할지를 설정합니다.");
@@ -1562,7 +1547,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label23.AutoSize = true;
             this.label23.Location = new System.Drawing.Point(6, 62);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(95, 15);
+            this.label23.Size = new System.Drawing.Size(94, 15);
             this.label23.TabIndex = 3;
             this.label23.Text = "제공치 계산식：";
             // 
@@ -1571,7 +1556,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormFleet_ShowNextExp.AutoSize = true;
             this.FormFleet_ShowNextExp.Location = new System.Drawing.Point(6, 163);
             this.FormFleet_ShowNextExp.Name = "FormFleet_ShowNextExp";
-            this.FormFleet_ShowNextExp.Size = new System.Drawing.Size(170, 19);
+            this.FormFleet_ShowNextExp.Size = new System.Drawing.Size(167, 19);
             this.FormFleet_ShowNextExp.TabIndex = 12;
             this.FormFleet_ShowNextExp.Text = "다음 레벨까지 경험치 보기";
             this.ToolTipInfo.SetToolTip(this.FormFleet_ShowNextExp, "다음 레벨까지 필요한 경험치를 표시할지 설정합니다.\r\n생략하면 공간을 절약할 수 있습니다.");
@@ -1582,7 +1567,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormFleet_ShortenHPBar.AutoSize = true;
             this.FormFleet_ShortenHPBar.Location = new System.Drawing.Point(6, 138);
             this.FormFleet_ShortenHPBar.Name = "FormFleet_ShortenHPBar";
-            this.FormFleet_ShortenHPBar.Size = new System.Drawing.Size(126, 19);
+            this.FormFleet_ShortenHPBar.Size = new System.Drawing.Size(124, 19);
             this.FormFleet_ShortenHPBar.TabIndex = 11;
             this.FormFleet_ShortenHPBar.Text = "HP 바를 단축 표시";
             this.ToolTipInfo.SetToolTip(this.FormFleet_ShortenHPBar, "HP 바를 단축하고 공간을 절약합니다.");
@@ -1593,7 +1578,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormFleet_FixShipNameWidth.AutoSize = true;
             this.FormFleet_FixShipNameWidth.Location = new System.Drawing.Point(6, 113);
             this.FormFleet_FixShipNameWidth.Name = "FormFleet_FixShipNameWidth";
-            this.FormFleet_FixShipNameWidth.Size = new System.Drawing.Size(122, 19);
+            this.FormFleet_FixShipNameWidth.Size = new System.Drawing.Size(119, 19);
             this.FormFleet_FixShipNameWidth.TabIndex = 8;
             this.FormFleet_FixShipNameWidth.Text = "함선 이름 폭 고정";
             this.ToolTipInfo.SetToolTip(this.FormFleet_FixShipNameWidth, "함선 이름 창의 폭을 고정합니다.\r\n긴 이름을 가진 칸무스에는 적용되지 않습니다.");
@@ -1605,7 +1590,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormFleet_IsScrollable.AutoSize = true;
             this.FormFleet_IsScrollable.Location = new System.Drawing.Point(6, 88);
             this.FormFleet_IsScrollable.Name = "FormFleet_IsScrollable";
-            this.FormFleet_IsScrollable.Size = new System.Drawing.Size(106, 19);
+            this.FormFleet_IsScrollable.Size = new System.Drawing.Size(104, 19);
             this.FormFleet_IsScrollable.TabIndex = 5;
             this.FormFleet_IsScrollable.Text = "스크롤 바 표시";
             this.ToolTipInfo.SetToolTip(this.FormFleet_IsScrollable, "스크롤 바 부분을 표시할지 여부를 설정합니다.\r\n창 크기가 딱 맞춰진 경우에는 표시하지 않습니다.");
@@ -1634,7 +1619,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label13.Enabled = false;
             this.label13.Location = new System.Drawing.Point(249, 33);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(111, 15);
+            this.label13.Size = new System.Drawing.Size(109, 15);
             this.label13.TabIndex = 1;
             this.label13.Text = "색적 능력 계산식：";
             this.label13.Visible = false;
@@ -1644,7 +1629,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormFleet_ShowAircraft.AutoSize = true;
             this.FormFleet_ShowAircraft.Location = new System.Drawing.Point(6, 6);
             this.FormFleet_ShowAircraft.Name = "FormFleet_ShowAircraft";
-            this.FormFleet_ShowAircraft.Size = new System.Drawing.Size(106, 19);
+            this.FormFleet_ShowAircraft.Size = new System.Drawing.Size(104, 19);
             this.FormFleet_ShowAircraft.TabIndex = 0;
             this.FormFleet_ShowAircraft.Text = "함재기 수 표시";
             this.FormFleet_ShowAircraft.UseVisualStyleBackColor = true;
@@ -1669,7 +1654,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label38.AutoSize = true;
             this.label38.Location = new System.Drawing.Point(6, 57);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(115, 15);
+            this.label38.Size = new System.Drawing.Size(112, 15);
             this.label38.TabIndex = 12;
             this.label38.Text = "함선 이름 최대 폭：";
             // 
@@ -1678,7 +1663,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label37.AutoSize = true;
             this.label37.Location = new System.Drawing.Point(179, 57);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(21, 15);
+            this.label37.Size = new System.Drawing.Size(20, 15);
             this.label37.TabIndex = 11;
             this.label37.Text = "px";
             // 
@@ -1696,7 +1681,7 @@ namespace ElectronicObserver.Window.Dialog
             0,
             0});
             this.FormArsenal_MaxShipNameWidth.Name = "FormArsenal_MaxShipNameWidth";
-            this.FormArsenal_MaxShipNameWidth.Size = new System.Drawing.Size(60, 23);
+            this.FormArsenal_MaxShipNameWidth.Size = new System.Drawing.Size(60, 21);
             this.FormArsenal_MaxShipNameWidth.TabIndex = 10;
             this.FormArsenal_MaxShipNameWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.ToolTipInfo.SetToolTip(this.FormArsenal_MaxShipNameWidth, "함선 이름 표시 폭의 최대값을 설정합니다.");
@@ -1711,7 +1696,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormArsenal_BlinkAtCompletion.AutoSize = true;
             this.FormArsenal_BlinkAtCompletion.Location = new System.Drawing.Point(6, 31);
             this.FormArsenal_BlinkAtCompletion.Name = "FormArsenal_BlinkAtCompletion";
-            this.FormArsenal_BlinkAtCompletion.Size = new System.Drawing.Size(90, 19);
+            this.FormArsenal_BlinkAtCompletion.Size = new System.Drawing.Size(89, 19);
             this.FormArsenal_BlinkAtCompletion.TabIndex = 2;
             this.FormArsenal_BlinkAtCompletion.Text = "완료시 점멸";
             this.FormArsenal_BlinkAtCompletion.UseVisualStyleBackColor = true;
@@ -1745,7 +1730,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label39.AutoSize = true;
             this.label39.Location = new System.Drawing.Point(6, 32);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(119, 15);
+            this.label39.Size = new System.Drawing.Size(115, 15);
             this.label39.TabIndex = 12;
             this.label39.Text = "함선 이름 최대 폭 ：";
             // 
@@ -1754,7 +1739,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label36.AutoSize = true;
             this.label36.Location = new System.Drawing.Point(179, 32);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(21, 15);
+            this.label36.Size = new System.Drawing.Size(20, 15);
             this.label36.TabIndex = 11;
             this.label36.Text = "px";
             // 
@@ -1772,7 +1757,7 @@ namespace ElectronicObserver.Window.Dialog
             0,
             0});
             this.FormDock_MaxShipNameWidth.Name = "FormDock_MaxShipNameWidth";
-            this.FormDock_MaxShipNameWidth.Size = new System.Drawing.Size(60, 23);
+            this.FormDock_MaxShipNameWidth.Size = new System.Drawing.Size(60, 21);
             this.FormDock_MaxShipNameWidth.TabIndex = 10;
             this.FormDock_MaxShipNameWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.ToolTipInfo.SetToolTip(this.FormDock_MaxShipNameWidth, "함선 이름 표시 폭의 최대값을 설정합니다.");
@@ -1787,7 +1772,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormDock_BlinkAtCompletion.AutoSize = true;
             this.FormDock_BlinkAtCompletion.Location = new System.Drawing.Point(6, 6);
             this.FormDock_BlinkAtCompletion.Name = "FormDock_BlinkAtCompletion";
-            this.FormDock_BlinkAtCompletion.Size = new System.Drawing.Size(90, 19);
+            this.FormDock_BlinkAtCompletion.Size = new System.Drawing.Size(89, 19);
             this.FormDock_BlinkAtCompletion.TabIndex = 3;
             this.FormDock_BlinkAtCompletion.Text = "완료시 점멸";
             this.FormDock_BlinkAtCompletion.UseVisualStyleBackColor = true;
@@ -1812,7 +1797,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label34.AutoSize = true;
             this.label34.Location = new System.Drawing.Point(200, 7);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(111, 15);
+            this.label34.Size = new System.Drawing.Size(109, 15);
             this.label34.TabIndex = 4;
             this.label34.Text = "자유 항목 표시란：";
             // 
@@ -1829,7 +1814,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label26.AutoSize = true;
             this.label26.Location = new System.Drawing.Point(6, 28);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(112, 15);
+            this.label26.Size = new System.Drawing.Size(109, 15);
             this.label26.TabIndex = 2;
             this.label26.Text = "표시/숨기기 설정：";
             // 
@@ -1850,7 +1835,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormHeadquarters_BlinkAtMaximum.AutoSize = true;
             this.FormHeadquarters_BlinkAtMaximum.Location = new System.Drawing.Point(6, 6);
             this.FormHeadquarters_BlinkAtMaximum.Name = "FormHeadquarters_BlinkAtMaximum";
-            this.FormHeadquarters_BlinkAtMaximum.Size = new System.Drawing.Size(183, 19);
+            this.FormHeadquarters_BlinkAtMaximum.Size = new System.Drawing.Size(179, 19);
             this.FormHeadquarters_BlinkAtMaximum.TabIndex = 0;
             this.FormHeadquarters_BlinkAtMaximum.Text = "함선/장비칸이 가득찰시 점멸";
             this.FormHeadquarters_BlinkAtMaximum.UseVisualStyleBackColor = true;
@@ -1879,7 +1864,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label21.ForeColor = System.Drawing.Color.Red;
             this.label21.Location = new System.Drawing.Point(21, 264);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(548, 15);
+            this.label21.Size = new System.Drawing.Size(533, 15);
             this.label21.TabIndex = 17;
             this.label21.Text = "* 기록부분에서는 숫자(알파벳) 병행표기형태이며, 검색시에는 같은 노드별 결과가 같이 검색됩니다.";
             // 
@@ -1888,7 +1873,7 @@ namespace ElectronicObserver.Window.Dialog
             this.NodeToAlphabetBox.AutoSize = true;
             this.NodeToAlphabetBox.Location = new System.Drawing.Point(242, 10);
             this.NodeToAlphabetBox.Name = "NodeToAlphabetBox";
-            this.NodeToAlphabetBox.Size = new System.Drawing.Size(193, 19);
+            this.NodeToAlphabetBox.Size = new System.Drawing.Size(187, 19);
             this.NodeToAlphabetBox.TabIndex = 16;
             this.NodeToAlphabetBox.Text = "노드 번호를 알파벳으로 표시 *";
             this.ToolTipInfo.SetToolTip(this.NodeToAlphabetBox, "노드 번호를 알파벳으로 표시합니다. EX ) 7-1-1 -> 7-1-A");
@@ -1900,7 +1885,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label40.AutoSize = true;
             this.label40.Location = new System.Drawing.Point(6, 76);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(115, 15);
+            this.label40.Size = new System.Drawing.Size(112, 15);
             this.label40.TabIndex = 15;
             this.label40.Text = "함선 이름 최대 폭：";
             // 
@@ -1909,7 +1894,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label41.AutoSize = true;
             this.label41.Location = new System.Drawing.Point(193, 76);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(21, 15);
+            this.label41.Size = new System.Drawing.Size(20, 15);
             this.label41.TabIndex = 14;
             this.label41.Text = "px";
             // 
@@ -1927,7 +1912,7 @@ namespace ElectronicObserver.Window.Dialog
             0,
             0});
             this.FormCompass_MaxShipNameWidth.Name = "FormCompass_MaxShipNameWidth";
-            this.FormCompass_MaxShipNameWidth.Size = new System.Drawing.Size(60, 23);
+            this.FormCompass_MaxShipNameWidth.Size = new System.Drawing.Size(60, 21);
             this.FormCompass_MaxShipNameWidth.TabIndex = 13;
             this.FormCompass_MaxShipNameWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.ToolTipInfo.SetToolTip(this.FormCompass_MaxShipNameWidth, "함선 이름 표시 폭의 최대값을 설정합니다.");
@@ -1942,7 +1927,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormCompass_IsScrollable.AutoSize = true;
             this.FormCompass_IsScrollable.Location = new System.Drawing.Point(9, 40);
             this.FormCompass_IsScrollable.Name = "FormCompass_IsScrollable";
-            this.FormCompass_IsScrollable.Size = new System.Drawing.Size(106, 19);
+            this.FormCompass_IsScrollable.Size = new System.Drawing.Size(104, 19);
             this.FormCompass_IsScrollable.TabIndex = 6;
             this.FormCompass_IsScrollable.Text = "스크롤 바 표시";
             this.ToolTipInfo.SetToolTip(this.FormCompass_IsScrollable, "스크롤 바 부분을 표시할지 여부를 설정합니다.\r\n収まりきった場合は表示しません。");
@@ -1962,7 +1947,7 @@ namespace ElectronicObserver.Window.Dialog
             0,
             0});
             this.FormCompass_CandidateDisplayCount.Name = "FormCompass_CandidateDisplayCount";
-            this.FormCompass_CandidateDisplayCount.Size = new System.Drawing.Size(60, 23);
+            this.FormCompass_CandidateDisplayCount.Size = new System.Drawing.Size(60, 21);
             this.FormCompass_CandidateDisplayCount.TabIndex = 4;
             this.FormCompass_CandidateDisplayCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.FormCompass_CandidateDisplayCount.Value = new decimal(new int[] {
@@ -1976,7 +1961,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 8);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(123, 15);
+            this.label2.Size = new System.Drawing.Size(121, 15);
             this.label2.TabIndex = 3;
             this.label2.Text = "한번에 표시되는 수：";
             // 
@@ -2000,7 +1985,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormQuest_AllowUserToSortRows.AutoSize = true;
             this.FormQuest_AllowUserToSortRows.Location = new System.Drawing.Point(141, 35);
             this.FormQuest_AllowUserToSortRows.Name = "FormQuest_AllowUserToSortRows";
-            this.FormQuest_AllowUserToSortRows.Size = new System.Drawing.Size(146, 19);
+            this.FormQuest_AllowUserToSortRows.Size = new System.Drawing.Size(143, 19);
             this.FormQuest_AllowUserToSortRows.TabIndex = 6;
             this.FormQuest_AllowUserToSortRows.Text = "정렬 순서 변경을 허용";
             this.FormQuest_AllowUserToSortRows.UseVisualStyleBackColor = true;
@@ -2023,7 +2008,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label27.AutoSize = true;
             this.label27.Location = new System.Drawing.Point(138, 9);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(139, 15);
+            this.label27.Size = new System.Drawing.Size(136, 15);
             this.label27.TabIndex = 4;
             this.label27.Text = "임무 진행도 자동 저장：";
             // 
@@ -2096,7 +2081,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormQuest_ShowRunningOnly.AutoSize = true;
             this.FormQuest_ShowRunningOnly.Location = new System.Drawing.Point(6, 6);
             this.FormQuest_ShowRunningOnly.Name = "FormQuest_ShowRunningOnly";
-            this.FormQuest_ShowRunningOnly.Size = new System.Drawing.Size(114, 19);
+            this.FormQuest_ShowRunningOnly.Size = new System.Drawing.Size(113, 19);
             this.FormQuest_ShowRunningOnly.TabIndex = 0;
             this.FormQuest_ShowRunningOnly.Text = "수행중에만 표시";
             this.FormQuest_ShowRunningOnly.UseVisualStyleBackColor = true;
@@ -2132,7 +2117,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label25.AutoSize = true;
             this.label25.Location = new System.Drawing.Point(6, 59);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(99, 15);
+            this.label25.Size = new System.Drawing.Size(97, 15);
             this.label25.TabIndex = 6;
             this.label25.Text = "함선 정렬 순서：";
             // 
@@ -2141,7 +2126,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormShipGroup_ShowStatusBar.AutoSize = true;
             this.FormShipGroup_ShowStatusBar.Location = new System.Drawing.Point(6, 31);
             this.FormShipGroup_ShowStatusBar.Name = "FormShipGroup_ShowStatusBar";
-            this.FormShipGroup_ShowStatusBar.Size = new System.Drawing.Size(118, 19);
+            this.FormShipGroup_ShowStatusBar.Size = new System.Drawing.Size(116, 19);
             this.FormShipGroup_ShowStatusBar.TabIndex = 2;
             this.FormShipGroup_ShowStatusBar.Text = "상태 표시줄 표시";
             this.ToolTipInfo.SetToolTip(this.FormShipGroup_ShowStatusBar, "하단의 상태 표시줄(함선 수)등을 표시할지 설정합니다.\r\n공간을 좀 더 차지합니다.");
@@ -2152,7 +2137,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormShipGroup_AutoUpdate.AutoSize = true;
             this.FormShipGroup_AutoUpdate.Location = new System.Drawing.Point(6, 6);
             this.FormShipGroup_AutoUpdate.Name = "FormShipGroup_AutoUpdate";
-            this.FormShipGroup_AutoUpdate.Size = new System.Drawing.Size(78, 19);
+            this.FormShipGroup_AutoUpdate.Size = new System.Drawing.Size(77, 19);
             this.FormShipGroup_AutoUpdate.TabIndex = 1;
             this.FormShipGroup_AutoUpdate.Text = "자동 갱신";
             this.ToolTipInfo.SetToolTip(this.FormShipGroup_AutoUpdate, "함선 데이터를 자동 갱신할지 여부를 설정합니다.\r\n");
@@ -2178,7 +2163,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBattle_Display7thAsSingleLine.AutoSize = true;
             this.FormBattle_Display7thAsSingleLine.Location = new System.Drawing.Point(6, 106);
             this.FormBattle_Display7thAsSingleLine.Name = "FormBattle_Display7thAsSingleLine";
-            this.FormBattle_Display7thAsSingleLine.Size = new System.Drawing.Size(153, 19);
+            this.FormBattle_Display7thAsSingleLine.Size = new System.Drawing.Size(150, 19);
             this.FormBattle_Display7thAsSingleLine.TabIndex = 10;
             this.FormBattle_Display7thAsSingleLine.Text = "7번함을 같은 줄에 표시";
             this.ToolTipInfo.SetToolTip(this.FormBattle_Display7thAsSingleLine, "유격함대(7척 편성)에서 출격시 7번째 칸무스의 정보를 어디에 표시할지 설정합니다.\r\n활성화시 6번째 칸무스 밑에, 해제시 첫번째에 표시됩니다. " +
@@ -2190,7 +2175,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBattle_ShowShipTypeInHPBar.AutoSize = true;
             this.FormBattle_ShowShipTypeInHPBar.Location = new System.Drawing.Point(6, 81);
             this.FormBattle_ShowShipTypeInHPBar.Name = "FormBattle_ShowShipTypeInHPBar";
-            this.FormBattle_ShowShipTypeInHPBar.Size = new System.Drawing.Size(202, 19);
+            this.FormBattle_ShowShipTypeInHPBar.Size = new System.Drawing.Size(199, 19);
             this.FormBattle_ShowShipTypeInHPBar.TabIndex = 9;
             this.FormBattle_ShowShipTypeInHPBar.Text = "HP바에 함종 약어를 표시합니다.";
             this.ToolTipInfo.SetToolTip(this.FormBattle_ShowShipTypeInHPBar, "\"HP:\" 표시 대신 함종 약어를 표시할지 설정합니다.\r\n긴 약어는 표시가 안될 수 있습니다.");
@@ -2201,7 +2186,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBattle_ShowHPBar.AutoSize = true;
             this.FormBattle_ShowHPBar.Location = new System.Drawing.Point(6, 56);
             this.FormBattle_ShowHPBar.Name = "FormBattle_ShowHPBar";
-            this.FormBattle_ShowHPBar.Size = new System.Drawing.Size(86, 19);
+            this.FormBattle_ShowHPBar.Size = new System.Drawing.Size(85, 19);
             this.FormBattle_ShowHPBar.TabIndex = 8;
             this.FormBattle_ShowHPBar.Text = "HP 바 표시";
             this.ToolTipInfo.SetToolTip(this.FormBattle_ShowHPBar, "숨기면 근소하게 공간을 절약 할 수 있습니다.");
@@ -2212,7 +2197,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBattle_HideDuringBattle.AutoSize = true;
             this.FormBattle_HideDuringBattle.Location = new System.Drawing.Point(6, 31);
             this.FormBattle_HideDuringBattle.Name = "FormBattle_HideDuringBattle";
-            this.FormBattle_HideDuringBattle.Size = new System.Drawing.Size(138, 19);
+            this.FormBattle_HideDuringBattle.Size = new System.Drawing.Size(137, 19);
             this.FormBattle_HideDuringBattle.TabIndex = 7;
             this.FormBattle_HideDuringBattle.Text = "전투종료까지 숨기기";
             this.ToolTipInfo.SetToolTip(this.FormBattle_HideDuringBattle, "전투중에 전투 예측화면을 숨깁니다.\r\n숨김 상태에서도 오른쪽 클릭 메뉴에서 표시할 수 있습니다.");
@@ -2223,7 +2208,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBattle_IsScrollable.AutoSize = true;
             this.FormBattle_IsScrollable.Location = new System.Drawing.Point(6, 6);
             this.FormBattle_IsScrollable.Name = "FormBattle_IsScrollable";
-            this.FormBattle_IsScrollable.Size = new System.Drawing.Size(106, 19);
+            this.FormBattle_IsScrollable.Size = new System.Drawing.Size(104, 19);
             this.FormBattle_IsScrollable.TabIndex = 6;
             this.FormBattle_IsScrollable.Text = "스크롤 바 표시";
             this.ToolTipInfo.SetToolTip(this.FormBattle_IsScrollable, "스크롤 바 부분을 표시할지 여부를 설정합니다.\r\n収まりきった場合は表示しません。");
@@ -2262,7 +2247,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBrowser_SavesBrowserLog.AutoSize = true;
             this.FormBrowser_SavesBrowserLog.Location = new System.Drawing.Point(6, 274);
             this.FormBrowser_SavesBrowserLog.Name = "FormBrowser_SavesBrowserLog";
-            this.FormBrowser_SavesBrowserLog.Size = new System.Drawing.Size(182, 19);
+            this.FormBrowser_SavesBrowserLog.Size = new System.Drawing.Size(179, 19);
             this.FormBrowser_SavesBrowserLog.TabIndex = 18;
             this.FormBrowser_SavesBrowserLog.Text = "브라우저의 오류 로그를 저장";
             this.ToolTipInfo.SetToolTip(this.FormBrowser_SavesBrowserLog, "BrowserLog.log 에 브라우저 에러 로그를 저장합니다. \r\n문제해결에 도움이 될 수 있으나,\r\n프로그램이 무거워 질 수 있습니다.");
@@ -2273,7 +2258,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBrowser_ForceColorProfile.AutoSize = true;
             this.FormBrowser_ForceColorProfile.Location = new System.Drawing.Point(6, 249);
             this.FormBrowser_ForceColorProfile.Name = "FormBrowser_ForceColorProfile";
-            this.FormBrowser_ForceColorProfile.Size = new System.Drawing.Size(189, 19);
+            this.FormBrowser_ForceColorProfile.Size = new System.Drawing.Size(187, 19);
             this.FormBrowser_ForceColorProfile.TabIndex = 16;
             this.FormBrowser_ForceColorProfile.Text = "색상 프로파일을 sRGB로 고정";
             this.ToolTipInfo.SetToolTip(this.FormBrowser_ForceColorProfile, "브라우저의 색상이 이상한 경우, 사용하면 해결할 수 있습니다.\r\n재실행시 반영됩니다.");
@@ -2284,7 +2269,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBrowser_PreserveDrawingBuffer.AutoSize = true;
             this.FormBrowser_PreserveDrawingBuffer.Location = new System.Drawing.Point(6, 224);
             this.FormBrowser_PreserveDrawingBuffer.Name = "FormBrowser_PreserveDrawingBuffer";
-            this.FormBrowser_PreserveDrawingBuffer.Size = new System.Drawing.Size(141, 19);
+            this.FormBrowser_PreserveDrawingBuffer.Size = new System.Drawing.Size(136, 19);
             this.FormBrowser_PreserveDrawingBuffer.TabIndex = 16;
             this.FormBrowser_PreserveDrawingBuffer.Text = "렌더링 버퍼를 유지 *";
             this.ToolTipInfo.SetToolTip(this.FormBrowser_PreserveDrawingBuffer, "렌더링에 문제가 있을경우 사용하면 개선되는 경우가 있습니다. \r\n해제하면 성능을 향상 시킬 수 있습니다.. * 이 변경은 재실행이후에 적용됩니다." +
@@ -2297,7 +2282,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label20.ForeColor = System.Drawing.Color.Red;
             this.label20.Location = new System.Drawing.Point(12, 295);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(254, 15);
+            this.label20.Size = new System.Drawing.Size(246, 15);
             this.label20.TabIndex = 14;
             this.label20.Text = "* 표시가 있는 설정은 재실행시에 반영됩니다.";
             // 
@@ -2306,7 +2291,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBrowser_HardwareAccelerationEnabled.AutoSize = true;
             this.FormBrowser_HardwareAccelerationEnabled.Location = new System.Drawing.Point(6, 199);
             this.FormBrowser_HardwareAccelerationEnabled.Name = "FormBrowser_HardwareAccelerationEnabled";
-            this.FormBrowser_HardwareAccelerationEnabled.Size = new System.Drawing.Size(153, 19);
+            this.FormBrowser_HardwareAccelerationEnabled.Size = new System.Drawing.Size(148, 19);
             this.FormBrowser_HardwareAccelerationEnabled.TabIndex = 13;
             this.FormBrowser_HardwareAccelerationEnabled.Text = "하드웨어 가속을 사용 *";
             this.ToolTipInfo.SetToolTip(this.FormBrowser_HardwareAccelerationEnabled, "렌더링에 GPU를 사용할지 여부를 지정합니다. \r\n활성화하면 성능을 향상시킬 수 있습니다. \r\n녹화,방송등의 화면이 보이지 않을 경우 해제하면 개" +
@@ -2344,7 +2329,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label30.AutoSize = true;
             this.label30.Location = new System.Drawing.Point(6, 91);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(87, 15);
+            this.label30.Size = new System.Drawing.Size(85, 15);
             this.label30.TabIndex = 10;
             this.label30.Text = "툴 메뉴 배치：";
             // 
@@ -2364,7 +2349,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBrowser_AppliesStyleSheet.AutoSize = true;
             this.FormBrowser_AppliesStyleSheet.Location = new System.Drawing.Point(282, 31);
             this.FormBrowser_AppliesStyleSheet.Name = "FormBrowser_AppliesStyleSheet";
-            this.FormBrowser_AppliesStyleSheet.Size = new System.Drawing.Size(130, 19);
+            this.FormBrowser_AppliesStyleSheet.Size = new System.Drawing.Size(128, 19);
             this.FormBrowser_AppliesStyleSheet.TabIndex = 7;
             this.FormBrowser_AppliesStyleSheet.Text = "스타일 시트를 적용";
             this.ToolTipInfo.SetToolTip(this.FormBrowser_AppliesStyleSheet, "칸코레 화면만 보여지도록 합니다.\r\n환경에 따라서는 표시가 흐트러집니다. 이 경우엔 비활성화해주세요.");
@@ -2375,7 +2360,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBrowser_ConfirmAtRefresh.AutoSize = true;
             this.FormBrowser_ConfirmAtRefresh.Location = new System.Drawing.Point(282, 6);
             this.FormBrowser_ConfirmAtRefresh.Name = "FormBrowser_ConfirmAtRefresh";
-            this.FormBrowser_ConfirmAtRefresh.Size = new System.Drawing.Size(114, 19);
+            this.FormBrowser_ConfirmAtRefresh.Size = new System.Drawing.Size(113, 19);
             this.FormBrowser_ConfirmAtRefresh.TabIndex = 6;
             this.FormBrowser_ConfirmAtRefresh.Text = "새로고침시 확인";
             this.ToolTipInfo.SetToolTip(this.FormBrowser_ConfirmAtRefresh, "활성화시 새로고침시에 확인창을 띄웁니다.\r\n잘못 입력했을시에 유용합니다.");
@@ -2428,7 +2413,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBrowser_ScreenShotFormat_AvoidTwitterDeterioration.Enabled = false;
             this.FormBrowser_ScreenShotFormat_AvoidTwitterDeterioration.Location = new System.Drawing.Point(123, 22);
             this.FormBrowser_ScreenShotFormat_AvoidTwitterDeterioration.Name = "FormBrowser_ScreenShotFormat_AvoidTwitterDeterioration";
-            this.FormBrowser_ScreenShotFormat_AvoidTwitterDeterioration.Size = new System.Drawing.Size(200, 19);
+            this.FormBrowser_ScreenShotFormat_AvoidTwitterDeterioration.Size = new System.Drawing.Size(191, 19);
             this.FormBrowser_ScreenShotFormat_AvoidTwitterDeterioration.TabIndex = 13;
             this.FormBrowser_ScreenShotFormat_AvoidTwitterDeterioration.Text = "Twitter의 이미지 압축을 피하기";
             this.ToolTipInfo.SetToolTip(this.FormBrowser_ScreenShotFormat_AvoidTwitterDeterioration, "Twitter 에 PNG 이미지를 업로드하면 자동으로 JPEG형식으로 변환되어 화질이 저하됩니다.\r\n이를 피할지 여부를 설정합니다.");
@@ -2439,7 +2424,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(6, 51);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(44, 15);
+            this.label18.Size = new System.Drawing.Size(40, 15);
             this.label18.TabIndex = 2;
             this.label18.Text = "경로 : ";
             // 
@@ -2448,7 +2433,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBrowser_ScreenShotFormat_PNG.AutoSize = true;
             this.FormBrowser_ScreenShotFormat_PNG.Location = new System.Drawing.Point(65, 22);
             this.FormBrowser_ScreenShotFormat_PNG.Name = "FormBrowser_ScreenShotFormat_PNG";
-            this.FormBrowser_ScreenShotFormat_PNG.Size = new System.Drawing.Size(50, 19);
+            this.FormBrowser_ScreenShotFormat_PNG.Size = new System.Drawing.Size(51, 19);
             this.FormBrowser_ScreenShotFormat_PNG.TabIndex = 1;
             this.FormBrowser_ScreenShotFormat_PNG.TabStop = true;
             this.FormBrowser_ScreenShotFormat_PNG.Text = "PNG";
@@ -2472,7 +2457,7 @@ namespace ElectronicObserver.Window.Dialog
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FormBrowser_ScreenShotPath.Location = new System.Drawing.Point(76, 48);
             this.FormBrowser_ScreenShotPath.Name = "FormBrowser_ScreenShotPath";
-            this.FormBrowser_ScreenShotPath.Size = new System.Drawing.Size(550, 23);
+            this.FormBrowser_ScreenShotPath.Size = new System.Drawing.Size(550, 21);
             this.FormBrowser_ScreenShotPath.TabIndex = 3;
             // 
             // FormBrowser_ScreenShotFormat_JPEG
@@ -2480,7 +2465,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBrowser_ScreenShotFormat_JPEG.AutoSize = true;
             this.FormBrowser_ScreenShotFormat_JPEG.Location = new System.Drawing.Point(6, 22);
             this.FormBrowser_ScreenShotFormat_JPEG.Name = "FormBrowser_ScreenShotFormat_JPEG";
-            this.FormBrowser_ScreenShotFormat_JPEG.Size = new System.Drawing.Size(53, 19);
+            this.FormBrowser_ScreenShotFormat_JPEG.Size = new System.Drawing.Size(56, 19);
             this.FormBrowser_ScreenShotFormat_JPEG.TabIndex = 0;
             this.FormBrowser_ScreenShotFormat_JPEG.TabStop = true;
             this.FormBrowser_ScreenShotFormat_JPEG.Text = "JPEG";
@@ -2492,7 +2477,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(6, 62);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(72, 15);
+            this.label17.Size = new System.Drawing.Size(71, 15);
             this.label17.TabIndex = 8;
             this.label17.Text = "로그인URL:";
             // 
@@ -2510,7 +2495,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBrowser_IsEnabled.AutoSize = true;
             this.FormBrowser_IsEnabled.Location = new System.Drawing.Point(6, 6);
             this.FormBrowser_IsEnabled.Name = "FormBrowser_IsEnabled";
-            this.FormBrowser_IsEnabled.Size = new System.Drawing.Size(142, 19);
+            this.FormBrowser_IsEnabled.Size = new System.Drawing.Size(140, 19);
             this.FormBrowser_IsEnabled.TabIndex = 0;
             this.FormBrowser_IsEnabled.Text = "프로그램 실행시 로드";
             this.FormBrowser_IsEnabled.UseVisualStyleBackColor = true;
@@ -2521,7 +2506,7 @@ namespace ElectronicObserver.Window.Dialog
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FormBrowser_LogInPageURL.Location = new System.Drawing.Point(82, 59);
             this.FormBrowser_LogInPageURL.Name = "FormBrowser_LogInPageURL";
-            this.FormBrowser_LogInPageURL.Size = new System.Drawing.Size(594, 23);
+            this.FormBrowser_LogInPageURL.Size = new System.Drawing.Size(594, 21);
             this.FormBrowser_LogInPageURL.TabIndex = 9;
             // 
             // FormBrowser_ZoomRate
@@ -2538,7 +2523,7 @@ namespace ElectronicObserver.Window.Dialog
             0,
             0});
             this.FormBrowser_ZoomRate.Name = "FormBrowser_ZoomRate";
-            this.FormBrowser_ZoomRate.Size = new System.Drawing.Size(60, 23);
+            this.FormBrowser_ZoomRate.Size = new System.Drawing.Size(60, 21);
             this.FormBrowser_ZoomRate.TabIndex = 2;
             this.FormBrowser_ZoomRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.FormBrowser_ZoomRate.Value = new decimal(new int[] {
@@ -2552,7 +2537,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(6, 32);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(59, 15);
+            this.label15.Size = new System.Drawing.Size(58, 15);
             this.label15.TabIndex = 1;
             this.label15.Text = "줌 배율：";
             // 
@@ -2572,7 +2557,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBaseAirCorps_ShowEventMapOnly.AutoSize = true;
             this.FormBaseAirCorps_ShowEventMapOnly.Location = new System.Drawing.Point(6, 6);
             this.FormBaseAirCorps_ShowEventMapOnly.Name = "FormBaseAirCorps_ShowEventMapOnly";
-            this.FormBaseAirCorps_ShowEventMapOnly.Size = new System.Drawing.Size(166, 19);
+            this.FormBaseAirCorps_ShowEventMapOnly.Size = new System.Drawing.Size(164, 19);
             this.FormBaseAirCorps_ShowEventMapOnly.TabIndex = 0;
             this.FormBaseAirCorps_ShowEventMapOnly.Text = "이벤트 해역 기항대만보기";
             this.ToolTipInfo.SetToolTip(this.FormBaseAirCorps_ShowEventMapOnly, "활성화한경우 일반해역의 기지항공대를 숨길수있습니다.\r\n이벤트 기간에만 적용됩니다.");
@@ -2610,7 +2595,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormJson_AutoUpdate.AutoSize = true;
             this.FormJson_AutoUpdate.Location = new System.Drawing.Point(3, 3);
             this.FormJson_AutoUpdate.Name = "FormJson_AutoUpdate";
-            this.FormJson_AutoUpdate.Size = new System.Drawing.Size(102, 19);
+            this.FormJson_AutoUpdate.Size = new System.Drawing.Size(101, 19);
             this.FormJson_AutoUpdate.TabIndex = 0;
             this.FormJson_AutoUpdate.Text = "자동 업데이트";
             this.ToolTipInfo.SetToolTip(this.FormJson_AutoUpdate, "API 송수신때 자동 업데이트할지 여부를 설정합니다.\r\n프로그램이 무거워 질 수 있습니다.\r\n");
@@ -2631,7 +2616,7 @@ namespace ElectronicObserver.Window.Dialog
             this.FormJson_UpdatesTree.AutoSize = true;
             this.FormJson_UpdatesTree.Location = new System.Drawing.Point(3, 28);
             this.FormJson_UpdatesTree.Name = "FormJson_UpdatesTree";
-            this.FormJson_UpdatesTree.Size = new System.Drawing.Size(104, 19);
+            this.FormJson_UpdatesTree.Size = new System.Drawing.Size(102, 19);
             this.FormJson_UpdatesTree.TabIndex = 1;
             this.FormJson_UpdatesTree.Text = "Tree 업데이트";
             this.ToolTipInfo.SetToolTip(this.FormJson_UpdatesTree, "API 송수신때 자동으로 Tree를 업데이트 할지 여부를 설정합니다.\r\n위의 자동 업데이트를 사용할때만 업데이트 됩니다.\r\n프로그램이 무거워 질 " +
@@ -2644,7 +2629,7 @@ namespace ElectronicObserver.Window.Dialog
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FormJson_AutoUpdateFilter.Location = new System.Drawing.Point(109, 53);
             this.FormJson_AutoUpdateFilter.Name = "FormJson_AutoUpdateFilter";
-            this.FormJson_AutoUpdateFilter.Size = new System.Drawing.Size(564, 23);
+            this.FormJson_AutoUpdateFilter.Size = new System.Drawing.Size(564, 21);
             this.FormJson_AutoUpdateFilter.TabIndex = 3;
             this.ToolTipInfo.SetToolTip(this.FormJson_AutoUpdateFilter, "자동 업데이트시 로드할 API를 선택하는 필터입니다. \r\n정규 표현식을 사용할 수 있습니다.");
             // 
@@ -2653,7 +2638,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label31.AutoSize = true;
             this.label31.Location = new System.Drawing.Point(3, 56);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(123, 15);
+            this.label31.Size = new System.Drawing.Size(121, 15);
             this.label31.TabIndex = 2;
             this.label31.Text = "자동 업데이트 필터：";
             // 
@@ -2662,7 +2647,7 @@ namespace ElectronicObserver.Window.Dialog
             this.label33.AutoSize = true;
             this.label33.Location = new System.Drawing.Point(24, 24);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(268, 15);
+            this.label33.Size = new System.Drawing.Size(261, 15);
             this.label33.TabIndex = 0;
             this.label33.Text = "(숨겨져 있습니다. 디버그 기능을 활성화하세요.)";
             // 
@@ -2686,13 +2671,23 @@ namespace ElectronicObserver.Window.Dialog
             this.tabPage11.Text = "알림";
             this.tabPage11.UseVisualStyleBackColor = true;
             // 
+            // Notification_BaseAirCorps
+            // 
+            this.Notification_BaseAirCorps.Location = new System.Drawing.Point(8, 181);
+            this.Notification_BaseAirCorps.Name = "Notification_BaseAirCorps";
+            this.Notification_BaseAirCorps.Size = new System.Drawing.Size(150, 23);
+            this.Notification_BaseAirCorps.TabIndex = 9;
+            this.Notification_BaseAirCorps.Text = "기지 항공대 알림 설정 ";
+            this.Notification_BaseAirCorps.UseVisualStyleBackColor = true;
+            this.Notification_BaseAirCorps.Click += new System.EventHandler(this.Notification_BaseAirCorps_Click);
+            // 
             // silenceFullscreen
             // 
             this.silenceFullscreen.AutoSize = true;
             this.silenceFullscreen.Enabled = false;
             this.silenceFullscreen.Location = new System.Drawing.Point(8, 242);
             this.silenceFullscreen.Name = "silenceFullscreen";
-            this.silenceFullscreen.Size = new System.Drawing.Size(160, 19);
+            this.silenceFullscreen.Size = new System.Drawing.Size(155, 19);
             this.silenceFullscreen.TabIndex = 8;
             this.silenceFullscreen.Text = "Silence while fullscreen";
             this.silenceFullscreen.UseVisualStyleBackColor = true;
@@ -2703,7 +2698,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Notification_Silencio.AutoSize = true;
             this.Notification_Silencio.Location = new System.Drawing.Point(8, 217);
             this.Notification_Silencio.Name = "Notification_Silencio";
-            this.Notification_Silencio.Size = new System.Drawing.Size(106, 19);
+            this.Notification_Silencio.Size = new System.Drawing.Size(104, 19);
             this.Notification_Silencio.TabIndex = 7;
             this.Notification_Silencio.Text = "모든 알림 무시";
             this.ToolTipInfo.SetToolTip(this.Notification_Silencio, "모든 알림을 무시합니다. 사운드도 음소거되며, \n대파 알림도 무시되니 \n대파시에는 주의해주세요.\r\n\r\n「실렌시오！닥쳐！」");
@@ -2723,9 +2718,9 @@ namespace ElectronicObserver.Window.Dialog
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 314);
+            this.label10.Location = new System.Drawing.Point(3, 310);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(256, 15);
+            this.label10.Size = new System.Drawing.Size(249, 15);
             this.label10.TabIndex = 5;
             this.label10.Text = "＊각 창의 OK 버튼을 누르는 즉시 적용됩니다.";
             // 
@@ -2799,7 +2794,7 @@ namespace ElectronicObserver.Window.Dialog
             this.BGMPlayer_SyncBrowserMute.AutoSize = true;
             this.BGMPlayer_SyncBrowserMute.Location = new System.Drawing.Point(175, 9);
             this.BGMPlayer_SyncBrowserMute.Name = "BGMPlayer_SyncBrowserMute";
-            this.BGMPlayer_SyncBrowserMute.Size = new System.Drawing.Size(102, 19);
+            this.BGMPlayer_SyncBrowserMute.Size = new System.Drawing.Size(101, 19);
             this.BGMPlayer_SyncBrowserMute.TabIndex = 4;
             this.BGMPlayer_SyncBrowserMute.Text = "음소거 동기화";
             this.ToolTipInfo.SetToolTip(this.BGMPlayer_SyncBrowserMute, "브라우저의 음소거와 연동하는지 여부를 설정합니다.");
@@ -2819,7 +2814,7 @@ namespace ElectronicObserver.Window.Dialog
             // 
             this.BGMPlayer_VolumeAll.Location = new System.Drawing.Point(287, 6);
             this.BGMPlayer_VolumeAll.Name = "BGMPlayer_VolumeAll";
-            this.BGMPlayer_VolumeAll.Size = new System.Drawing.Size(60, 23);
+            this.BGMPlayer_VolumeAll.Size = new System.Drawing.Size(60, 21);
             this.BGMPlayer_VolumeAll.TabIndex = 2;
             this.BGMPlayer_VolumeAll.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.BGMPlayer_VolumeAll.Value = new decimal(new int[] {
@@ -2833,7 +2828,7 @@ namespace ElectronicObserver.Window.Dialog
             this.BGMPlayer_Enabled.AutoSize = true;
             this.BGMPlayer_Enabled.Location = new System.Drawing.Point(8, 9);
             this.BGMPlayer_Enabled.Name = "BGMPlayer_Enabled";
-            this.BGMPlayer_Enabled.Size = new System.Drawing.Size(133, 19);
+            this.BGMPlayer_Enabled.Size = new System.Drawing.Size(132, 19);
             this.BGMPlayer_Enabled.TabIndex = 1;
             this.BGMPlayer_Enabled.Text = "BGM 플레이어 사용";
             this.ToolTipInfo.SetToolTip(this.BGMPlayer_Enabled, "현재 상황에 맞게 원하는 BGM을 재생합니다.");
@@ -2856,7 +2851,7 @@ namespace ElectronicObserver.Window.Dialog
             this.BGMPlayer_ColumnSetting});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Meiryo UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
@@ -2868,7 +2863,7 @@ namespace ElectronicObserver.Window.Dialog
             this.BGMPlayer_ControlGrid.RowHeadersVisible = false;
             this.BGMPlayer_ControlGrid.RowTemplate.Height = 21;
             this.BGMPlayer_ControlGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.BGMPlayer_ControlGrid.Size = new System.Drawing.Size(684, 263);
+            this.BGMPlayer_ControlGrid.Size = new System.Drawing.Size(684, 259);
             this.BGMPlayer_ControlGrid.TabIndex = 0;
             this.BGMPlayer_ControlGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BGMPlayer_ControlGrid_CellContentClick);
             this.BGMPlayer_ControlGrid.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.BGMPlayer_ControlGrid_CellFormatting);
@@ -2880,7 +2875,7 @@ namespace ElectronicObserver.Window.Dialog
             this.BGMPlayer_ColumnEnabled.HeaderText = "○";
             this.BGMPlayer_ColumnEnabled.Name = "BGMPlayer_ColumnEnabled";
             this.BGMPlayer_ColumnEnabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.BGMPlayer_ColumnEnabled.Width = 25;
+            this.BGMPlayer_ColumnEnabled.Width = 23;
             // 
             // BGMPlayer_ColumnContent
             // 
@@ -2966,15 +2961,17 @@ namespace ElectronicObserver.Window.Dialog
             this.PlayTimeTimer.Interval = 1000;
             this.PlayTimeTimer.Tick += new System.EventHandler(this.PlayTimeTimer_Tick);
             // 
-            // Notification_BaseAirCorps
+            // Life_CanSizableFloatWindowInLock
             // 
-            this.Notification_BaseAirCorps.Location = new System.Drawing.Point(8, 181);
-            this.Notification_BaseAirCorps.Name = "Notification_BaseAirCorps";
-            this.Notification_BaseAirCorps.Size = new System.Drawing.Size(150, 23);
-            this.Notification_BaseAirCorps.TabIndex = 9;
-            this.Notification_BaseAirCorps.Text = "기지 항공대 알림 설정 ";
-            this.Notification_BaseAirCorps.UseVisualStyleBackColor = true;
-            this.Notification_BaseAirCorps.Click += new System.EventHandler(this.Notification_BaseAirCorps_Click);
+            this.Life_CanSizableFloatWindowInLock.AutoSize = true;
+            this.Life_CanSizableFloatWindowInLock.Location = new System.Drawing.Point(213, 85);
+            this.Life_CanSizableFloatWindowInLock.Name = "Life_CanSizableFloatWindowInLock";
+            this.Life_CanSizableFloatWindowInLock.Size = new System.Drawing.Size(332, 19);
+            this.Life_CanSizableFloatWindowInLock.TabIndex = 11;
+            this.Life_CanSizableFloatWindowInLock.Text = "레이아웃 잠금중 플로트 윈도우 사이즈 조정가능하게 설정";
+            this.ToolTipInfo.SetToolTip(this.Life_CanSizableFloatWindowInLock, "레이아웃이 잠금상태인 경우에도,\r\n플로트 윈도우(본체로부터 분리된 창. 이 경우 \'보기\'에서 열수있는 메뉴들이 해당됩니다.)의 사이즈를 조정할 수" +
+        " 있게 해줍니다.");
+            this.Life_CanSizableFloatWindowInLock.UseVisualStyleBackColor = true;
             // 
             // DialogConfiguration
             // 
@@ -2986,7 +2983,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Controls.Add(this.ButtonCancel);
             this.Controls.Add(this.ButtonOK);
             this.Controls.Add(this.tabControl1);
-            this.Font = new System.Drawing.Font("Meiryo UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -3010,7 +3007,6 @@ namespace ElectronicObserver.Window.Dialog
             ((System.ComponentModel.ISupportInitialize)(this.UI_RenderingTestChanger)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Log_LogLevel)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Control_ConditionBorder)).EndInit();
@@ -3114,7 +3110,6 @@ namespace ElectronicObserver.Window.Dialog
 		private System.Windows.Forms.TextBox Connection_SaveDataPath;
 		private System.Windows.Forms.CheckBox Connection_SaveReceivedData;
 		private System.Windows.Forms.NumericUpDown Connection_Port;
-		private System.Windows.Forms.NumericUpDown Log_LogLevel;
 		private System.Windows.Forms.NumericUpDown Control_ConditionBorder;
 		private System.Windows.Forms.CheckBox Log_SaveLogFlag;
 		private System.Windows.Forms.CheckBox Debug_EnableDebugMenu;
@@ -3169,7 +3164,6 @@ namespace ElectronicObserver.Window.Dialog
 		private System.Windows.Forms.CheckBox FormFleet_IsScrollable;
 		private System.Windows.Forms.CheckBox FormFleet_ShowNextExp;
 		private System.Windows.Forms.CheckBox FormFleet_ShortenHPBar;
-		private System.Windows.Forms.CheckBox Log_ShowSpoiler;
 		private System.Windows.Forms.CheckBox Life_ShowStatusBar;
 		private System.Windows.Forms.CheckBox FormBrowser_ZoomFit;
 		private System.Windows.Forms.TabPage tabPage16;
@@ -3287,11 +3281,13 @@ namespace ElectronicObserver.Window.Dialog
         private System.Windows.Forms.CheckBox NodeToAlphabetBox;
         private System.Windows.Forms.CheckBox FormBrowser_PreserveDrawingBuffer;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.CheckBox Life_CanSizableFloatWindowInLock;
         private System.Windows.Forms.CheckBox FormFleet_AppliesSallyAreaColor;
         private System.Windows.Forms.CheckBox FormFleet_FocusModifiedFleet;
         private System.Windows.Forms.CheckBox Control_ShowExpeditionAlertDialog;
         private System.Windows.Forms.CheckBox FormBrowser_SavesBrowserLog;
         private System.Windows.Forms.Button Notification_BaseAirCorps;
+        private System.Windows.Forms.CheckedListBox ShowLogTypeListCheckBox;
+        private System.Windows.Forms.CheckBox Log_ShowSpoiler;
+        private System.Windows.Forms.CheckBox Life_CanSizableFloatWindowInLock;
     }
 }

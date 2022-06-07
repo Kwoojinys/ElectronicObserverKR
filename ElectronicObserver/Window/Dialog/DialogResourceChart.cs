@@ -958,7 +958,7 @@ namespace ElectronicObserver.Window.Dialog
 		private void ResourceChart_MouseDown(object sender, MouseEventArgs e)
 		{
 
-			if (e.Button != System.Windows.Forms.MouseButtons.Left)
+			if (e.Button != MouseButtons.Left)
 				return;
 
 			var hittest = this.ResourceChart.HitTest(e.X, e.Y, ChartElementType.LegendItem);
@@ -1037,7 +1037,7 @@ namespace ElectronicObserver.Window.Dialog
 		private void Menu_File_SaveImage_Click(object sender, EventArgs e)
 		{
 
-			if (this.SaveImageDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (this.SaveImageDialog.ShowDialog() == DialogResult.OK)
 			{
 				try
 				{

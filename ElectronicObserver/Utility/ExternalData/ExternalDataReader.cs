@@ -44,7 +44,7 @@ namespace ElectronicObserver.Utility
         private static readonly ExternalDataReader _instance = new ExternalDataReader();
         public static ExternalDataReader Instance => _instance;
 
-        internal ExternalDataReader()
+        public void Load()
         {
             for (int i = 0; i < (int)TranslateType.None; i++)
             {
@@ -71,7 +71,7 @@ namespace ElectronicObserver.Utility
                         data.Version = "1.0A";
                         data.Data = null;
 
-                        Logger.Add(2, "번역 파일 적용에 실패했습니다." + (TranslateType)i + " / 에러 : " + e);
+                        Logger.Add(LogType.Error, "번역 파일 적용에 실패했습니다." + (TranslateType)i + " / 에러 : " + e);
                     }
                 }
 
@@ -90,10 +90,10 @@ namespace ElectronicObserver.Utility
             {
                 if (Directory.Exists("Translations") == true)
                 {
-                    Logger.Add(2, "R23 버전 이전 번역 파일 폴더를 삭제합니다..");
+                    Logger.Add(LogType.System, "R23 버전 이전 번역 파일 폴더를 삭제합니다..");
                     Directory.Delete("Translations", true);
 
-                    Logger.Add(2, "R23 버전 이전 번역 파일 폴더를 삭제했습니다.");
+                    Logger.Add(LogType.System, "R23 버전 이전 번역 파일 폴더를 삭제했습니다.");
                 }
             } 
             catch (Exception e)
@@ -105,7 +105,7 @@ namespace ElectronicObserver.Utility
 
             var versionManifest = new JObject();
             string locale = Thread.CurrentThread.CurrentCulture.Name;
-            WebRequest rq = HttpWebRequest.Create(_hubsite + "VersionManifest.json");
+            WebRequest rq = WebRequest.Create(_hubsite + "VersionManifest.json");
             using (WebResponse resp = rq.GetResponse())
             {
                 using (Stream responseStream = resp.GetResponseStream())
@@ -129,7 +129,7 @@ namespace ElectronicObserver.Utility
 
                 if (i.Version == null || i.Version.Equals(newVer) == false)
                 {
-                    WebRequest r2 = HttpWebRequest.Create($"{_hubsite}/{currentFileName}");
+                    WebRequest r2 = WebRequest.Create($"{_hubsite}/{currentFileName}");
                     using (WebResponse resp = r2.GetResponse())
                     {
                         using (Stream output = File.OpenWrite($"Translation\\{currentFileName}_temp"))
@@ -167,14 +167,14 @@ namespace ElectronicObserver.Utility
                             File.Move($"Translation\\{currentFileName}_temp", $"Translation\\{currentFileName}");
                         }
 
-                        Logger.Add(2, $"{i.DataType.DataTypeToName()}이 업데이트 되었습니다.");
+                        Logger.Add(LogType.System, $"{i.DataType.DataTypeToName()}이 업데이트 되었습니다.");
                     }
 
                     i.Data = JObject.Parse(File.ReadAllText($"Translation\\{currentFileName}"));
                 }
                 catch (Exception e)
                 {
-                    Logger.Add(2, "번역 파일 업데이트에 실패했습니다. 파일 : " + i.DataType + ":" + e.GetBaseException());
+                    Logger.Add(LogType.Error, "번역 파일 업데이트에 실패했습니다. 파일 : " + i.DataType + ":" + e.GetBaseException());
                 }
             });
         }

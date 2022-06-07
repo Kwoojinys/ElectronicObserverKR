@@ -135,7 +135,7 @@ namespace ElectronicObserver.Data
 						int id = int.Parse(data["api_quest_id"]);
 						var quest = this.Quests[id];
 
-						Utility.Logger.Add(2, string.Format("임무『{0}』를 달성했습니다.", quest.Name));
+						Utility.Logger.Add(Utility.LogType.System, string.Format("임무『{0}』를 달성했습니다.", quest.Name));
 
                         this.Quests.Remove(id);
                         this.Count--;

@@ -3,6 +3,7 @@ using ElectronicObserver.Data.Battle;
 using ElectronicObserver.Observer;
 using ElectronicObserver.Resource;
 using ElectronicObserver.Resource.Record;
+using ElectronicObserver.Utility;
 using ElectronicObserver.Utility.Data;
 using ElectronicObserver.Window.Control;
 using ElectronicObserver.Window.Dialog;
@@ -119,7 +120,7 @@ namespace ElectronicObserver.Window
 
 			void ShipName_MouseClick(object sender, MouseEventArgs e)
 			{
-				if ((e.Button & System.Windows.Forms.MouseButtons.Right) != 0)
+				if ((e.Button & MouseButtons.Right) != 0)
 				{
 					int shipID = this.ShipName.Tag as int? ?? -1;
 
@@ -312,7 +313,7 @@ namespace ElectronicObserver.Window
 
 			void TableEnemyCandidateControl_MouseClick(object sender, MouseEventArgs e)
 			{
-				if ((e.Button & System.Windows.Forms.MouseButtons.Right) != 0)
+				if ((e.Button & MouseButtons.Right) != 0)
 				{
 					int shipID = ((ImageLabel)sender).Tag as int? ?? -1;
 
@@ -568,7 +569,8 @@ namespace ElectronicObserver.Window
 
             this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormCompass]);
 
-		}
+            this.ApplyLockLayoutState();
+        }
 
 
 		private void FormCompass_Load(object sender, EventArgs e)
@@ -602,6 +604,10 @@ namespace ElectronicObserver.Window
 
 
             Utility.Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
 		}
 
 
@@ -739,7 +745,6 @@ namespace ElectronicObserver.Window
 
 				{
 					string eventkind = Constants.GetMapEventID(compass.EventID);
-
 					switch (compass.EventID)
 					{
 
@@ -748,7 +753,7 @@ namespace ElectronicObserver.Window
 							break;
 
 						case 2:     //資源
-						case 8:     //船団護衛成功
+                        case 8:     //船団護衛成功
                             this.TextEventDetail.Text = this.GetMaterialInfo(compass);
 							break;
 
@@ -938,12 +943,10 @@ namespace ElectronicObserver.Window
 
 		private string GetMaterialInfo(CompassData compass)
 		{
-
 			var strs = new LinkedList<string>();
 
 			foreach (var item in compass.GetItems)
 			{
-
 				string itemName;
 
 				if (item.ItemID == 4)
@@ -960,10 +963,10 @@ namespace ElectronicObserver.Window
 						itemName = "알수없는아이템";
 				}
 
-				strs.AddLast(itemName + " x " + item.Amount);
+                strs.AddLast(itemName + " x " + item.Amount);
 			}
 
-			if (!strs.Any())
+            if (!strs.Any())
 			{
 				return "(없음)";
 
@@ -972,6 +975,8 @@ namespace ElectronicObserver.Window
 			{
 				return string.Join(", ", strs);
 			}
+
+
 		}
 
 
@@ -1098,9 +1103,9 @@ namespace ElectronicObserver.Window
 		private void TextEnemyFleetName_MouseDown(object sender, MouseEventArgs e)
 		{
 
-			if (e.Button == System.Windows.Forms.MouseButtons.Left)
+			if (e.Button == MouseButtons.Left)
                 this.NextEnemyFleetCandidate();
-			else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+			else if (e.Button == MouseButtons.Right)
                 this.NextEnemyFleetCandidate(-this._candidatesDisplayCount);
 		}
 
@@ -1208,6 +1213,8 @@ namespace ElectronicObserver.Window
             this.BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
             this.MainFontColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
             this.SubFontColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.SubFontColor);
+
+            this.ApplyLockLayoutState();
         }
 
 

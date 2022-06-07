@@ -93,12 +93,12 @@ namespace ElectronicObserver.Resource.Record
 			public EnemyFleetElement(string fleetName, int mapAreaID, int mapInfoID, int cellID, int difficulty, int formation, int[] fleetMember, int[] fleetMemberLevel, int expShip)
 				: base()
 			{
-                this.FleetName = FormMain.Instance.Translator.GetTranslation(fleetName, Utility.TranslateType.OperationSortie);
-                this.MapAreaID = mapAreaID;
-                this.MapInfoID = mapInfoID;
-                this.CellID = cellID;
+                this.FleetName	= Utility.ExternalDataReader.Instance.GetTranslation(fleetName, Utility.TranslateType.OperationSortie);
+                this.MapAreaID	= mapAreaID;
+                this.MapInfoID	= mapInfoID;
+                this.CellID		= cellID;
                 this.Difficulty = difficulty;
-                this.Formation = formation;
+                this.Formation	= formation;
 
 				int[] To12Array(int[] a) => a.Length < 12 ? a.Concat(Enumerable.Repeat(-1, 12 - a.Length)).ToArray() : a.Take(12).ToArray();
 
@@ -119,14 +119,14 @@ namespace ElectronicObserver.Resource.Record
 					throw new ArgumentException("요소 수가 너무 적습니다.");
 
 				ulong id = Convert.ToUInt64(elem[0], 16);
-                this.FleetName = FormMain.Instance.Translator.GetTranslation(elem[1], Utility.TranslateType.OperationSortie);
+                this.FleetName = Utility.ExternalDataReader.Instance.GetTranslation(elem[1], Utility.TranslateType.OperationSortie);
                 //elem[1];
-                this.MapAreaID = int.Parse(elem[2]);
-                this.MapInfoID = int.Parse(elem[3]);
-                this.CellID = int.Parse(elem[4]);
+                this.MapAreaID	= int.Parse(elem[2]);
+                this.MapInfoID	= int.Parse(elem[3]);
+                this.CellID		= int.Parse(elem[4]);
                 this.Difficulty = Constants.GetDifficulty(elem[5]);
-                this.Formation = Constants.GetFormation(elem[6]);
-                this.ExpShip = int.Parse(elem[7]);
+                this.Formation	= Constants.GetFormation(elem[6]);
+                this.ExpShip	= int.Parse(elem[7]);
 
                 this.FleetMember = new int[12];
 				for (int i = 0; i < this.FleetMember.Length; i++)
@@ -140,7 +140,7 @@ namespace ElectronicObserver.Resource.Record
                 this.FleetID = this.ComputeHash();
 
 				if (this.FleetID != id)
-					Utility.Logger.Add(1, $"EnemyFleetRecord: 적 편성 ID에 오류가 있습니다. (기록된 ID {id:x16} -> 현재 ID {this.FleetID:x16})");
+					Utility.Logger.Add(Utility.LogType.Alert, $"EnemyFleetRecord: 적 편성 ID에 오류가 있습니다. (기록된 ID {id:x16} -> 현재 ID {this.FleetID:x16})");
 			}
 
 			public override string SaveLine()

@@ -319,7 +319,7 @@ namespace ElectronicObserver.Window.Dialog
             {
                 int equipmentID = (int)this.EquipmentView.Rows[e.RowIndex].Cells[0].Value;
 
-                if ((e.Button & System.Windows.Forms.MouseButtons.Right) != 0)
+                if ((e.Button & MouseButtons.Right) != 0)
                 {
                     this.Cursor = Cursors.AppStarting;
                     new DialogAlbumMasterEquipment(equipmentID).Show(this.Owner);
@@ -523,7 +523,7 @@ namespace ElectronicObserver.Window.Dialog
 		private void Menu_File_CSVOutput_Click(object sender, EventArgs e)
 		{
 
-			if (this.SaveCSVDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (this.SaveCSVDialog.ShowDialog() == DialogResult.OK)
 			{
 
 				try

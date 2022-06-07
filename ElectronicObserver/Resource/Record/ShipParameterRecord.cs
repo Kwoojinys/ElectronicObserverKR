@@ -603,15 +603,15 @@ namespace ElectronicObserver.Resource.Record
 
 
             if (e.ASW.SetEstParameter(level, aswMin, aswMax))
-                Utility.Logger.Add(1, string.Format("ShipParameter: {0} 의 대잠값이 예상 범위를 벗어났습니다. ( [{1} ~ {2}] ~ {3} )。",
+                Utility.Logger.Add(Utility.LogType.Alert, string.Format("ShipParameter: {0} 의 대잠값이 예상 범위를 벗어났습니다. ( [{1} ~ {2}] ~ {3} )。",
                     KCDatabase.Instance.MasterShips[e.ShipID].NameWithClass, e.ASW.MinimumEstMin, e.ASW.MinimumEstMax, e.ASW.Maximum));
 
             if (e.Evasion.SetEstParameter(level, evasionMin, evasionMax))
-                Utility.Logger.Add(1, string.Format("ShipParameter: {0} 의 회피값이 예상 범위를 벗어났습니다.( [{1} ~ {2}] ~ {3} )。",
+                Utility.Logger.Add(Utility.LogType.Alert, string.Format("ShipParameter: {0} 의 회피값이 예상 범위를 벗어났습니다.( [{1} ~ {2}] ~ {3} )。",
                     KCDatabase.Instance.MasterShips[e.ShipID].NameWithClass, e.Evasion.MinimumEstMin, e.Evasion.MinimumEstMax, e.Evasion.Maximum));
 
             if (e.LOS.SetEstParameter(level, losMin, losMax))
-                Utility.Logger.Add(1, string.Format("ShipParameter: {0} 의 색적값이 예상 범위를 벗어났습니다.( [{1} ~ {2}] ~ {3} )。",
+                Utility.Logger.Add(Utility.LogType.Alert, string.Format("ShipParameter: {0} 의 색적값이 예상 범위를 벗어났습니다.( [{1} ~ {2}] ~ {3} )。",
                     KCDatabase.Instance.MasterShips[e.ShipID].NameWithClass, e.LOS.MinimumEstMin, e.LOS.MinimumEstMax, e.LOS.Maximum));
 
 
@@ -663,7 +663,7 @@ namespace ElectronicObserver.Resource.Record
             }
 
             if (e.DefaultSlot == null || !e.DefaultSlot.SequenceEqual(slot))
-                Utility.Logger.Add(2, KCDatabase.Instance.MasterShips[shipID].NameWithClass + " 의 초기장비가 업데이트되었습니다.");
+                Utility.Logger.Add(Utility.LogType.System, KCDatabase.Instance.MasterShips[shipID].NameWithClass + " 의 초기장비가 업데이트되었습니다.");
 
             e.DefaultSlot = slot;
 
@@ -849,11 +849,11 @@ namespace ElectronicObserver.Resource.Record
 
 
                 if (e.ASW.SetEstParameter(1, (int)elem.api_tais, Parameter.MaximumDefault))
-                    Utility.Logger.Add(1, string.Format("ShipParameter: {0} 의 대잠값이 예상 범위를 벗어났습니다.( [{1} ~ {2}] ~ {3} )。",
+                    Utility.Logger.Add(Utility.LogType.Alert, string.Format("ShipParameter: {0} 의 대잠값이 예상 범위를 벗어났습니다.( [{1} ~ {2}] ~ {3} )。",
                         ship.NameWithClass, e.ASW.MinimumEstMin, e.ASW.MinimumEstMax, e.ASW.Maximum));
 
                 if (e.Evasion.SetEstParameter(1, (int)elem.api_kaih, Parameter.MaximumDefault))
-                    Utility.Logger.Add(1, string.Format("ShipParameter: {0} 의 회피값이 예상 범위를 벗어났습니다.( [{1} ~ {2}] ~ {3} )。",
+                    Utility.Logger.Add(Utility.LogType.Alert, string.Format("ShipParameter: {0} 의 회피값이 예상 범위를 벗어났습니다.( [{1} ~ {2}] ~ {3} )。",
                         ship.NameWithClass, e.Evasion.MinimumEstMin, e.Evasion.MinimumEstMax, e.Evasion.Maximum));
 
 
@@ -982,7 +982,7 @@ namespace ElectronicObserver.Resource.Record
 
                     if (eqs.Select(eqid => db.MasterEquipments[eqid]).All(eq => !eq?.IsAircraft ?? true))
                     {
-                        Utility.Logger.Add(1, $"탑재 체크：ID{id} {db.MasterShips[id].NameWithClass} 는 항공기를 장비하고 있지 않습니다. 탑재수를 0으로 추정합니다.");
+                        Utility.Logger.Add(Utility.LogType.Alert, $"탑재 체크：ID{id} {db.MasterShips[id].NameWithClass} 는 항공기를 장비하고 있지 않습니다. 탑재수를 0으로 추정합니다.");
                         this[id].Aircraft = new int[5];
                     }
                 }
@@ -1060,7 +1060,7 @@ namespace ElectronicObserver.Resource.Record
                             aircraft[Array.FindIndex(unknownShipEquipment, id => isAircraft(db.MasterEquipments[id]))] = estimatedAircraftCount;
                             p.Aircraft = aircraft;
                             this.Update(p);
-                            Utility.Logger.Add(1, $"탑재 체크：ID{unknownShipID} {db.MasterShips[unknownShipID].NameWithClass} 의 탑재수를 [{string.Join(", ", aircraft)}] 로 추정했습니다.");
+                            Utility.Logger.Add(Utility.LogType.Alert, $"탑재 체크：ID{unknownShipID} {db.MasterShips[unknownShipID].NameWithClass} 의 탑재수를 [{string.Join(", ", aircraft)}] 로 추정했습니다.");
                         }
                     }
 

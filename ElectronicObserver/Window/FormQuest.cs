@@ -33,6 +33,10 @@ namespace ElectronicObserver.Window
             this.ConfigurationChanged();
 
 
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
             #region set cellstyle
 
             this.CSDefaultLeft = new DataGridViewCellStyle
@@ -41,9 +45,9 @@ namespace ElectronicObserver.Window
 			};
 
             this.CSDefaultLeft.BackColor =
-            this.CSDefaultLeft.SelectionBackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
-            this.CSDefaultLeft.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-            this.CSDefaultLeft.SelectionForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
+            this.CSDefaultLeft.SelectionBackColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
+            this.CSDefaultLeft.ForeColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+            this.CSDefaultLeft.SelectionForeColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
             this.CSDefaultLeft.WrapMode = DataGridViewTriState.False;
 
 
@@ -136,7 +140,7 @@ namespace ElectronicObserver.Window
 
 			try
 			{
-				int sort = Utility.Configuration.Config.FormQuest.SortParameter;
+				int sort = Configuration.Config.FormQuest.SortParameter;
 
                 this.QuestView.Sort(this.QuestView.Columns[sort >> 1], (sort & 1) == 0 ? ListSortDirection.Ascending : ListSortDirection.Descending);
 
@@ -148,9 +152,12 @@ namespace ElectronicObserver.Window
 			}
 
 
-			Utility.Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
-
-            this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormQuest]);
+            Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
+			this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormQuest]);
 
             this.IsLoaded = true;
 		}
@@ -159,13 +166,13 @@ namespace ElectronicObserver.Window
 		void ConfigurationChanged()
 		{
 
-			var c = Utility.Configuration.Config;
+			var c = Configuration.Config;
 
             this.QuestView.Font = this.Font = c.UI.MainFont;
-            this.BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
-            this.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-            this.QuestView.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-            this.QuestView.BackgroundColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
+            this.BackColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
+            this.ForeColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+            this.QuestView.ForeColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+            this.QuestView.BackgroundColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
 
             this.MenuMain_ShowRunningOnly.Checked = c.FormQuest.ShowRunningOnly;
             this.MenuMain_ShowOnce.Checked = c.FormQuest.ShowOnce;
@@ -217,7 +224,8 @@ namespace ElectronicObserver.Window
 
             this.Updated();
 
-		}
+            this.ApplyLockLayoutState();
+        }
 
 
 		void SystemEvents_SystemShuttingDown()
@@ -227,9 +235,9 @@ namespace ElectronicObserver.Window
 			{
 
 				if (this.QuestView.SortedColumn != null)
-					Utility.Configuration.Config.FormQuest.SortParameter = this.QuestView.SortedColumn.Index << 1 | (this.QuestView.SortOrder == SortOrder.Ascending ? 0 : 1);
+                    Configuration.Config.FormQuest.SortParameter = this.QuestView.SortedColumn.Index << 1 | (this.QuestView.SortOrder == SortOrder.Ascending ? 0 : 1);
 
-				Utility.Configuration.Config.FormQuest.ColumnWidth = this.QuestView.Columns.Cast<DataGridViewColumn>().Select(c => c.Width).ToList();
+                Configuration.Config.FormQuest.ColumnWidth = this.QuestView.Columns.Cast<DataGridViewColumn>().Select(c => c.Width).ToList();
 
 			}
 			catch (Exception)
@@ -489,38 +497,38 @@ namespace ElectronicObserver.Window
 
 		private void MenuMain_ShowRunningOnly_Click(object sender, EventArgs e)
 		{
-			Utility.Configuration.Config.FormQuest.ShowRunningOnly = this.MenuMain_ShowRunningOnly.Checked;
+            Configuration.Config.FormQuest.ShowRunningOnly = this.MenuMain_ShowRunningOnly.Checked;
             this.Updated();
 		}
 
 
 		private void MenuMain_ShowOnce_Click(object sender, EventArgs e)
 		{
-			Utility.Configuration.Config.FormQuest.ShowOnce = this.MenuMain_ShowOnce.Checked;
+            Configuration.Config.FormQuest.ShowOnce = this.MenuMain_ShowOnce.Checked;
             this.Updated();
 		}
 
 		private void MenuMain_ShowDaily_Click(object sender, EventArgs e)
 		{
-			Utility.Configuration.Config.FormQuest.ShowDaily = this.MenuMain_ShowDaily.Checked;
+            Configuration.Config.FormQuest.ShowDaily = this.MenuMain_ShowDaily.Checked;
             this.Updated();
 		}
 
 		private void MenuMain_ShowWeekly_Click(object sender, EventArgs e)
 		{
-			Utility.Configuration.Config.FormQuest.ShowWeekly = this.MenuMain_ShowWeekly.Checked;
+            Configuration.Config.FormQuest.ShowWeekly = this.MenuMain_ShowWeekly.Checked;
             this.Updated();
 		}
 
 		private void MenuMain_ShowMonthly_Click(object sender, EventArgs e)
 		{
-			Utility.Configuration.Config.FormQuest.ShowMonthly = this.MenuMain_ShowMonthly.Checked;
+            Configuration.Config.FormQuest.ShowMonthly = this.MenuMain_ShowMonthly.Checked;
             this.Updated();
 		}
 
 		private void MenuMain_ShowOther_Click(object sender, EventArgs e)
 		{
-			Utility.Configuration.Config.FormQuest.ShowOther = this.MenuMain_ShowOther.Checked;
+            Configuration.Config.FormQuest.ShowOther = this.MenuMain_ShowOther.Checked;
             this.Updated();
 		}
 
@@ -530,7 +538,7 @@ namespace ElectronicObserver.Window
 		{
 
 			if (MessageBox.Show("임무 데이터를 초기화합니다.\r\n데이터 충돌이 발생하는 경우 이외에는 권장하지 않습니다.\r\n진행하시겠습니까?", "임무초기화 확인",
-				MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
+				MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
 			{
 
 				KCDatabase.Instance.Quest.Clear();
@@ -575,7 +583,7 @@ namespace ElectronicObserver.Window
 			if (index == -1) return;
 
             this.QuestView.Columns[index].Visible =
-			Utility.Configuration.Config.FormQuest.ColumnFilter.List[index] = menu.Checked;
+            Configuration.Config.FormQuest.ColumnFilter.List[index] = menu.Checked;
 		}
 
 
@@ -583,7 +591,7 @@ namespace ElectronicObserver.Window
 		{
 
 			if (this.IsLoaded)
-				Utility.Configuration.Config.FormQuest.ColumnWidth = this.QuestView.Columns.Cast<DataGridViewColumn>().Select(c => c.Width).ToList();
+                Configuration.Config.FormQuest.ColumnWidth = this.QuestView.Columns.Cast<DataGridViewColumn>().Select(c => c.Width).ToList();
 
 		}
 
@@ -593,7 +601,7 @@ namespace ElectronicObserver.Window
 		private void QuestView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
 		{
 
-			if (e.Button == System.Windows.Forms.MouseButtons.Right && e.RowIndex >= 0)
+			if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
 			{
                 this.QuestView.ClearSelection();
                 this.QuestView.Rows[e.RowIndex].Selected = true;
@@ -620,7 +628,7 @@ namespace ElectronicObserver.Window
 				}
 				catch (Exception)
 				{
-					Utility.Logger.Add(3, string.Format("임무『{0}』의 진행도 변경을 할 수 없습니다.", quest.Name));
+                    Logger.Add(LogType.Error, string.Format("임무『{0}』의 진행도 변경을 할 수 없습니다.", quest.Name));
 					System.Media.SystemSounds.Hand.Play();
 				}
 			}
@@ -644,7 +652,7 @@ namespace ElectronicObserver.Window
 				}
 				catch (Exception)
 				{
-					Utility.Logger.Add(3, string.Format("임무『{0}』의 진행도 변경을 할 수 없습니다.", quest.Name));
+                    Logger.Add(LogType.Error, string.Format("임무『{0}』의 진행도 변경을 할 수 없습니다.", quest.Name));
 					System.Media.SystemSounds.Hand.Play();
 				}
 			}
@@ -662,7 +670,7 @@ namespace ElectronicObserver.Window
 			{
 
 				if (MessageBox.Show("임무" + (quest != null ? ("『" + quest.Name + "』") : ("ID: " + id.ToString() + " ")) + "목록에서 삭제하고 진행도를 리셋합니다.\r\n진행하시겠습니까?\r\n(칸코레 임무 화면을 열면 다시 업데이트됩니다.)", "임무 삭제 확인",
-					MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes)
+					MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
 				{
 
 					if (quest != null)
@@ -742,7 +750,7 @@ namespace ElectronicObserver.Window
                 }
                 catch (Exception ex)
 				{
-					Utility.ErrorReporter.SendErrorReport(ex, "임무명 구글 검색에 실패했습니다.");
+                    ErrorReporter.SendErrorReport(ex, "임무명 구글 검색에 실패했습니다.");
 				}
 			}
 

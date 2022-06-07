@@ -89,24 +89,24 @@ namespace ElectronicObserver.Window.Dialog
 			}
             try
             {
-                if (Utility.Configuration.Config.Control.MapSelect.Equals("") || Utility.Configuration.Config.Control.MapSelect == null)
+                if (Configuration.Config.Control.MapSelect.Equals("") || Configuration.Config.Control.MapSelect == null)
                 {
-                    Utility.Configuration.Config.Control.MapSelect = "1-1";
+                    Configuration.Config.Control.MapSelect = "1-1";
                 }
             } catch
             {
-                Utility.Configuration.Config.Control.MapSelect = "1-1";
+                Configuration.Config.Control.MapSelect = "1-1";
             }
 
             try
             {
-                if (Utility.Configuration.Config.Control.Rank.Equals("") || Utility.Configuration.Config.Control.Rank == null)
+                if (Configuration.Config.Control.Rank.Equals("") || Configuration.Config.Control.Rank == null)
                 {
-                    Utility.Configuration.Config.Control.Rank = "S";
+                    Configuration.Config.Control.Rank = "S";
                 }
             } catch
             {
-                Utility.Configuration.Config.Control.Rank = "S";
+                Configuration.Config.Control.Rank = "S";
             }
             /*
             MapSelect.SelectedItem = MapSelect.Items.OfType<String>().FirstOrDefault(x => x.Equals(Utility.Configuration.Config.Control.MapSelect));
@@ -125,7 +125,7 @@ namespace ElectronicObserver.Window.Dialog
             */
             this.LabelAlert.Text = "";
             this.SearchInFleet_CheckedChanged(this, new EventArgs());
-            this.ExpUnit.Value = Utility.Configuration.Config.Control.ExpCheckerExpUnit;
+            this.ExpUnit.Value = Configuration.Config.Control.ExpCheckerExpUnit;
 
             if (this.DefaultShipID != -1)
                 this.TextShip.SelectedItem = this.TextShip.Items.OfType<ComboShipData>().FirstOrDefault(f => f.Ship.MasterID == this.DefaultShipID);
@@ -441,7 +441,7 @@ namespace ElectronicObserver.Window.Dialog
 			}
 			else
 			{
-                if(Utility.Configuration.Config.FormFleet.ExpCheckerOption == 1)
+                if(Configuration.Config.FormFleet.ExpCheckerOption == 1)
                 {
                     this.TextShip.Items.AddRange(ships
     .OrderBy(s => s.MasterShip.ShipType)

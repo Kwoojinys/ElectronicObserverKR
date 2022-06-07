@@ -13,6 +13,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static ElectronicObserver.Utility.UtilExtension;
 
 namespace ElectronicObserver.Utility
 {
@@ -258,21 +259,24 @@ namespace ElectronicObserver.Utility
 			public ConfigUI UI { get; private set; }
 
 
+
+
 			/// <summary>
 			/// ログの設定を扱います。
 			/// </summary>
 			public class ConfigLog : ConfigPartBase
 			{
+				public List<bool> VisibleLogList { get; set; }
 
-				/// <summary>
-				/// ログのレベル
-				/// </summary>
-				public int LogLevel { get; set; }
-
-				/// <summary>
-				/// ログを保存するか
-				/// </summary>
-				public bool SaveLogFlag { get; set; }
+                [IgnoreDataMember]
+                readonly List<bool> DefaultLogTypeLevel = new List<bool>((int) LogType.None)
+                {
+                    true, true, false, true, false, true, true, true, true, true, true, true, true, true, true, true,
+                };
+                /// <summary>
+                /// ログを保存するか
+                /// </summary>
+                public bool SaveLogFlag { get; set; }
 
 				/// <summary>
 				/// エラーレポートを保存するか
@@ -285,10 +289,10 @@ namespace ElectronicObserver.Utility
 				public int FileEncodingID { get; set; }
 
 
-                /// <summary>
-                /// ファイル エンコーディング
-                /// </summary>
-                [IgnoreDataMember]
+				/// <summary>
+				/// ファイル エンコーディング
+				/// </summary>
+				[IgnoreDataMember]
 				public Encoding FileEncoding
 				{
 					get
@@ -338,9 +342,11 @@ namespace ElectronicObserver.Utility
 				public bool SaveLogImmediately { get; set; }
 
 
+
 				public ConfigLog()
 				{
-                    this.LogLevel = 2;
+					this.VisibleLogList = this.DefaultLogTypeLevel.ToList();
+
                     this.SaveLogFlag = true;
                     this.SaveErrorReport = true;
                     this.FileEncodingID = 1;
@@ -522,9 +528,9 @@ namespace ElectronicObserver.Utility
 				/// </summary>
 				public bool CanCloseFloatWindowInLock { get; set; }
 
-                public bool CanSizableFloatWindowInLock { get; set; }
+				public bool CanSizableFloatWindowInLock { get; set; }
 
-                public ConfigLife()
+				public ConfigLife()
 				{
                     this.ConfirmOnClosing = true;
                     this.TopMost = false;
@@ -535,9 +541,8 @@ namespace ElectronicObserver.Utility
                     this.LockLayout = false;
                     this.CanCloseFloatWindowInLock = false;
                     this.CanSizableFloatWindowInLock = false;
-
                 }
-			}
+            }
 			/// <summary>起動と終了</summary>
 			[DataMember]
 			public ConfigLife Life { get; private set; }
@@ -1747,7 +1752,7 @@ namespace ElectronicObserver.Utility
 					{
 
 						var lines = new List<string>();
-						using (StreamReader sr = new StreamReader(path, Utility.Configuration.Config.Log.FileEncoding))
+						using (StreamReader sr = new StreamReader(path, Config.Log.FileEncoding))
 						{
 							sr.ReadLine();      // skip header row
 							while (!sr.EndOfStream)
@@ -1758,7 +1763,7 @@ namespace ElectronicObserver.Utility
 						lines = lines.Distinct().ToList();
 						int afterCount = lines.Count;
 
-						using (StreamWriter sw = new StreamWriter(path, false, Utility.Configuration.Config.Log.FileEncoding))
+						using (StreamWriter sw = new StreamWriter(path, false, Config.Log.FileEncoding))
 						{
 							sw.WriteLine(dev.RecordHeader);
 							foreach (var line in lines)
@@ -1767,7 +1772,7 @@ namespace ElectronicObserver.Utility
 							}
 						}
 
-						Utility.Logger.Add(2, "<= ver. 2.6.2 개발 로그 중복 문제 대응: 성공" + (beforeCount - afterCount) + " 개 중복을 제거했습니다.");
+                        Logger.Add(LogType.Alert, "<= ver. 2.6.2 개발 로그 중복 문제 대응: 성공" + (beforeCount - afterCount) + " 개 중복을 제거했습니다.");
 
 					}
 
@@ -1811,7 +1816,7 @@ namespace ElectronicObserver.Utility
             }
             catch (Exception ex)
             {
-                Utility.ErrorReporter.SendErrorReport(ex, "<= ver. 3.1.2 이전 프로세스 : 이전 레지스트리 삭제에 실패했습니다.");
+                ErrorReporter.SendErrorReport(ex, "<= ver. 3.1.2 이전 프로세스 : 이전 레지스트리 삭제에 실패했습니다.");
             }
         }
 
@@ -1845,7 +1850,7 @@ namespace ElectronicObserver.Utility
 						bool isNewVersion;
 						try
 						{
-							using (var reader = new StreamReader(fleetPath, Utility.Configuration.Config.Log.FileEncoding))
+							using (var reader = new StreamReader(fleetPath, Config.Log.FileEncoding))
 								isNewVersion = reader.ReadLine() == fleet.RecordHeader;
 						}
 						catch (Exception)
@@ -1860,7 +1865,7 @@ namespace ElectronicObserver.Utility
 						}
 						else
 						{
-							Utility.Logger.Add(1, "~2.8.2 로그 변환 처리：적 함대 기록이 이미 신규 형식입니다.");
+                            Logger.Add(LogType.Alert, "~2.8.2 로그 변환 처리：적 함대 기록이 이미 신규 형식입니다.");
 						}
 					}
 
@@ -1876,7 +1881,7 @@ namespace ElectronicObserver.Utility
 						bool isNewVersion;
 						try
 						{
-							using (var reader = new StreamReader(dropPath, Utility.Configuration.Config.Log.FileEncoding))
+							using (var reader = new StreamReader(dropPath, Config.Log.FileEncoding))
 							{
 								reader.ReadLine();
 								isNewVersion = reader.ReadLine().Split(",".ToCharArray())[12].Length == 16;
@@ -1901,7 +1906,7 @@ namespace ElectronicObserver.Utility
 						}
 						else
 						{
-							Utility.Logger.Add(1, "~2.8.2 로그 변환 처리：드랍 기록이 이미 신규 형식입니다.");
+                            Logger.Add(LogType.Alert, "~2.8.2 로그 변환 처리：드랍 기록이 이미 신규 형식입니다.");
 						}
 					}
 
@@ -1911,15 +1916,15 @@ namespace ElectronicObserver.Utility
 						Directory.Delete(backupDirectoryPath);
 
 
-					Utility.Logger.Add(2, "~2.8.2 로그 변환 처리 : 완료하였습니다.");
+                    Logger.Add(LogType.System, "~2.8.2 로그 변환 처리 : 완료하였습니다.");
 
 				}
 				catch (Exception ex)
 				{
-					Utility.ErrorReporter.SendErrorReport(ex, "~2.8.2  로그 변환 처리 : 실패하였습니다.");
+                    ErrorReporter.SendErrorReport(ex, "~2.8.2  로그 변환 처리 : 실패하였습니다.");
 
 					if (MessageBox.Show($"호환성 유지를 위해 로그 변환하는 동안 오류가 발생했습니다. \r\n\r\n{ex.Message}\r\n\r\n다시 시도 하시겠습니까?？\r\n（아니오를 선택하면 일부 로그가 소실될 수 있습니다.）",
-						"~2.8.2 レコード変換処理：" + ex.GetType().Name, MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1)
+						"~2.8.2 기록 변환 처리：" + ex.GetType().Name, MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1)
 						== DialogResult.Yes)
 						continue;
 					else
@@ -2023,7 +2028,7 @@ namespace ElectronicObserver.Utility
 				drop.SaveAll(RecordManager.Instance.MasterPath);
 
 
-				Utility.Logger.Add(2, "<= ver. 3.0.7 난이도 변경에 따른 로그 파일 수정: 정상적으로 완료하였습니다.");
+                Logger.Add(LogType.System, "<= ver. 3.0.7 난이도 변경에 따른 로그 파일 수정: 정상적으로 완료하였습니다.");
 
 			}
 			catch (Exception ex)
@@ -2037,7 +2042,7 @@ namespace ElectronicObserver.Utility
             if (Config.FormFleet.SallyAreaColorScheme.SequenceEqual(Config.FormFleet.DefaultSallyAreaColorScheme.Take(8)))
             {
                 Config.FormFleet.SallyAreaColorScheme = Config.FormFleet.DefaultSallyAreaColorScheme.ToList();
-                Utility.Logger.Add(1, "<= ver. 4.6.0 신규기능: 출격해역 색상 추가 작업이 완료되었습니다.");
+                Logger.Add(LogType.System, "<= ver. 4.6.0 신규기능: 출격해역 색상 추가 작업이 완료되었습니다.");
             }
         }
     }

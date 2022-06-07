@@ -33,7 +33,7 @@ namespace ElectronicObserver.Data
         public string Name
         {
             get {
-                return FormMain.Instance.Translator.GetTranslation(this.RawData.api_name, Utility.TranslateType.Equipment); }
+                return Utility.ExternalDataReader.Instance.GetTranslation(this.RawData.api_name, Utility.TranslateType.Equipment); }
         }
 
         public string Name_JP => this.RawData.api_name;

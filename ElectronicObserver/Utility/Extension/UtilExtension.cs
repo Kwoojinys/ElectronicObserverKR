@@ -1,11 +1,25 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ElectronicObserver.Utility
 {
     public static class UtilExtension
     {
+        public static void ApplyLockLayoutState(this DockContent content)
+        {
+            /*
+            var unLocked = Utility.Configuration.Config.Life.LockLayout == false;
+
+            content.AllowEndUserDocking             = unLocked;
+            content.CloseButton = content.IsFloat == true ?
+                 unLocked || (Utility.Configuration.Config.Life.CanCloseFloatWindowInLock == true && unLocked == false) :
+                 unLocked;
+
+            */
+        }
+
         public static string DataTypeToName(this TranslateType type)
         {
             switch (type)

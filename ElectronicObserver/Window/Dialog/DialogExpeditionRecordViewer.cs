@@ -118,7 +118,7 @@ namespace ElectronicObserver.Window.Dialog
             if (this.Searcher.IsBusy)
             {
                 if (MessageBox.Show("검색을 취소하시겠습니까?", "검색중입니다.", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2)
-                    == System.Windows.Forms.DialogResult.Yes)
+                    == DialogResult.Yes)
                 {
                     this.Searcher.CancelAsync();
                 }
@@ -207,8 +207,8 @@ namespace ElectronicObserver.Window.Dialog
 
                         row.SetValues(
                             index + 1,
-                            Constants.GetVisualMissionId(r.MissionID),
-                            ex.Name,
+                            r.VisualMissionID,
+                            r.ExpeditionName,
                             r.Fuel,
                             r.Ammo,
                             r.Steel,
@@ -283,7 +283,7 @@ namespace ElectronicObserver.Window.Dialog
                     row.SetValues
                     (
                         c.Value["Count"],
-                        Constants.GetVisualMissionId(c.Key),
+                        mission.VisualMissionId,
                         mission.Name,
                         c.Value["Fuel"],
                         c.Value["Ammo"],
@@ -298,12 +298,12 @@ namespace ElectronicObserver.Window.Dialog
                     row.Cells[0].Tag = c.Value["Count"];
                     row.Cells[1].Tag = c.Value;
 
-                    row.Cells[7].ToolTipText = c.Value["Item1Id"] != -1 ? 
-                        FormMain.Instance.Translator.GetTranslation(string.Empty, Utility.TranslateType.Items, c.Value["Item1Id"]) : 
+                    row.Cells[7].ToolTipText = c.Value["Item1Id"] != -1 ?
+                        Utility.ExternalDataReader.Instance.GetTranslation(string.Empty, Utility.TranslateType.Items, c.Value["Item1Id"]) : 
                         string.Empty;
 
-                    row.Cells[9].ToolTipText = c.Value["Item2Id"] != -1 ? 
-                        FormMain.Instance.Translator.GetTranslation(string.Empty, Utility.TranslateType.Items, c.Value["Item2Id"]) : 
+                    row.Cells[9].ToolTipText = c.Value["Item2Id"] != -1 ?
+                        Utility.ExternalDataReader.Instance.GetTranslation(string.Empty, Utility.TranslateType.Items, c.Value["Item2Id"]) : 
                         string.Empty;
 
                     rows.AddLast(row);

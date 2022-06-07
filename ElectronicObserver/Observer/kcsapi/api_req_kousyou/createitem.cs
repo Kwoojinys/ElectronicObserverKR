@@ -32,7 +32,7 @@ namespace ElectronicObserver.Observer.kcsapi.api_req_kousyou
                 {
                     if (result.IsSucceeded)
                     {
-                        Utility.Logger.Add(2, string.Format("{0}「{1}」의 개발에 성공했습니다. ({2}/{3}/{4}/{5} 비서함: {6})",
+                        Utility.Logger.Add(Utility.LogType.Arsenal, string.Format("{0}「{1}」의 개발에 성공했습니다. ({2}/{3}/{4}/{5} 비서함: {6})",
                             result.MasterEquipment.CategoryTypeInstance.Name,
                             result.MasterEquipment.Name,
                             dev.Fuel, dev.Ammo, dev.Steel, dev.Bauxite,
@@ -40,7 +40,7 @@ namespace ElectronicObserver.Observer.kcsapi.api_req_kousyou
                     }
                     else
                     {
-                        Utility.Logger.Add(2, string.Format("개발에 실패했습니다. ({0}/{1}/{2}/{3} 비서함: {4})",
+                        Utility.Logger.Add(Utility.LogType.Arsenal, string.Format("개발에 실패했습니다. ({0}/{1}/{2}/{3} 비서함: {4})",
                             dev.Fuel, dev.Ammo, dev.Steel, dev.Bauxite,
                             db.Fleet[1].MembersInstance[0].NameWithLevel));
                     }

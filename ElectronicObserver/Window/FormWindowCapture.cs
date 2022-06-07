@@ -38,7 +38,8 @@ namespace ElectronicObserver.Window
 			this.windowCaptureButton.Image = ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormWindowCapture];
 
 			SystemEvents.SystemShuttingDown += this.SystemEvents_SystemShuttingDown;
-		}
+			this.ApplyLockLayoutState();
+        }
 
 		private void SystemEvents_SystemShuttingDown()
 		{
@@ -92,7 +93,7 @@ namespace ElectronicObserver.Window
 
 			if (MessageBox.Show(stringBuilder.ToString() + "\r\n" + WARNING_MESSAGE,
 				"창 캡쳐 확인", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-				== System.Windows.Forms.DialogResult.Yes)
+				== DialogResult.Yes)
 			{
 
 				FormIntegrate form = new FormIntegrate(this.parent);

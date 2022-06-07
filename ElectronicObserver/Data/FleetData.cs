@@ -140,7 +140,7 @@ namespace ElectronicObserver.Data
                     this._escapedShipList.Clear();
 					if (this.IsInSortie)
 					{
-						Utility.Logger.Add(2, string.Format("#{0}「{1}」이 귀환했습니다.", this.FleetID, this.Name));
+                        Logger.Add(LogType.Battle, string.Format("#{0}「{1}」이 귀환했습니다.", this.FleetID, this.Name));
 					}
                     this.IsInSortie = false;
 
@@ -347,7 +347,7 @@ namespace ElectronicObserver.Data
 		/// <returns>制空戦力。</returns>
 		public int GetAirSuperiority()
 		{
-			switch (Utility.Configuration.Config.FormFleet.AirSuperiorityMethod)
+			switch (Configuration.Config.FormFleet.AirSuperiorityMethod)
 			{
 				case 0:
 				default:
@@ -363,7 +363,7 @@ namespace ElectronicObserver.Data
 		/// <returns></returns>
 		public string GetAirSuperiorityString()
 		{
-			switch (Utility.Configuration.Config.FormFleet.AirSuperiorityMethod)
+			switch (Configuration.Config.FormFleet.AirSuperiorityMethod)
 			{
 				case 0:
 				default:
@@ -373,7 +373,7 @@ namespace ElectronicObserver.Data
 						int min = Calculator.GetAirSuperiority(this, false);
 						int max = Calculator.GetAirSuperiority(this, true);
 
-						if (Utility.Configuration.Config.FormFleet.ShowAirSuperiorityRange && min < max)
+						if (Configuration.Config.FormFleet.ShowAirSuperiorityRange && min < max)
 							return string.Format("{0} ～ {1}", min, max);
 						else
 							return min.ToString();
@@ -556,7 +556,7 @@ namespace ElectronicObserver.Data
 
 		public void UpdateConditionTime()
 		{
-			var ships = this.MembersInstance.Where(ship => ship != null && ship.Condition < Utility.Configuration.Config.Control.ConditionBorder);
+			var ships = this.MembersInstance.Where(ship => ship != null && ship.Condition < Configuration.Config.Control.ConditionBorder);
 			if (!ships.Any())
 			{
                 this.ConditionTime = null;
@@ -564,7 +564,7 @@ namespace ElectronicObserver.Data
 			}
 			else
 			{
-                this.ConditionTime = KCDatabase.Instance.Fleet.CalculateConditionHealingEstimation(Utility.Configuration.Config.Control.ConditionBorder - ships.Min(ship => ship.Condition));
+                this.ConditionTime = KCDatabase.Instance.Fleet.CalculateConditionHealingEstimation(Configuration.Config.Control.ConditionBorder - ships.Min(ship => ship.Condition));
 			}
 		}
 

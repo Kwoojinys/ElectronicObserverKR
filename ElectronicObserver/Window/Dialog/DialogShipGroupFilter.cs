@@ -801,13 +801,13 @@ namespace ElectronicObserver.Window.Dialog
 		private void ButtonOK_Click(object sender, EventArgs e)
 		{
 
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.DialogResult = DialogResult.OK;
 		}
 
 		private void ButtonCancel_Click(object sender, EventArgs e)
 		{
 
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.DialogResult = DialogResult.Cancel;
 		}
 
 
@@ -1312,7 +1312,7 @@ namespace ElectronicObserver.Window.Dialog
 
 			if (MessageBox.Show(this.ConstFilterSelector.Text + " 를 초기화합니다.\r\n진행 하시겠습니까?", "초기화 확인",
 				MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2)
-				== System.Windows.Forms.DialogResult.Yes)
+				== DialogResult.Yes)
 			{
 
 				if (this.ConstFilterSelector.SelectedIndex == 0)
@@ -1334,7 +1334,7 @@ namespace ElectronicObserver.Window.Dialog
 
 			if (MessageBox.Show("현재의 포함 / 제외 목록을 수식으로 변환합니다.\r\n역변환은 할 수 없습니다. \r\n진행 하시겠습니까?", "확인",
 					MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-					== System.Windows.Forms.DialogResult.Yes)
+					== DialogResult.Yes)
 			{
 
 				if (this._group.InclusionFilter.Count > 0)
@@ -1378,7 +1378,7 @@ namespace ElectronicObserver.Window.Dialog
 
 			if (MessageBox.Show("클립 보드에서 필터를 가져옵니다.\r\n현재 필터는 삭제됩니다.(포함/제외 필터는 유지됩니다.)\r\n실행하시겠습니까?\r\n",
 					"필터 가져오기 확인", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-				== System.Windows.Forms.DialogResult.No)
+				== DialogResult.No)
 				return;
 
 			string data = Clipboard.GetText();

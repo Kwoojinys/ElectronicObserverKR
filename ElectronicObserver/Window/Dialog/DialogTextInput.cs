@@ -81,12 +81,12 @@ namespace ElectronicObserver.Window.Dialog
 
 		private void ButtonOK_Click(object sender, EventArgs e)
 		{
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.DialogResult = DialogResult.OK;
 		}
 
 		private void ButtonCancel_Click(object sender, EventArgs e)
 		{
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.DialogResult = DialogResult.Cancel;
 		}
 
 	}

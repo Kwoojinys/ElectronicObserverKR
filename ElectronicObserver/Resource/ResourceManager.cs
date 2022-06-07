@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using ElectronicObserver.Utility;
 
 namespace ElectronicObserver.Resource
 {
@@ -253,7 +251,7 @@ namespace ElectronicObserver.Resource
 			catch (Exception ex)
 			{
 
-				Utility.ErrorReporter.SendErrorReport(ex, "리소스 파일 로드에 실패했습니다.");
+                ErrorReporter.SendErrorReport(ex, "리소스 파일 로드에 실패했습니다.");
 				MessageBox.Show("리소스 파일 로드에 실패했습니다.\r\n" + ex.Message, "에러", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 				FillWithBlankImage(this.Icons, Enum.GetValues(typeof(IconContent)).Length);
@@ -477,7 +475,7 @@ namespace ElectronicObserver.Resource
 
 			if (entry == null)
 			{
-				Utility.Logger.Add(3, string.Format("이미지 파일 {0} 은 존재하지 않습니다.", path));
+                Logger.Add(LogType.Error, string.Format("이미지 파일 {0} 은 존재하지 않습니다.", path)); ;
 				imglist.Images.Add(name, new Bitmap(imglist.ImageSize.Width, imglist.ImageSize.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb));
 				return;
 			}
@@ -502,7 +500,7 @@ namespace ElectronicObserver.Resource
 			}
 			catch (Exception)
 			{
-				Utility.Logger.Add(3, string.Format("이미지 파일 {0} 의 로드에 실패했습니다.", path));
+                Logger.Add(LogType.Error, string.Format("이미지 파일 {0} 의 로드에 실패했습니다.", path));
 				imglist.Images.Add(name, CreateBlankImage());
 				return;
 			}
@@ -516,7 +514,7 @@ namespace ElectronicObserver.Resource
 
 			if (entry == null)
 			{
-				Utility.Logger.Add(3, string.Format("이미지 파일 {0} 은 존재하지 않습니다.", path));
+                Logger.Add(LogType.Error, string.Format("이미지 파일 {0} 은 존재하지 않습니다.", path));
 				return null;
 			}
 
@@ -539,7 +537,7 @@ namespace ElectronicObserver.Resource
 			catch (Exception)
 			{
 
-				Utility.Logger.Add(3, string.Format("이미지 파일 {0} 의 로드에 실패했습니다.", path));
+                Logger.Add(LogType.Error, string.Format("이미지 파일 {0} 의 로드에 실패했습니다.", path));
 			}
 
 			return null;
@@ -573,15 +571,13 @@ namespace ElectronicObserver.Resource
 
 				if (entry == null)
 				{
-					Utility.Logger.Add(3, string.Format("{0} 은 존재하지 않습니다.", entrypath));
+                    Logger.Add(LogType.Error, string.Format("{0} 은 존재하지 않습니다.", entrypath));
 					return false;
 				}
 
-
 				try
 				{
-
-					if (convertEncoding && Utility.Configuration.Config.Log.FileEncodingID != 4)
+					if (convertEncoding && Configuration.Config.Log.FileEncodingID != 4)
 					{
 						using (var filetoconvert = GetStreamFromArchive(source))
 						{
@@ -589,7 +585,7 @@ namespace ElectronicObserver.Resource
 							using (var convertStream = new StreamReader(filetoconvert, Encoding.GetEncoding(932)))
 							{
 								string fileread = convertStream.ReadToEnd();
-								File.WriteAllText(destination, fileread, Utility.Configuration.Config.Log.FileEncoding);
+								File.WriteAllText(destination, fileread, Configuration.Config.Log.FileEncoding);
 							}
 						}
 					}
@@ -597,13 +593,14 @@ namespace ElectronicObserver.Resource
 					{
 						entry.ExtractToFile(destination);
 					}
-					Utility.Logger.Add(2, string.Format("{0} 을 복사했습니다.", entrypath));
+
+                    Logger.Add(LogType.System, string.Format("{0} 을 복사했습니다.", entrypath));
 
 				}
 				catch (Exception ex)
 				{
 
-					Utility.Logger.Add(3, string.Format("{0} 의 복사에 실패했습니다. {1}", entrypath, ex.Message));
+                    Logger.Add(LogType.Error, string.Format("{0} 의 복사에 실패했습니다. {1}", entrypath, ex.Message));
 					return false;
 				}
 			}
@@ -655,7 +652,7 @@ namespace ElectronicObserver.Resource
 
 				if (entry == null)
 				{
-					Utility.Logger.Add(3, string.Format("{0} 은 존재하지 않습니다.", entrypath));
+                    Logger.Add(LogType.Error, string.Format("{0} 은 존재하지 않습니다.", entrypath));
 					return null;
 				}
 
@@ -678,7 +675,7 @@ namespace ElectronicObserver.Resource
 				catch (Exception ex)
 				{
 
-					Utility.Logger.Add(3, string.Format("{0} 의 배포에 실패했습니다.{1}", entrypath, ex.Message));
+                    Logger.Add(LogType.Error, string.Format("{0} 의 배포에 실패했습니다.{1}", entrypath, ex.Message));
 					return null;
 				}
 			}

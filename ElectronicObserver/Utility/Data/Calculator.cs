@@ -1055,7 +1055,6 @@ namespace ElectronicObserver.Utility.Data
             if (attackerShipID == 545 || attackerShipID == 599 || attackerShipID == 610)      // Saratoga Mk.II/赤城改二戊/加賀改二戊
                 nightPersonnelCount++;
 
-
             if (includeSpecialAttack)
             {
 
@@ -1766,7 +1765,7 @@ namespace ElectronicObserver.Utility.Data
         /// <param name="combinedFleetFlag">連合艦隊フラグ。 -1=連合艦隊でない, 1=連合艦隊主力艦隊, 2=連合艦隊随伴艦隊</param>
         public static int GetFixedAirDefense(double adjustedAAValue, double adjustedFleetAAValue, int cutinKind, int combinedFleetFlag = -1)
         {
-            double cutinBonus = Calculator.AACutinVariableBonus.ContainsKey(cutinKind) ? Calculator.AACutinVariableBonus[cutinKind] : 1.0;
+            double cutinBonus = AACutinVariableBonus.ContainsKey(cutinKind) ? AACutinVariableBonus[cutinKind] : 1.0;
 
             return (int)Math.Floor((adjustedAAValue + adjustedFleetAAValue) * GetAirDefenseCombinedFleetCoefficient(combinedFleetFlag) * cutinBonus / 10);
         }

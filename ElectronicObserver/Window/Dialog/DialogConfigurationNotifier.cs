@@ -200,7 +200,7 @@ namespace ElectronicObserver.Window.Dialog
 				catch (Exception) { }
 			}
 
-			if (this.DialogOpenSound.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (this.DialogOpenSound.ShowDialog() == DialogResult.OK)
 			{
                 this.SoundPath.Text = this.DialogOpenSound.FileName;
 			}
@@ -220,7 +220,7 @@ namespace ElectronicObserver.Window.Dialog
 				catch (Exception) { }
 			}
 
-			if (this.DialogOpenImage.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (this.DialogOpenImage.ShowDialog() == DialogResult.OK)
 			{
                 this.ImagePath.Text = this.DialogOpenImage.FileName;
 			}
@@ -231,7 +231,7 @@ namespace ElectronicObserver.Window.Dialog
 		{
 
             this.DialogColor.Color = this.ForeColorPreview.ForeColor;
-			if (this.DialogColor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (this.DialogColor.ShowDialog() == DialogResult.OK)
 			{
                 this.ForeColorPreview.ForeColor = this.DialogColor.Color;
 			}
@@ -241,7 +241,7 @@ namespace ElectronicObserver.Window.Dialog
 		{
 
             this.DialogColor.Color = this.BackColorPreview.ForeColor;
-			if (this.DialogColor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (this.DialogColor.ShowDialog() == DialogResult.OK)
 			{
                 this.BackColorPreview.ForeColor = this.DialogColor.Color;
 			}
@@ -281,13 +281,13 @@ namespace ElectronicObserver.Window.Dialog
 
 			if (!this.SetConfiguration()) return;
 
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.DialogResult = DialogResult.OK;
 		}
 
 		private void ButtonCancel_Click(object sender, EventArgs e)
 		{
 
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.DialogResult = DialogResult.Cancel;
 		}
 
 

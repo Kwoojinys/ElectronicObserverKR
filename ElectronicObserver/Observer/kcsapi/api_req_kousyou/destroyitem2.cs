@@ -30,7 +30,7 @@ namespace ElectronicObserver.Observer.kcsapi.api_req_kousyou
 
 			foreach (var item in itemsDestroyed)
 			{
-				Utility.Logger.Add(2, String.Format("{0}{1} 을 폐기했습니다.", item.Key, item.Value > 1 ? " x " + item.Value : ""));
+				Utility.Logger.Add(Utility.LogType.Arsenal, String.Format("{0}{1} 을 폐기했습니다.", item.Key, item.Value > 1 ? " x " + item.Value : ""));
 			}
 
 			base.OnRequestReceived(data);

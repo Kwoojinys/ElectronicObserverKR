@@ -34,7 +34,7 @@ namespace ElectronicObserver.Window.Control
 
 		private void OnMouseMoved()
 		{
-			Point cursor = System.Windows.Forms.Cursor.Position;
+			Point cursor = Cursor.Position;
 
             this.CapturingImageWindow.Location = new Point(
 				cursor.X - this.Image.Width / 2,
@@ -152,7 +152,7 @@ namespace ElectronicObserver.Window.Control
             this.Capture = true;
             this.selectingWindow = true;
 
-			Point cursor = System.Windows.Forms.Cursor.Position;
+			Point cursor = Cursor.Position;
             this.CapturingImageWindow.Location = new Point(
 				cursor.X - this.Image.Width / 2,
 				cursor.Y - this.Image.Height / 2

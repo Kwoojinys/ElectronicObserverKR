@@ -55,7 +55,7 @@ namespace ElectronicObserver.Observer.kcsapi.api_req_kousyou
 				ship.LoadFromResponse(this.APIName, data.api_ship);
 				db.Ships.Add(ship);
 
-				Utility.Logger.Add(2, string.Format("{0}「{1}」의 건조가 완료되었습니다.", ship.MasterShip.ShipTypeName, ship.MasterShip.NameWithClass));
+				Utility.Logger.Add(Utility.LogType.Arsenal, string.Format("{0}「{1}」의 건조가 완료되었습니다.", ship.MasterShip.ShipTypeName, ship.MasterShip.NameWithClass));
 			}
 
 

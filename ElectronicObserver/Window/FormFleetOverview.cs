@@ -1,6 +1,7 @@
 ﻿using ElectronicObserver.Data;
 using ElectronicObserver.Observer;
 using ElectronicObserver.Resource;
+using ElectronicObserver.Utility;
 using ElectronicObserver.Utility.Data;
 using ElectronicObserver.Utility.Mathematics;
 using ElectronicObserver.Window.Control;
@@ -174,7 +175,9 @@ namespace ElectronicObserver.Window
             this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormFleet]);
 
 			Utility.SystemEvents.UpdateTimerTick += this.UpdateTimerTick;
-		}
+
+            this.ApplyLockLayoutState();
+        }
 
 
 
@@ -214,6 +217,10 @@ namespace ElectronicObserver.Window
 
 
             Utility.Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
 		}
 
 		void ConfigurationChanged()
@@ -239,7 +246,12 @@ namespace ElectronicObserver.Window
             ControlHelper.SetTableRowStyles(this.TableFleet, ControlHelper.GetDefaultRowStyle());
 
             this.TableFleet.ResumeLayout();
-		}
+
+            this.ApplyLockLayoutState();
+                 
+                 
+                 
+        }
 
 
 		private void Updated(string apiname, dynamic data)

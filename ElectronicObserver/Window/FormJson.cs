@@ -1,6 +1,7 @@
 ﻿using DynaJson;
 using ElectronicObserver.Observer;
 using ElectronicObserver.Resource;
+using ElectronicObserver.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,7 +38,9 @@ namespace ElectronicObserver.Window
             this.ConfigurationChanged();
 
             this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormJson]);
-		}
+
+            this.ApplyLockLayoutState();
+        }
 
 		private void FormJson_Load(object sender, EventArgs e)
 		{
@@ -48,6 +51,7 @@ namespace ElectronicObserver.Window
 			o.ResponseReceived += this.ResponseReceived;
 
 			Utility.Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
+            this.ApplyLockLayoutState();
 		}
 
 
@@ -328,7 +332,9 @@ namespace ElectronicObserver.Window
                 this.AutoUpdateFilter.BackColor = Color.MistyRose;
                 this._apiPattern = null;
 			}
-		}
+
+            this.ApplyLockLayoutState();
+        }
 
 
 		private void tabControl1_DragEnter(object sender, DragEventArgs e)
@@ -435,7 +441,7 @@ namespace ElectronicObserver.Window
 		private void TreeContextMenu_OutputCSV_Click(object sender, EventArgs e)
 		{
 
-			if (this.CSVSaver.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (this.CSVSaver.ShowDialog() == DialogResult.OK)
 			{
 
 				try

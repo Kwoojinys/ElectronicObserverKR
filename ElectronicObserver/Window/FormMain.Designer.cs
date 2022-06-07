@@ -58,6 +58,7 @@
             this.StripMenu_CombinedFleet = new System.Windows.Forms.ToolStripMenuItem();
             this.StripMenu_View_FleetOverview = new System.Windows.Forms.ToolStripMenuItem();
             this.StripMenu_View_ShipGroup = new System.Windows.Forms.ToolStripMenuItem();
+            this.StripMenu_View_FleetPreset = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.StripMenu_View_Dock = new System.Windows.Forms.ToolStripMenuItem();
             this.StripMenu_View_Arsenal = new System.Windows.Forms.ToolStripMenuItem();
@@ -123,7 +124,6 @@
             this.StripStatus_Clock = new System.Windows.Forms.ToolStripStatusLabel();
             this.UIUpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.MainDockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
-            this.StripMenu_View_FleetPreset = new System.Windows.Forms.ToolStripMenuItem();
             this.StripMenu.SuspendLayout();
             this.StripStatus.SuspendLayout();
             this.SuspendLayout();
@@ -376,6 +376,13 @@
             this.StripMenu_View_ShipGroup.Size = new System.Drawing.Size(149, 22);
             this.StripMenu_View_ShipGroup.Text = "함선그룹(&G)";
             this.StripMenu_View_ShipGroup.Click += new System.EventHandler(this.StripMenu_View_ShipGroup_Click);
+            // 
+            // StripMenu_View_FleetPreset
+            // 
+            this.StripMenu_View_FleetPreset.Name = "StripMenu_View_FleetPreset";
+            this.StripMenu_View_FleetPreset.Size = new System.Drawing.Size(149, 22);
+            this.StripMenu_View_FleetPreset.Text = "편성프리셋(&P)";
+            this.StripMenu_View_FleetPreset.Click += new System.EventHandler(this.StripMenu_View_FleetPreset_Click);
             // 
             // toolStripSeparator1
             // 
@@ -865,13 +872,6 @@
             this.MainDockPanel.ShowDocumentIcon = true;
             this.MainDockPanel.Size = new System.Drawing.Size(640, 434);
             this.MainDockPanel.TabIndex = 0;
-            //
-            // StripMenu_View_FleetPreset
-            // 
-            this.StripMenu_View_FleetPreset.Name = "StripMenu_View_FleetPreset";
-            this.StripMenu_View_FleetPreset.Size = new System.Drawing.Size(182, 22);
-            this.StripMenu_View_FleetPreset.Text = "편성프리셋(&P)";
-            this.StripMenu_View_FleetPreset.Click += new System.EventHandler(this.StripMenu_View_FleetPreset_Click);
             // 
             // FormMain
             // 
@@ -881,7 +881,7 @@
             this.Controls.Add(this.StripStatus);
             this.Controls.Add(this.StripMenu);
             this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Meiryo UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.MainMenuStrip = this.StripMenu;
             this.Name = "FormMain";
             this.Text = "試製七四式電子観測儀 체크용 1";
@@ -995,5 +995,5 @@
         private System.Windows.Forms.ToolStripMenuItem StripMenu_CombinedFleet;
         private System.Windows.Forms.ToolStripMenuItem StripMenu_Tool_ResourceChart;
         private System.Windows.Forms.ToolStripMenuItem StripMenu_View_FleetPreset;
-}
+    }
 }

@@ -98,7 +98,7 @@ namespace ElectronicObserver.Window.Dialog
 
 				DataGridViewRow row = new DataGridViewRow();
 				row.CreateCells(this.EquipmentView);
-				row.SetValues(eq.EquipmentID, eq.IconType, FormMain.Instance.Translator.GetTranslation(eq.CategoryTypeInstance.Name, Utility.TranslateType.EquipmentType), eq.Name);
+				row.SetValues(eq.EquipmentID, eq.IconType, Utility.ExternalDataReader.Instance.GetTranslation(eq.CategoryTypeInstance.Name, Utility.TranslateType.EquipmentType), eq.Name);
 				rows.Add(row);
 
 			}
@@ -192,14 +192,14 @@ namespace ElectronicObserver.Window.Dialog
 			{
 				int equipmentID = (int)this.EquipmentView.Rows[e.RowIndex].Cells[0].Value;
 
-				if ((e.Button & System.Windows.Forms.MouseButtons.Right) != 0)
+				if ((e.Button & MouseButtons.Right) != 0)
 				{
                     this.Cursor = Cursors.AppStarting;
 					new DialogAlbumMasterEquipment(equipmentID).Show(this.Owner);
                     this.Cursor = Cursors.Default;
 
 				}
-				else if ((e.Button & System.Windows.Forms.MouseButtons.Left) != 0)
+				else if ((e.Button & MouseButtons.Left) != 0)
 				{
                     this.UpdateAlbumPage(equipmentID);
 				}
@@ -231,7 +231,8 @@ namespace ElectronicObserver.Window.Dialog
 
             this.TableEquipmentName.SuspendLayout();
 
-            this.EquipmentType.Text = FormMain.Instance.Translator.GetTranslation(db.EquipmentTypes[eq.EquipmentType[2]].Name, Utility.TranslateType.EquipmentType);
+            this.EquipmentType.Text = Utility.ExternalDataReader.Instance.GetTranslation(
+				db.EquipmentTypes[eq.EquipmentType[2]].Name, Utility.TranslateType.EquipmentType);
 
             {
 				int eqicon = eq.IconType;
@@ -244,7 +245,7 @@ namespace ElectronicObserver.Window.Dialog
 				foreach (var stype in KCDatabase.Instance.ShipTypes.Values)
 				{
                     if (stype.EquippableCategories.Contains((int)eq.CategoryType))
-                        sb.AppendLine(FormMain.Instance.Translator.GetTranslation(stype.Name, Utility.TranslateType.ShipType));
+                        sb.AppendLine(Utility.ExternalDataReader.Instance.GetTranslation(stype.Name, Utility.TranslateType.ShipType));
                 }
                 this.ToolTipInfo.SetToolTip(this.EquipmentType, this.GetEquippableShips(equipmentID));
             }
@@ -369,8 +370,6 @@ namespace ElectronicObserver.Window.Dialog
 		}
 
 
-
-
 		private void SetParameterText(ImageLabel label, int value)
 		{
 
@@ -442,7 +441,7 @@ namespace ElectronicObserver.Window.Dialog
         private void DefaultSlots_MouseDown(object sender, MouseEventArgs e)
 		{
 
-			if (e.Button == System.Windows.Forms.MouseButtons.Right)
+			if (e.Button == MouseButtons.Right)
 			{
 				int index = this.DefaultSlots.IndexFromPoint(e.Location);
 				if (index >= 0)
@@ -487,7 +486,7 @@ namespace ElectronicObserver.Window.Dialog
 		private void StripMenu_File_OutputCSVUser_Click(object sender, EventArgs e)
 		{
 
-			if (this.SaveCSVDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (this.SaveCSVDialog.ShowDialog() == DialogResult.OK)
 			{
 
 				try
@@ -553,7 +552,7 @@ namespace ElectronicObserver.Window.Dialog
 		private void StripMenu_File_OutputCSVData_Click(object sender, EventArgs e)
 		{
 
-			if (this.SaveCSVDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (this.SaveCSVDialog.ShowDialog() == DialogResult.OK)
 			{
 
 				try
@@ -671,7 +670,7 @@ namespace ElectronicObserver.Window.Dialog
 
 		private void EquipmentName_MouseClick(object sender, MouseEventArgs e)
 		{
-			if (e.Button == System.Windows.Forms.MouseButtons.Right)
+			if (e.Button == MouseButtons.Right)
 			{
 				var eq = KCDatabase.Instance.MasterEquipments[this.EquipmentID.Tag as int? ?? -1];
 				if (eq != null)

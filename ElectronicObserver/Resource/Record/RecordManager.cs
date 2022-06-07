@@ -83,10 +83,10 @@ namespace ElectronicObserver.Resource.Record
 			if (logging)
 			{
 				if (succeeded)
-					Utility.Logger.Add(2, "기록을 로드했습니다.");
-				else
-					Utility.Logger.Add(3, "기록 로드에 실패했습니다.");
-			}
+                    Utility.Logger.Add(Utility.LogType.System, "기록을 불러왔습니다.");
+                else
+                    Utility.Logger.Add(Utility.LogType.Error, "기록을 불러오는데 실패했습니다.");
+            }
 
 			return succeeded;
 		}
@@ -105,9 +105,9 @@ namespace ElectronicObserver.Resource.Record
 			if (logging)
 			{
 				if (succeeded)
-					Utility.Logger.Add(2, "기록을 저장했습니다.");
+					Utility.Logger.Add(Utility.LogType.System, "기록을 저장했습니다.");
 				else
-					Utility.Logger.Add(2, "기록 저장에 실패했습니다.");
+					Utility.Logger.Add(Utility.LogType.Error, "기록 저장에 실패했습니다.");
 			}
 
 			return succeeded;
@@ -138,10 +138,10 @@ namespace ElectronicObserver.Resource.Record
 			if (logging)
 			{
 				if (succeeded)
-					Utility.Logger.Add(2, "기록을 저장했습니다.");
-				else
-					Utility.Logger.Add(2, "기록 저장에 실패했습니다.");
-			}
+                    Utility.Logger.Add(Utility.LogType.System, "기록을 저장했습니다.");
+                else
+                    Utility.Logger.Add(Utility.LogType.Error, "기록 저장에 실패했습니다.");
+            }
 
 			return succeeded;
 		}
@@ -176,11 +176,11 @@ namespace ElectronicObserver.Resource.Record
 				{
 					if (this.SavePartial(false))
 					{
-						Utility.Logger.Add(1, "기록 자동 저장하였습니다.");
+						Utility.Logger.Add(Utility.LogType.System, "기록 자동 저장하였습니다.");
 					}
 					else
 					{
-						Utility.Logger.Add(3, "기록 자동 저장을 실패하였습니다.");
+						Utility.Logger.Add(Utility.LogType.Error, "기록 자동 저장을 실패하였습니다.");
 					}
 				}
 			}

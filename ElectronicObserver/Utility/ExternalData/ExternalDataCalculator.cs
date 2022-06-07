@@ -42,7 +42,7 @@ namespace ElectronicObserver.Utility
         {
             KCDatabase db = KCDatabase.Instance;
             MissionData mis = db.Mission[MissionId];
-            var data = FormMain.Instance.Translator.GetExpeditionData(MissionId.ToString());
+            var data = Instance.GetExpeditionData(MissionId.ToString());
             if (data == null)
             {
                 return "[원정 정보 없음]";
@@ -63,9 +63,6 @@ namespace ElectronicObserver.Utility
             double fuelUnit = members.Sum(s => Math.Truncate(s.FuelMax * mis.Fuel * (s.IsMarried ? 0.85 : 1.00)));
             double ammoUnit = members.Sum(s => Math.Truncate(s.AmmoMax * mis.Ammo * (s.IsMarried ? 0.85 : 1.00)));
 
-            int fleetLevel = Convert.ToInt32(data["FleetLevel"]);
-            int flagShipLevel = Convert.ToInt32(data["FlagShipLevel"]);
-            int[] reqTypes = { };
             int[] drumInfo = new int[] { 0, 0 }; // 0 = 인원 / 1 = 수량
 
             for (int parmIndex = 0; parmIndex < (int)ExpeditionCheckParms.OutValues; parmIndex++)
@@ -86,6 +83,24 @@ namespace ElectronicObserver.Utility
                                            (int)(expCheckParms[ExpeditionCheckParms.Baux] * resourceBonus));
             sb.Append("\r\n보급소모 - 연료 : " + fuelUnit + " 탄약 : " + ammoUnit);
             List<int> shipConditions = new List<int>();
+
+            if (data["FleetTypes"] != null)
+            {
+                string[] conds_types = data["FleetTypes"].ToString().Split('|');
+
+                for (int i = 0; i < conds_types.Length; i++)
+                {
+                    ConditionState expeditionCond = new ConditionState();
+
+                    string[] conditionData = conds_types[i].Split(',');
+                    int requireCount = int.Parse(conditionData[1]);
+                    int[] canReplaceType = conditionData[0].Split(':').Select(Int32.Parse).ToArray();
+
+                    expeditionCond.ReqCount = requireCount;
+                    expeditionCond.Types = canReplaceType;
+                    shipConds.Add(expeditionCond);
+                }
+            }
 
             foreach (ShipData ship in members.Where(s => s != null)) // 각함선체크
             {
@@ -109,6 +124,7 @@ namespace ElectronicObserver.Utility
                 }
             }
 
+
             foreach (ConditionState ExCond in shipConds)
             {
                 if (ExCond.FleetCount < ExCond.ReqCount)
@@ -125,23 +141,6 @@ namespace ElectronicObserver.Utility
                 }
             }
 
-            if (data["FleetTypes"] != null)
-            {
-                string[] conds_types = data["FleetTypes"].ToString().Split('|');
-
-                for (int i = 0; i < conds_types.Length; i++)
-                {
-                    ConditionState expeditionCond = new ConditionState();
-
-                    string[] conditionData = conds_types[i].Split(',');
-                    int requireCount = int.Parse(conditionData[1]);
-                    int[] canReplaceType = conditionData[0].Split(':').Select(Int32.Parse).ToArray();
-
-                    expeditionCond.ReqCount = requireCount;
-                    expeditionCond.Types = canReplaceType;
-                    expeditionConds.Add(expeditionCond);
-                }
-            }
             
             ShipData flagship = db.Ships[fleet.Members[0]];
             if (expCheckParms.TryGetValue(ExpeditionCheckParms.FlagShipType, out int fType) == true
@@ -249,6 +248,61 @@ namespace ElectronicObserver.Utility
                 }
             }
             
+            return sb.ToString();
+        }
+
+        public string GenerateDeckBuilderCode()
+        {
+            StringBuilder sb = new StringBuilder();
+            KCDatabase db = KCDatabase.Instance;
+
+            // 手書き json の悲しみ
+
+            sb.Append(@"{""version"":4,");
+
+            foreach (var fleet in db.Fleet.Fleets.Values)
+            {
+                if (fleet == null || fleet.MembersInstance.All(m => m == null)) continue;
+
+                sb.AppendFormat(@"""f{0}"":{{", fleet.FleetID);
+
+                int shipcount = 1;
+                foreach (var ship in fleet.MembersInstance)
+                {
+                    if (ship == null) break;
+
+                    sb.AppendFormat(@"""s{0}"":{{""id"":{1},""lv"":{2},""luck"":{3},""items"":{{",
+                        shipcount,
+                        ship.ShipID,
+                        ship.Level,
+                        ship.LuckBase);
+
+                    int eqcount = 1;
+                    foreach (var eq in ship.AllSlotInstance.Where(eq => eq != null))
+                    {
+                        if (eq == null) break;
+
+                        sb.AppendFormat(@"""i{0}"":{{""id"":{1},""rf"":{2},""mas"":{3}}},", eqcount >= 6 ? "x" : eqcount.ToString(), eq.EquipmentID, eq.Level, eq.AircraftLevel);
+
+                        eqcount++;
+                    }
+
+                    if (eqcount > 1)
+                        sb.Remove(sb.Length - 1, 1);        // remove ","
+                    sb.Append(@"}},");
+
+                    shipcount++;
+                }
+
+                if (shipcount > 0)
+                    sb.Remove(sb.Length - 1, 1);        // remove ","
+                sb.Append(@"},");
+
+            }
+
+            sb.Remove(sb.Length - 1, 1);        // remove ","
+            sb.Append(@"}");
+
             return sb.ToString();
         }
     }

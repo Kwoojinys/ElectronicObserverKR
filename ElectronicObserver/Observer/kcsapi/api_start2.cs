@@ -165,11 +165,9 @@ namespace ElectronicObserver.Observer.kcsapi
 				}
 			}
 
-
 			//api_mst_mission
 			foreach (var elem in data.api_mst_mission)
 			{
-
 				int id = (int)elem.api_id;
 				if (db.Mission[id] == null)
 				{
@@ -181,7 +179,6 @@ namespace ElectronicObserver.Observer.kcsapi
 				{
 					db.Mission[id].LoadFromResponse(this.APIName, elem);
 				}
-
 			}
 
 
@@ -219,7 +216,7 @@ namespace ElectronicObserver.Observer.kcsapi
 			}
 
 
-			Utility.Logger.Add(2, "제독이 진수부에 착임했습니다. 지금 부터 함대의 지휘를 맡습니다.");
+			Utility.Logger.Add(Utility.LogType.System, "제독이 진수부에 착임했습니다. 지금 부터 함대의 지휘를 맡습니다.");
 
 			base.OnResponseReceived((object)data);
 		}

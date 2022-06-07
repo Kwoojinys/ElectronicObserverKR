@@ -26,20 +26,20 @@ namespace ElectronicObserver.Window
 
 
         /// <summary>タブ背景色(アクティブ)</summary>
-        private readonly Color TabActiveColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.SubFontColor);
+        private readonly Color TabActiveColor = ThemeManager.GetColor(ThemeColors.SubFontColor);
 
         /// <summary>タブ背景色(非アクティブ)</summary>
-        private readonly Color TabInactiveColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
+        private readonly Color TabInactiveColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
 
 
 
         // セル背景色
-        private readonly Color CellColorRed = Utility.ThemeManager.GetColor(Utility.ThemeColors.RedHighlight);
-        private readonly Color CellColorOrange = Utility.ThemeManager.GetColor(Utility.ThemeColors.OrangeHighlight);
-        private readonly Color CellColorYellow = Utility.ThemeManager.GetColor(Utility.ThemeColors.YellowHighlight);
-        private readonly Color CellColorGreen = Utility.ThemeManager.GetColor(Utility.ThemeColors.GreenHighlight);
-        private readonly Color CellColorGray = Utility.ThemeManager.GetColor(Utility.ThemeColors.GrayHighlight);
-        private readonly Color CellColorCherry = Utility.ThemeManager.GetColor(Utility.ThemeColors.PinkHighlight);
+        private readonly Color CellColorRed = ThemeManager.GetColor(ThemeColors.RedHighlight);
+        private readonly Color CellColorOrange = ThemeManager.GetColor(ThemeColors.OrangeHighlight);
+        private readonly Color CellColorYellow = ThemeManager.GetColor(ThemeColors.YellowHighlight);
+        private readonly Color CellColorGreen = ThemeManager.GetColor(ThemeColors.GreenHighlight);
+        private readonly Color CellColorGray = ThemeManager.GetColor(ThemeColors.GrayHighlight);
+        private readonly Color CellColorCherry = ThemeManager.GetColor(ThemeColors.PinkHighlight);
 
         //セルスタイル
         private DataGridViewCellStyle CSDefaultLeft, CSDefaultCenter, CSDefaultRight,
@@ -77,9 +77,9 @@ namespace ElectronicObserver.Window
             this.CSDefaultLeft = new DataGridViewCellStyle
 			{
 				Alignment = DataGridViewContentAlignment.MiddleLeft,
-				BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor),
+				BackColor = ThemeManager.GetColor(ThemeColors.BackgroundColor),
                 Font = Font,
-				ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor),
+				ForeColor = ThemeManager.GetColor(ThemeColors.MainFontColor),
                 SelectionBackColor = Color.FromArgb(0xFF, 0xFF, 0xCC),
 				SelectionForeColor = SystemColors.ControlText,
 				WrapMode = DataGridViewTriState.False
@@ -137,7 +137,8 @@ namespace ElectronicObserver.Window
 
 
 			SystemEvents.SystemShuttingDown += this.SystemShuttingDown;
-		}
+			this.ApplyLockLayoutState();
+        }
 
 
 		private void FormShipGroup_Load(object sender, EventArgs e)
@@ -150,7 +151,7 @@ namespace ElectronicObserver.Window
 			if (groups.ShipGroups.Count == 0)
 			{
 
-				Utility.Logger.Add(3, "ShipGroup: 그룹을 찾을 수 없습니다. 기본값으로 돌리려면 종료후 " + ShipGroupManager.DefaultFilePath + " 를 삭제하십시오.");
+                Logger.Add(LogType.Error, "ShipGroup: 그룹을 찾을 수 없습니다. 기본값으로 돌리려면 종료후 " + ShipGroupManager.DefaultFilePath + " 를 삭제하십시오.");
 
 				var group = KCDatabase.Instance.ShipGroup.Add();
 				group.Name = "모든함선";
@@ -192,18 +193,17 @@ namespace ElectronicObserver.Window
 			o.APIList["api_get_member/ship_deck"].ResponseReceived += this.APIUpdated;
 
 
-			Utility.Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
-
-            this.IsRowsUpdating = false;
+            Configuration.Instance.ConfigurationChanged += this.ConfigurationChanged;
+			this.ApplyLockLayoutState();
+			this.IsRowsUpdating = false;
             this.Icon = ResourceManager.ImageToIcon(ResourceManager.Instance.Icons.Images[(int)ResourceManager.IconContent.FormShipGroup]);
-
 		}
 
 
 		void ConfigurationChanged()
 		{
 
-			var config = Utility.Configuration.Config;
+			var config = Configuration.Config;
 
             this.ShipView.Font = this.StatusBar.Font = this.Font = config.UI.MainFont;
 
@@ -226,12 +226,12 @@ namespace ElectronicObserver.Window
             this.MenuGroup_ShowStatusBar.Checked = config.FormShipGroup.ShowStatusBar;
             this._shipNameSortMethod = config.FormShipGroup.ShipNameSortMethod;
 
-            this.BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
-            this.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-            this.ShipView.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-            this.ShipView.BackgroundColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
-            this.StatusBar.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
-            this.StatusBar.BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
+            this.BackColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
+            this.ForeColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+            this.ShipView.ForeColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+            this.ShipView.BackgroundColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
+            this.StatusBar.ForeColor = ThemeManager.GetColor(ThemeColors.MainFontColor);
+            this.StatusBar.BackColor = ThemeManager.GetColor(ThemeColors.BackgroundColor);
 
 
             int rowHeight;
@@ -257,8 +257,8 @@ namespace ElectronicObserver.Window
 				row.Height = rowHeight;
 			}
 
-		}
-
+            this.ApplyLockLayoutState();
+        }
 
 		// レイアウトロード時に呼ばれる
 		public void ConfigureFromPersistString(string persistString)
@@ -432,7 +432,7 @@ namespace ElectronicObserver.Window
 					cs = this.CSRedRight;
 				else if (ship.Condition < 30)
 					cs = this.CSOrangeRight;
-				else if (ship.Condition < Utility.Configuration.Config.Control.ConditionBorder)
+				else if (ship.Condition < Configuration.Config.Control.ConditionBorder)
 					cs = this.CSYellowRight;
 				else if (ship.Condition < 50)
 					cs = this.CSDefaultRight;
@@ -541,7 +541,7 @@ namespace ElectronicObserver.Window
 
 			// 高さ設定(追加直後に実行すると高さが0になることがあるのでここで実行)
 			int rowHeight = 21;
-			if (!Utility.Configuration.Config.UI.IsLayoutFixed)
+			if (!Configuration.Config.UI.IsLayoutFixed)
 			{
 				if (this.ShipView.Rows.Count > 0)
 					rowHeight = this.ShipView.Rows[0].GetPreferredHeight(0, DataGridViewAutoSizeRowMode.AllCellsExceptHeader, false);
@@ -582,7 +582,7 @@ namespace ElectronicObserver.Window
 
 			if (group == null)
 			{
-				Utility.Logger.Add(3, "에러：존재하지 않는 그룹을 참조하였습니다. 개발자에게 연락하십시오.");
+                Logger.Add(LogType.Error, "에러：존재하지 않는 그룹을 참조하였습니다. 개발자에게 연락하십시오.");
 				return;
 			}
 
@@ -710,7 +710,7 @@ namespace ElectronicObserver.Window
 
 			if (e.ColumnIndex == this.ShipView_ShipType.Index)
 			{
-                e.Value = FormMain.Instance.Translator.GetTranslation(KCDatabase.Instance.ShipTypes[(int)e.Value].Name, TranslateType.ShipType);
+                e.Value = ExternalDataReader.Instance.GetTranslation(KCDatabase.Instance.ShipTypes[(int)e.Value].Name, TranslateType.ShipType);
                 e.FormattingApplied = true;
 
 			}
@@ -949,7 +949,7 @@ namespace ElectronicObserver.Window
 			using (var dialog = new DialogTextInput("그룹을 추가", "그룹 이름을 입력하십시오："))
 			{
 
-				if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 
 					var group = KCDatabase.Instance.ShipGroup.Add();
@@ -983,7 +983,7 @@ namespace ElectronicObserver.Window
 			using (var dialog = new DialogTextInput("그룹을 복사", "그룹 이름을 입력하십시오："))
 			{
 
-				if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 
 					var group = KCDatabase.Instance.ShipGroup[(int)senderLabel.Tag].Clone();
@@ -1013,7 +1013,7 @@ namespace ElectronicObserver.Window
 			{
 				if (MessageBox.Show(string.Format("그룹 [{0}] 을 삭제하시겠습니까?\r\n이 작업은 취소할 수 없습니다.", group.Name), "확인",
 					MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
-					== System.Windows.Forms.DialogResult.Yes)
+					== DialogResult.Yes)
 				{
 
 					if (this.SelectedTab == senderLabel)
@@ -1049,7 +1049,7 @@ namespace ElectronicObserver.Window
 
 					dialog.InputtedText = group.Name;
 
-					if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+					if (dialog.ShowDialog(this) == DialogResult.OK)
 					{
 
 						group.Name = senderLabel.Text = dialog.InputtedText.Trim();
@@ -1159,7 +1159,7 @@ namespace ElectronicObserver.Window
 				using (var dialog = new DialogShipGroupColumnFilter(this.ShipView, group))
 				{
 
-					if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+					if (dialog.ShowDialog(this) == DialogResult.OK)
 					{
 
 						group.ViewColumns = dialog.Result.ToDictionary(r => r.Name);
@@ -1175,7 +1175,7 @@ namespace ElectronicObserver.Window
 			catch (Exception ex)
 			{
 
-				Utility.ErrorReporter.SendErrorReport(ex, "ShipGroup: 열 설정 창에서 오류가 발생했습니다");
+                ErrorReporter.SendErrorReport(ex, "ShipGroup: 열 설정 창에서 오류가 발생했습니다");
 			}
 		}
 
@@ -1198,7 +1198,7 @@ namespace ElectronicObserver.Window
 					using (var dialog = new DialogShipGroupFilter(group))
 					{
 
-						if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+						if (dialog.ShowDialog(this) == DialogResult.OK)
 						{
 
 							// replace
@@ -1217,7 +1217,7 @@ namespace ElectronicObserver.Window
 				catch (Exception ex)
 				{
 
-					Utility.ErrorReporter.SendErrorReport(ex, "ShipGroup: 필터 창에서 오류가 발생했습니다.");
+                    ErrorReporter.SendErrorReport(ex, "ShipGroup: 필터 창에서 오류가 발생했습니다.");
 				}
 
 			}
@@ -1268,7 +1268,7 @@ namespace ElectronicObserver.Window
 					using (var dialog = new DialogShipGroupSortOrder(this.ShipView, group))
 					{
 
-						if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+						if (dialog.ShowDialog(this) == DialogResult.OK)
 						{
 
 							group.AutoSortEnabled = dialog.AutoSortEnabled;
@@ -1282,7 +1282,7 @@ namespace ElectronicObserver.Window
 				catch (Exception ex)
 				{
 
-					Utility.ErrorReporter.SendErrorReport(ex, "ShipGroup: 자동 정렬 순서 창에서 오류가 발생했습니다.");
+                    ErrorReporter.SendErrorReport(ex, "ShipGroup: 자동 정렬 순서 창에서 오류가 발생했습니다.");
 				}
 			}
 
@@ -1320,7 +1320,7 @@ namespace ElectronicObserver.Window
 				KCDatabase.Instance.ShipGroup.ShipGroups.Values.ToArray()))
 			{
 
-				if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 
 					var group = (ShipGroupData)dialog.SelectedItem;
@@ -1347,7 +1347,7 @@ namespace ElectronicObserver.Window
 			using (var dialog = new DialogTextInput("그룹 추가", "그룹 이름을 입력하십시오.："))
 			{
 
-				if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 
 					var group = KCDatabase.Instance.ShipGroup.Add();
@@ -1426,13 +1426,13 @@ namespace ElectronicObserver.Window
 			using (var dialog = new DialogShipGroupCSVOutput())
 			{
 
-				if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 
 					try
 					{
 
-						using (StreamWriter sw = new StreamWriter(dialog.OutputPath, false, Utility.Configuration.Config.Log.FileEncoding))
+						using (StreamWriter sw = new StreamWriter(dialog.OutputPath, false, Configuration.Config.Log.FileEncoding))
 						{
 
 							string header = dialog.OutputFormat == DialogShipGroupCSVOutput.OutputFormatConstants.User ? ShipCSVHeaderUser : ShipCSVHeaderData;
@@ -1577,12 +1577,12 @@ namespace ElectronicObserver.Window
 
 						}
 
-						Utility.Logger.Add(2, "함선 그룹 CSV를 " + dialog.OutputPath + " 에 저장했습니다.");
+                        Logger.Add(LogType.System, "함선 그룹 CSV를 " + dialog.OutputPath + " 에 저장했습니다.");
 
 					}
 					catch (Exception ex)
 					{
-						Utility.ErrorReporter.SendErrorReport(ex, "함선 그룹 CSV 의 출력에 실패했습니다.");
+                        ErrorReporter.SendErrorReport(ex, "함선 그룹 CSV 의 출력에 실패했습니다.");
 						MessageBox.Show("함선 그룹 CSV의 출력에 실패했습니다.\r\n" + ex.Message, "에러", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
 
@@ -1602,7 +1602,7 @@ namespace ElectronicObserver.Window
 		private Point? _tempMouse = null;
 		void TabLabel_MouseDown(object sender, MouseEventArgs e)
 		{
-			if (e.Button == System.Windows.Forms.MouseButtons.Left)
+			if (e.Button == MouseButtons.Left)
 			{
                 this._tempMouse = this.TabPanel.PointToClient(e.Location);
 			}
@@ -1699,8 +1699,8 @@ namespace ElectronicObserver.Window
 		void SystemShuttingDown()
 		{
 
-			Utility.Configuration.Config.FormShipGroup.AutoUpdate = this.MenuGroup_AutoUpdate.Checked;
-			Utility.Configuration.Config.FormShipGroup.ShowStatusBar = this.MenuGroup_ShowStatusBar.Checked;
+            Configuration.Config.FormShipGroup.AutoUpdate = this.MenuGroup_AutoUpdate.Checked;
+            Configuration.Config.FormShipGroup.ShowStatusBar = this.MenuGroup_ShowStatusBar.Checked;
 
 
 

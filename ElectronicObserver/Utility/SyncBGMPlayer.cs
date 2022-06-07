@@ -110,7 +110,7 @@ namespace ElectronicObserver.Utility
             this._mp = new MediaPlayer();
 
 			if (this._mp.IsAvailable == false)
-				Utility.Logger.Add(3, "Windows Media Player 의 로드에 실패했습니다. 음성 재생이 되지 않습니다.");
+                Logger.Add(LogType.Error, "Windows Media Player 의 로드에 실패했습니다. 음성 재생이 되지 않습니다.");
 
             this._mp.AutoPlay = false;
             this._mp.IsShuffle = true;
@@ -182,7 +182,7 @@ namespace ElectronicObserver.Utility
 
 		public void ConfigurationChanged()
 		{
-			var c = Utility.Configuration.Config.BGMPlayer;
+			var c = Configuration.Config.BGMPlayer;
 
             this.Enabled = c.Enabled;
 
@@ -199,7 +199,7 @@ namespace ElectronicObserver.Utility
 
 		void SystemEvents_SystemShuttingDown()
 		{
-			var c = Utility.Configuration.Config.BGMPlayer;
+			var c = Configuration.Config.BGMPlayer;
 
 			c.Enabled = this.Enabled;
 			c.Handles = this.Handles.Values.ToList();
@@ -335,7 +335,7 @@ namespace ElectronicObserver.Utility
 
                 this._mp.IsLoop = sh.IsLoop;
                 this._mp.LoopHeadPosition = sh.LoopHeadPosition;
-				if (!Utility.Configuration.Config.Control.UseSystemVolume)
+				if (!Configuration.Config.Control.UseSystemVolume)
                     this._mp.Volume = sh.Volume;
                 this._mp.Play();
 

@@ -145,7 +145,7 @@ namespace ElectronicObserver.Window.Dialog
 
 				DataGridViewRow row = new DataGridViewRow();
 				row.CreateCells(this.ShipView);
-                row.SetValues(ship.ShipID, FormMain.Instance.Translator.GetTranslation
+                row.SetValues(ship.ShipID, Utility.ExternalDataReader.Instance.GetTranslation
 					(KCDatabase.Instance.ShipTypes[(int)ship.ShipType].Name, Utility.TranslateType.ShipType), ship.NameWithClass);
                 //row.SetValues(ship.ShipID, row.SetValues(ship.ShipID, ship.ShipTypeName, ship.NameWithClass));
                 row.Cells[this.ShipView_ShipType.Index].Tag = ship.ShipType;
@@ -257,14 +257,14 @@ namespace ElectronicObserver.Window.Dialog
 			{
 				int shipID = (int)this.ShipView.Rows[e.RowIndex].Cells[0].Value;
 
-				if ((e.Button & System.Windows.Forms.MouseButtons.Right) != 0)
+				if ((e.Button & MouseButtons.Right) != 0)
 				{
                     this.Cursor = Cursors.AppStarting;
 					new DialogAlbumMasterShip(shipID).Show(this.Owner);
                     this.Cursor = Cursors.Default;
 
 				}
-				else if ((e.Button & System.Windows.Forms.MouseButtons.Left) != 0)
+				else if ((e.Button & MouseButtons.Left) != 0)
 				{
                     this.UpdateAlbumPage(shipID);
 				}
@@ -844,10 +844,10 @@ namespace ElectronicObserver.Window.Dialog
 
 			if (ship != null && ship.RemodelBeforeShipID != 0)
 			{
-				if ((e.Button & System.Windows.Forms.MouseButtons.Right) != 0)
+				if ((e.Button & MouseButtons.Right) != 0)
 					new DialogAlbumMasterShip(ship.RemodelBeforeShipID).Show(this.Owner);
 
-				else if ((e.Button & System.Windows.Forms.MouseButtons.Left) != 0)
+				else if ((e.Button & MouseButtons.Left) != 0)
                     this.UpdateAlbumPage(ship.RemodelBeforeShipID);
 			}
 		}
@@ -860,10 +860,10 @@ namespace ElectronicObserver.Window.Dialog
 			if (ship != null && ship.RemodelAfterShipID != 0)
 			{
 
-				if ((e.Button & System.Windows.Forms.MouseButtons.Right) != 0)
+				if ((e.Button & MouseButtons.Right) != 0)
 					new DialogAlbumMasterShip(ship.RemodelAfterShipID).Show(this.Owner);
 
-				else if ((e.Button & System.Windows.Forms.MouseButtons.Left) != 0)
+				else if ((e.Button & MouseButtons.Left) != 0)
                     this.UpdateAlbumPage(ship.RemodelAfterShipID);
 			}
 		}
@@ -872,7 +872,7 @@ namespace ElectronicObserver.Window.Dialog
 
 		private void Equipment_MouseClick(object sender, MouseEventArgs e)
 		{
-			if (e.Button == System.Windows.Forms.MouseButtons.Right)
+			if (e.Button == MouseButtons.Right)
 			{
 				for (int i = 0; i < this.Equipments.Length; i++)
 				{
@@ -925,7 +925,7 @@ namespace ElectronicObserver.Window.Dialog
 		private void StripMenu_File_OutputCSVUser_Click(object sender, EventArgs e)
 		{
 
-			if (this.SaveCSVDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (this.SaveCSVDialog.ShowDialog() == DialogResult.OK)
 			{
 
 				try
@@ -1032,7 +1032,7 @@ namespace ElectronicObserver.Window.Dialog
 		private void StripMenu_File_OutputCSVData_Click(object sender, EventArgs e)
 		{
 
-			if (this.SaveCSVDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (this.SaveCSVDialog.ShowDialog() == DialogResult.OK)
 			{
 
 				try
@@ -1231,7 +1231,7 @@ namespace ElectronicObserver.Window.Dialog
         private void ResourceName_MouseClick(object sender, MouseEventArgs e)
 		{
 
-			if (e.Button == System.Windows.Forms.MouseButtons.Right)
+			if (e.Button == MouseButtons.Right)
 			{
 
 				var ship = KCDatabase.Instance.MasterShips[this._shipID];
@@ -1370,7 +1370,7 @@ namespace ElectronicObserver.Window.Dialog
 
 		private void ShipName_MouseClick(object sender, MouseEventArgs e)
 		{
-			if (e.Button == System.Windows.Forms.MouseButtons.Right)
+			if (e.Button == MouseButtons.Right)
 			{
 				var ship = KCDatabase.Instance.MasterShips[this._shipID];
 				if (ship != null)
@@ -1632,7 +1632,7 @@ namespace ElectronicObserver.Window.Dialog
 
 		private void ShipBanner_MouseClick(object sender, MouseEventArgs e)
 		{
-			if (e.Button == System.Windows.Forms.MouseButtons.Right)
+			if (e.Button == MouseButtons.Right)
 			{
 
                 this.StripMenu_View_ShowShipGraphicViewer.PerformClick();

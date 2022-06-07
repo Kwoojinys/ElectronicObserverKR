@@ -19,7 +19,7 @@ namespace ElectronicObserver.Observer.kcsapi.api_req_kaisou
 			{
 				ship.LoadFromRequest(this.APIName, data);
 
-				Utility.Logger.Add(2, $"{ship.NameWithLevel} 의 보강 장비 증설 개수가 완료되었습니다.");
+				Utility.Logger.Add(Utility.LogType.PowerUp, $"{ship.NameWithLevel} 의 보강 장비 증설 개수가 완료되었습니다.");
 			}
 
 			base.OnRequestReceived(data);

@@ -150,7 +150,7 @@ namespace ElectronicObserver.Window.Dialog
                 }
                 catch (Exception ex)
                 {
-                    Utility.Logger.Add(3, $"이미지 뷰어：이미지 로드에 에러가 발생했습니다. {ex.Message}");
+                    Utility.Logger.Add(Utility.LogType.Error, $"이미지 뷰어：이미지 로드에 에러가 발생했습니다. {ex.Message}");
                 }
 
                 this.ImageOffset = new Point();
@@ -171,7 +171,7 @@ namespace ElectronicObserver.Window.Dialog
 
 		private void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
 		{
-			if (e.Button == System.Windows.Forms.MouseButtons.Left)
+			if (e.Button == MouseButtons.Left)
 			{
                 this.ImageOffset.X += e.Location.X - this.PreviousMouseLocation.X;
                 this.ImageOffset.Y += e.Location.Y - this.PreviousMouseLocation.Y;
@@ -197,7 +197,7 @@ namespace ElectronicObserver.Window.Dialog
 
 			foreach (ToolStripMenuItem item in this.TopMenu_View_InterpolationMode.DropDownItems)
 			{
-				if (object.ReferenceEquals(item, sender))
+				if (ReferenceEquals(item, sender))
 					item.CheckState = CheckState.Indeterminate;
 				else
 					item.CheckState = CheckState.Unchecked;
@@ -334,7 +334,7 @@ namespace ElectronicObserver.Window.Dialog
 
         private void TopMenu_File_Open_Click(object sender, EventArgs e)
         {
-            if (this.OpenSwfDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (this.OpenSwfDialog.ShowDialog() == DialogResult.OK)
             {
                 this.Open(this.OpenSwfDialog.FileNames);
             }
@@ -529,7 +529,7 @@ namespace ElectronicObserver.Window.Dialog
 			// don't think (about env that font is not installed), feel
 			using (var font = new Font("にゃしぃフォント改二", 32, FontStyle.Regular, GraphicsUnit.Pixel))
 			{
-				var rec = Resource.Record.RecordManager.Instance.ShipParameter[ship.ShipID];
+				var rec = RecordManager.Instance.ShipParameter[ship.ShipID];
 				string mes = null;
 
 				if (rec == null)

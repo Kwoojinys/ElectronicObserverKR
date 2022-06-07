@@ -30,7 +30,7 @@ namespace ElectronicObserver.Observer.kcsapi.api_req_kousyou
 
 
 			foreach (var ship in ships)
-				Utility.Logger.Add(2, ship.NameWithLevel + " 를 해체했습니다.");
+				Utility.Logger.Add(Utility.LogType.Arsenal, ship.NameWithLevel + " 를 해체했습니다.");
 
 
 			if (discardEquipment)

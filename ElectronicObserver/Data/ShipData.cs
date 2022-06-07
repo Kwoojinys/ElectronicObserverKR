@@ -1089,6 +1089,50 @@ namespace ElectronicObserver.Data
             return (int)(basepower * this.GetAmmoDamageRate());
         }
 
+        public double CalculateAntiSubmarineSynergy()
+        {
+            int depthChargeCount = 0;
+            int depthChargeProjectorCount = 0;
+            int otherDepthChargeCount = 0;
+            int sonarCount = 0;         // ソナーと大型ソナーの合算
+            int largeSonarCount = 0;
+
+            foreach (var slot in this.AllSlotInstanceMaster)
+            {
+                if (slot == null)
+                    continue;
+
+                switch (slot.CategoryType)
+                {
+                    case EquipmentTypes.Sonar:
+                        sonarCount++;
+                        break;
+                    case EquipmentTypes.DepthCharge:
+                        if (slot.IsDepthCharge)
+                            depthChargeCount++;
+                        else if (slot.IsDepthChargeProjector)
+                            depthChargeProjectorCount++;
+                        else
+                            otherDepthChargeCount++;
+                        break;
+                    case EquipmentTypes.SonarLarge:
+                        largeSonarCount++;
+                        sonarCount++;
+                        break;
+                }
+            }
+
+            double synergy = 1.0;
+            if (sonarCount > 0 && depthChargeProjectorCount > 0 && depthChargeCount > 0)
+                synergy = 1.4375;
+            else if (sonarCount > 0 && (depthChargeCount + depthChargeProjectorCount + otherDepthChargeCount) > 0)
+                synergy = 1.15;
+            else if (depthChargeProjectorCount > 0 && depthChargeCount > 0)
+                synergy = 1.1;
+
+            return synergy;
+        }
+
         /// <summary>
         /// 砲撃戦での対潜威力を求めます。
         /// </summary>
@@ -1129,54 +1173,9 @@ namespace ElectronicObserver.Data
                 basepower += 13;
             }
 
-
             basepower *= this.GetHPDamageBonus() * this.GetEngagementFormDamageRate(engagementForm);
-
-
             //対潜シナジー
-
-            int depthChargeCount            = 0;
-            int depthChargeProjectorCount   = 0;
-            int otherDepthChargeCount       = 0;
-            int sonarCount                  = 0;         // ソナーと大型ソナーの合算
-            int largeSonarCount             = 0;
-
-            foreach (var slot in this.AllSlotInstanceMaster)
-            {
-                if (slot == null)
-                    continue;
-
-                switch (slot.CategoryType)
-                {
-                    case EquipmentTypes.Sonar:
-                        sonarCount++;
-                        break;
-                    case EquipmentTypes.DepthCharge:
-                        if (slot.IsDepthCharge)
-                            depthChargeCount++;
-                        else if (slot.IsDepthChargeProjector)
-                            depthChargeProjectorCount++;
-                        else
-                            otherDepthChargeCount++;
-                        break;
-                    case EquipmentTypes.SonarLarge:
-                        largeSonarCount++;
-                        sonarCount++;
-                        break;
-                }
-            }
-
-            double synergy = 1.0;
-            if (sonarCount > 0 && depthChargeProjectorCount > 0 && depthChargeCount > 0)
-                synergy = 1.4375;
-            else if (sonarCount > 0 && (depthChargeCount + depthChargeProjectorCount + otherDepthChargeCount) > 0)
-                synergy = 1.15;
-            else if (depthChargeProjectorCount > 0 && depthChargeCount > 0)
-                synergy = 1.1;
-
-            basepower *= synergy;
-
-
+            basepower *= this.CalculateAntiSubmarineSynergy();
             //キャップ
             basepower = Math.Floor(this.CapDamage(basepower, 170));
 

@@ -2,6 +2,7 @@
 using ElectronicObserver.Observer;
 using ElectronicObserver.Utility.Mathematics;
 using ElectronicObserver.Utility.Storage;
+using ElectronicObserver.Window;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -49,10 +50,21 @@ namespace ElectronicObserver.Resource.Record
 			/// </summary>
 			public int MissionID { get; set; }
 
-			/// <summary>
-			/// 획득한 자원 - 연료
-			/// </summary>
-			public int Fuel;
+			public string VisualMissionID => Constants.GetVisualMissionId(this.MissionID);
+
+            public string ExpeditionName
+            {
+                get 
+				{ 
+					return Utility.ExternalDataReader.Instance.GetTranslation(string.Empty, Utility.TranslateType.ExpeditionTitle, this.MissionID); 
+				}
+            }
+
+
+            /// <summary>
+            /// 획득한 자원 - 연료
+            /// </summary>
+            public int Fuel;
 
 			/// <summary>
 			/// 획득한 자원 - 탄약

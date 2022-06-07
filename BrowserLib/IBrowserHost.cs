@@ -50,7 +50,7 @@ namespace BrowserLib
 		/// ログ追加
 		/// </summary>
 		[OperationContract]
-		void AddLog(int priority, string message);
+		void AddLog(int type, string message);
 
 		[OperationContract]
 		void ConfigurationUpdated(BrowserConfiguration config);

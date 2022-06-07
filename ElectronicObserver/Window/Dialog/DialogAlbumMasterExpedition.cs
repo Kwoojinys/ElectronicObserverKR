@@ -42,7 +42,7 @@ namespace ElectronicObserver.Window.Dialog
 
                 DataGridViewRow row = new DataGridViewRow();
                 row.CreateCells(this.ExpeditionView);
-                row.SetValues(Constants.GetVisualMissionId(ex.MissionID), ex.Name);
+                row.SetValues(ex.VisualMissionId, ex.Name);
                 rows.Add(row);
             }
 
@@ -92,14 +92,14 @@ namespace ElectronicObserver.Window.Dialog
             {
                 int expeditionid = Constants.GetRealMissionId(this.ExpeditionView.Rows[e.RowIndex].Cells[0].Value.ToString());
 
-                if ((e.Button & System.Windows.Forms.MouseButtons.Right) != 0)
+                if ((e.Button & MouseButtons.Right) != 0)
                 {
                     this.Cursor = Cursors.AppStarting;
                     new DialogAlbumMasterExpedition(expeditionid).Show(this.Owner);
                     this.Cursor = Cursors.Default;
 
                 }
-                else if ((e.Button & System.Windows.Forms.MouseButtons.Left) != 0)
+                else if ((e.Button & MouseButtons.Left) != 0)
                 {
                     this.UpdateAlbumPage(expeditionid);
                 }
@@ -175,10 +175,10 @@ namespace ElectronicObserver.Window.Dialog
             this.ExpeditionTime.Text = timestring;
 
             // 작업 체크포인트 원정 체크
-            var Data = FormMain.Instance.Translator.GetExpeditionData(expeditionId.ToString());
+            var Data = ExternalDataReader.Instance.GetExpeditionData(expeditionId.ToString());
             if (Data == null)
             {
-                Utility.Logger.Add(3, "해당 원정의 데이터 등록이 되지 않았습니다.");
+                Logger.Add(LogType.Alert, "해당 원정의 데이터 등록이 되지 않았습니다.");
                 return;
             }
 
@@ -331,7 +331,7 @@ namespace ElectronicObserver.Window.Dialog
         private void DefaultSlots_MouseDown(object sender, MouseEventArgs e)
         {
 
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
             {/*
 				int index = DefaultSlots.IndexFromPoint(e.Location);
 				if (index >= 0)
@@ -419,7 +419,7 @@ namespace ElectronicObserver.Window.Dialog
 
         private void ExpeditionName_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
             {
                 var mi = KCDatabase.Instance.Mission[this.ExpeditionID.Tag as int? ?? -1];
                 if (mi != null)

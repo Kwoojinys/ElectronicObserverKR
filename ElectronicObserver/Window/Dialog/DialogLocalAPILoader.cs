@@ -126,7 +126,7 @@ namespace ElectronicObserver.Window.Dialog
 
             this.FileOpener.Filter = this.APIList.SelectedItem.ToString() + "|*" + (this.APICategory.SelectedIndex == 0 ? "Q" : "S") + "@" + this.APIList.SelectedItem.ToString().Replace('/', '@') + ".json|JSON|*.json;*.js|File|*";
 
-			if (this.FileOpener.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (this.FileOpener.ShowDialog() == DialogResult.OK)
 			{
                 this.TextFilePath.Text = this.FileOpener.FileName;
 			}
@@ -137,12 +137,12 @@ namespace ElectronicObserver.Window.Dialog
 
 		private void ButtonOpen_Click(object sender, EventArgs e)
 		{
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.DialogResult = DialogResult.OK;
 		}
 
 		private void ButtonCancel_Click(object sender, EventArgs e)
 		{
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.DialogResult = DialogResult.Cancel;
 		}
 
 

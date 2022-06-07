@@ -42,12 +42,12 @@ namespace ElectronicObserver.Window.Dialog
             this.ResultHandle.LoopHeadPosition = (double)this.LoopHeadPosition.Value;
             this.ResultHandle.Volume = (int)this.Volume.Value;
 
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.DialogResult = DialogResult.OK;
 		}
 
 		private void ButtonCancel_Click(object sender, EventArgs e)
 		{
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.DialogResult = DialogResult.Cancel;
 		}
 
 		private void FilePath_DragEnter(object sender, DragEventArgs e)
@@ -65,7 +65,7 @@ namespace ElectronicObserver.Window.Dialog
 
 		private void FilePathSearch_Click(object sender, EventArgs e)
 		{
-			if (this.OpenMusicDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (this.OpenMusicDialog.ShowDialog() == DialogResult.OK)
 			{
                 this.FilePath.Text = this.OpenMusicDialog.FileName;
 			}
