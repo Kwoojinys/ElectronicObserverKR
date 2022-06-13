@@ -1065,7 +1065,7 @@ namespace ElectronicObserver.Data
                 case 41:
                     return "애틀란타포x2<애틀란타>";
                 case 42:
-                    return "10cm 연장고각포군 집중배치x2+대공6이상전탐+이중측거의계<야마토개2,야마토개2중>";
+                    return "10cm 연장고각포군 집중배치x2+대공6이상기총+이중측거의계<야마토개2,야마토개2중>";
                 case 43:
                     return "10cm 연장고각포군 집중배치x2+이중측거의계<야마토개2,야마토개2중>";
                 case 44:

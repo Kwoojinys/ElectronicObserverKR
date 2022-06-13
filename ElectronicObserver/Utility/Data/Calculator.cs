@@ -1256,7 +1256,7 @@ namespace ElectronicObserver.Utility.Data
             int director = 0;
             int radar = 0;
             int aaradar = 0;
-            int aaraderhigh = 0;
+            int aagun_high = 0;
             int maingunl = 0;
             int maingunl_fcr = 0;
             int aashell = 0;
@@ -1324,9 +1324,6 @@ namespace ElectronicObserver.Utility.Data
 
                     if (eq.EquipmentID == 142 || eq.EquipmentID == 460) // 이중측거의, 사격지휘소
                         rader_yamato++;
-
-                    if (eq.IsAirHighRadar)
-                        aaraderhigh++;
                 }
                 else if (eq.CategoryType == EquipmentTypes.MainGunLarge || eq.CategoryType == EquipmentTypes.MainGunLarge2)
                 {
@@ -1354,6 +1351,9 @@ namespace ElectronicObserver.Utility.Data
                         aagun_concentrated++;
                     else if (eq.AA >= 3)
                         aagun_medium++;
+
+                    if (eq.AA >= 6)
+                        aagun_high++;
                 }
                 else if (eq.CategoryType == EquipmentTypes.SecondaryGun)
                 {
@@ -1554,13 +1554,13 @@ namespace ElectronicObserver.Utility.Data
                 case 916: // 야마토 개2중
                     if (rader_yamato >= 1)
                     {
-                        if (secondary_concentrated_battery >= 2 && aaraderhigh >= 1)
+                        if (secondary_concentrated_battery >= 2 && aagun_high >= 1)
                             return 42;
 
                         if (secondary_concentrated_battery >= 2)
                             return 43;
 
-                        if (secondary_concentrated_battery >= 1 && aaraderhigh >= 1)
+                        if (secondary_concentrated_battery >= 1 && aagun_high >= 1)
                             return 44;
 
                         if (secondary_concentrated_battery >= 1)
