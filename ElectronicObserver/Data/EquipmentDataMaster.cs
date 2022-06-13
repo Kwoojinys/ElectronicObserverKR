@@ -342,8 +342,11 @@ namespace ElectronicObserver.Data
 		/// <summary> 対空電探かどうか </summary>
 		public bool IsAirRadar => this.IsRadar && this.AA >= 2;
 
-		/// <summary> 水上電探かどうか </summary>
-		public bool IsSurfaceRadar => this.IsRadar && this.LOS >= 5;
+        /// <summary> 対空電探かどうか </summary>
+        public bool IsAirHighRadar => this.IsRadar && this.AA >= 6;
+
+        /// <summary> 水上電探かどうか </summary>
+        public bool IsSurfaceRadar => this.IsRadar && this.LOS >= 5;
 
         /// <summary> ソナーかどうか </summary>
         public bool IsSonar => this.CategoryType == EquipmentTypes.Sonar || this.CategoryType == EquipmentTypes.SonarLarge;

@@ -1256,6 +1256,7 @@ namespace ElectronicObserver.Utility.Data
             int director = 0;
             int radar = 0;
             int aaradar = 0;
+            int aaraderhigh = 0;
             int maingunl = 0;
             int maingunl_fcr = 0;
             int aashell = 0;
@@ -1271,6 +1272,8 @@ namespace ElectronicObserver.Utility.Data
             int radar_gfcs = 0;
             int highangle_atlanta = 0;
             int highangle_atlanta_gfcs = 0;
+            int secondary_concentrated_battery = 0; // 10cm 연장고각포군 집중배치
+            int rader_yamato = 0; // 이중측거의계열
 
             var slotmaster = slot.Select(id => KCDatabase.Instance.MasterEquipments[id]).Where(eq => eq != null).ToArray();
 
@@ -1301,6 +1304,7 @@ namespace ElectronicObserver.Utility.Data
                         case 363:   // GFCS Mk.37+5inch連装両用砲(集中配備)
                             highangle_atlanta_gfcs++;
                             break;
+
                     }
 
                 }
@@ -1317,6 +1321,12 @@ namespace ElectronicObserver.Utility.Data
 
                     if (eq.EquipmentID == 307)   // GFCS Mk.37
                         radar_gfcs++;
+
+                    if (eq.EquipmentID == 142 || eq.EquipmentID == 460) // 이중측거의, 사격지휘소
+                        rader_yamato++;
+
+                    if (eq.IsAirHighRadar)
+                        aaraderhigh++;
                 }
                 else if (eq.CategoryType == EquipmentTypes.MainGunLarge || eq.CategoryType == EquipmentTypes.MainGunLarge2)
                 {
@@ -1345,7 +1355,15 @@ namespace ElectronicObserver.Utility.Data
                     else if (eq.AA >= 3)
                         aagun_medium++;
                 }
-
+                else if (eq.CategoryType == EquipmentTypes.SecondaryGun)
+                {
+                    switch (eq.EquipmentID)
+                    {
+                        case 464:   // 10cm 연장고각포군 집중배치계
+                            secondary_concentrated_battery++;
+                            break;
+                    }
+                }
             }
 
 
@@ -1532,9 +1550,25 @@ namespace ElectronicObserver.Utility.Data
                         return 41;
                     }
                     break;
+                case 911: // 야마토 개2
+                case 916: // 야마토 개2중
+                    if (rader_yamato >= 1)
+                    {
+                        if (secondary_concentrated_battery >= 2 && aaraderhigh >= 1)
+                            return 42;
+
+                        if (secondary_concentrated_battery >= 2)
+                            return 43;
+
+                        if (secondary_concentrated_battery >= 1 && aaraderhigh >= 1)
+                            return 44;
+
+                        if (secondary_concentrated_battery >= 1)
+                            return 45;
+                    }
+
+                    break;
             }
-
-
 
             if (maingunl >= 1 && aashell >= 1 && director >= 1 && aaradar >= 1)
             {
@@ -1816,6 +1850,10 @@ namespace ElectronicObserver.Utility.Data
             { 39, 10 },
             { 40, 10 },
             { 41, 9 },
+            { 42, 10 },
+            { 43, 8 },
+            { 44, 6 },
+            { 45, 5 },
         });
 
 
@@ -1862,6 +1900,10 @@ namespace ElectronicObserver.Utility.Data
             { 39, 1.7 },
             { 40, 1.7 },
             { 41, 1.65 },
+            { 42, 1.65 },
+            { 43, 1.6 },
+            { 44, 1.6 },
+            { 45, 1.55 },
         });
 
 
@@ -2490,6 +2532,20 @@ namespace ElectronicObserver.Utility.Data
         /// <summary> 海空立体攻撃 </summary>
         SeaAirMultiAngle = 201,
 
+        /// <summary> 潜水艦隊攻撃 (参加潜水艦ポジション2・3) </summary>
+        SpecialSubmarineTender23 = 300,
+
+        /// <summary> 潜水艦隊攻撃 (参加潜水艦ポジション3・4) </summary>
+        SpecialSubmarineTender34 = 301,
+
+        /// <summary> 潜水艦隊攻撃 (参加潜水艦ポジション2・4) </summary>
+        SpecialSubmarineTender24 = 302,
+
+        /// <summary> 大和、突撃します！二番艦も続いてください！ </summary>
+        SpecialYamato3Ships = 400,
+
+        /// <summary> 第一戦隊、突撃！主砲、全力斉射ッ！ </summary>
+        SpecialYamato2Ships = 401,
 
         /// <summary> 砲撃 </summary>
         Shelling = 1000,
@@ -2576,6 +2632,23 @@ namespace ElectronicObserver.Utility.Data
 
         /// <summary> 僚艦夜戦突撃 </summary>
         SpecialKongo = 104,
+
+
+        /// <summary> 潜水艦隊攻撃 (参加潜水艦ポジション2・3) </summary>
+        SpecialSubmarineTender23 = 300,
+
+        /// <summary> 潜水艦隊攻撃 (参加潜水艦ポジション3・4) </summary>
+        SpecialSubmarineTender34 = 301,
+
+        /// <summary> 潜水艦隊攻撃 (参加潜水艦ポジション2・4) </summary>
+        SpecialSubmarineTender24 = 302,
+
+
+        /// <summary> 大和、突撃します！二番艦も続いてください！ </summary>
+        SpecialYamato3Ships = 400,
+
+        /// <summary> 第一戦隊、突撃！主砲、全力斉射ッ！ </summary>
+        SpecialYamato2Ships = 401,
 
 
         /// <summary> 砲撃 </summary>

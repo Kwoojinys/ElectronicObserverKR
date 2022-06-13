@@ -872,6 +872,16 @@ namespace ElectronicObserver.Data
                     return "즈이운입체공격";
                 case DayAttackKind.SeaAirMultiAngle:
                     return "해공입체공격";
+                case DayAttackKind.SpecialSubmarineTender23:
+                    return "잠수전탐컷인";
+                case DayAttackKind.SpecialSubmarineTender34:
+                    return "잠수전탐컷인";
+                case DayAttackKind.SpecialSubmarineTender24:
+                    return "잠수전탐컷인";
+                case DayAttackKind.SpecialYamato2Ships:
+                    return "야마토 전력 일제사 (2척)";
+                case DayAttackKind.SpecialYamato3Ships:
+                    return "야마토 전력 일제사 (3척)";
                 case DayAttackKind.Shelling:
                     return "포격";
 				case DayAttackKind.AirAttack:
@@ -933,6 +943,16 @@ namespace ElectronicObserver.Data
                     return "콜로라도터치";
                 case NightAttackKind.SpecialKongo:
                     return "요함야전공격";
+                case NightAttackKind.SpecialSubmarineTender23:
+                    return "잠수전탐컷인";
+                case NightAttackKind.SpecialSubmarineTender34:
+                    return "잠수전탐컷인";
+                case NightAttackKind.SpecialSubmarineTender24:
+                    return "잠수전탐컷인";
+                case NightAttackKind.SpecialYamato3Ships:
+                    return "야마토 전력 일제사 (3척)";
+                case NightAttackKind.SpecialYamato2Ships:
+                    return "야마토 전력 일제사 (2척)";
                 case NightAttackKind.Shelling:
                     return "포격";
 				case NightAttackKind.AirAttack:
@@ -1044,6 +1064,14 @@ namespace ElectronicObserver.Data
                     return "애틀란타포x2/GFCS<애틀란타>";
                 case 41:
                     return "애틀란타포x2<애틀란타>";
+                case 42:
+                    return "10cm 연장고각포군 집중배치x2+대공6이상전탐+이중측거의계<야마토개2,야마토개2중>";
+                case 43:
+                    return "10cm 연장고각포군 집중배치x2+이중측거의계<야마토개2,야마토개2중>";
+                case 44:
+                    return "10cm 연장고각포군 집중배치+이중측거의계<야마토개2,야마토개2중>";
+                case 45:
+                    return "10cm 연장고각포군 집중배치+이중측거의계<야마토개2,야마토개2중>";
                 default:
 					return "불명(" + id + ")";
 			}

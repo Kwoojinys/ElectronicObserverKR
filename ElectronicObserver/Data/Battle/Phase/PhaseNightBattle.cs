@@ -100,8 +100,9 @@ namespace ElectronicObserver.Data.Battle.Phase
 
                     case 101:
                     case 102:
-                        // nagato/mutsu touch
-                        for (int i = 0; i < atk.Defenders.Count; i++)
+					case 401:
+						// nagato/mutsu touch
+						for (int i = 0; i < atk.Defenders.Count; i++)
                         {
                             var comboatk = new BattleIndex(atk.Attacker.Side, i / 2);       // #1, #1, #2
                             this.BattleDetails.Add(new BattleNightDetail(this.Battle, comboatk, atk.Defenders[i].Defender, new[] { atk.Defenders[i].RawDamage }, new[] { atk.Defenders[i].CriticalFlag }, atk.AttackType, atk.EquipmentIDs, atk.NightAirAttackFlag, hps[atk.Defenders[i].Defender]));
@@ -111,8 +112,9 @@ namespace ElectronicObserver.Data.Battle.Phase
                         break;
                     case 103:
                     case 104:
-                        // colorado touch / kongo-class night attack
-                        for (int i = 0; i < atk.Defenders.Count; i++)
+					case 400:
+						// colorado touch / kongo-class night attack
+						for (int i = 0; i < atk.Defenders.Count; i++)
                         {
                             var comboatk = new BattleIndex(atk.Attacker.Side, i);       // #1, #2, #3
                             this.BattleDetails.Add(new BattleNightDetail(this.Battle, comboatk, atk.Defenders[i].Defender, new[] { atk.Defenders[i].RawDamage }, new[] { atk.Defenders[i].CriticalFlag }, atk.AttackType, atk.EquipmentIDs, atk.NightAirAttackFlag, hps[atk.Defenders[i].Defender]));
