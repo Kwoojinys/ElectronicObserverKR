@@ -1,9 +1,6 @@
-﻿using ElectronicObserver.Data;
-using ElectronicObserver.Observer;
-using ElectronicObserver.Resource.Record;
+﻿using ElectronicObserver.Resource.Record;
 using ElectronicObserver.Utility.Mathematics;
 using ElectronicObserver.Utility.Storage;
-using ElectronicObserver.Window.Dialog;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,15 +8,13 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static ElectronicObserver.Utility.UtilExtension;
 
 namespace ElectronicObserver.Utility
 {
 
 
-	public sealed class Configuration
+    public sealed class Configuration
 	{
 
 
@@ -1028,6 +1023,7 @@ namespace ElectronicObserver.Utility
                 /// </summary>
                 public bool SavesBrowserLog { get; set; }
 
+				public string ServerRedirectUrl { get; set; }
 
                 public ConfigFormBrowser()
 				{
@@ -1039,18 +1035,19 @@ namespace ElectronicObserver.Utility
                     this.ScreenShotFormat = 2;
                     this.ScreenShotSaveMode = 1;
                     this.StyleSheet = "\r\nbody {\r\n	margin:0;\r\n	overflow:hidden\r\n}\r\n\r\n#game_frame {\r\n	position:fixed;\r\n	left:50%;\r\n	top:-16px;\r\n	margin-left:-450px;\r\n	z-index:1\r\n}\r\n";
-                    this.IsScrollable = false;
-                    this.AppliesStyleSheet = true;
+                    this.IsScrollable		= false;
+                    this.AppliesStyleSheet	= true;
                     this.IsDMMreloadDialogDestroyable = false;
                     this.AvoidTwitterDeterioration = true;
-                    this.ToolMenuDockStyle = DockStyle.Top;
-                    this.IsToolMenuVisible = true;
-                    this.ConfirmAtRefresh = true;
-                    this.HardwareAccelerationEnabled = true;
-                    this.PreserveDrawingBuffer = true;
-                    this.ForceColorProfile = false;
-                    this.SavesBrowserLog = false;
-                }
+                    this.ToolMenuDockStyle	= DockStyle.Top;
+                    this.IsToolMenuVisible	= true;
+                    this.ConfirmAtRefresh	= true;
+                    this.HardwareAccelerationEnabled	= true;
+                    this.PreserveDrawingBuffer			= true;
+                    this.ForceColorProfile	= false;
+                    this.SavesBrowserLog	= false;
+					this.ServerRedirectUrl	= "kcwiki.github.io/cache";
+				}
 			}
 			/// <summary>[ブラウザ]ウィンドウ</summary>
 			[DataMember]

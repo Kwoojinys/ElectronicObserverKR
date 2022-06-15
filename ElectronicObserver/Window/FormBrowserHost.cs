@@ -2,20 +2,13 @@
 using ElectronicObserver.Observer;
 using ElectronicObserver.Resource;
 using ElectronicObserver.Utility;
-using ElectronicObserver.Utility.Mathematics;
-using mshtml;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.ServiceModel;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
@@ -23,10 +16,10 @@ using WeifenLuo.WinFormsUI.Docking;
 namespace ElectronicObserver.Window
 {
 
-	/// <summary>
-	/// ブラウザのホスト側フォーム
-	/// </summary>
-	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    /// <summary>
+    /// ブラウザのホスト側フォーム
+    /// </summary>
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
 	public partial class FormBrowserHost : DockContent, IBrowserHost
 	{
 
@@ -140,12 +133,7 @@ namespace ElectronicObserver.Window
             this.BackColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.BackgroundColor);
             this.ForeColor = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
             this.Browser.AsyncRemoteRun(() => this.Browser.Proxy.ConfigurationChanged(this.Configuration));
-            this.Browser.AsyncRemoteRun(() => this.Browser.Proxy.ConfigurationChanged(this.Configuration));
-
             this.ApplyLockLayoutState();
-                 
-                 
-                 
         }
 
 
@@ -255,7 +243,7 @@ namespace ElectronicObserver.Window
                 config.Theme = (uint)Utility.Configuration.Config.UI.Theme;
                 config.ForceColorProfile = c.ForceColorProfile;
                 config.SavesBrowserLog = c.SavesBrowserLog;
-
+				config.RedirectServerUrl = c.ServerRedirectUrl;
                 config.EnableDebugMenu = Utility.Configuration.Config.Debug.EnableDebugMenu;
                 return config;
 			}
@@ -284,7 +272,8 @@ namespace ElectronicObserver.Window
             c.HardwareAccelerationEnabled	= config.HardwareAccelerationEnabled;
             c.ForceColorProfile				= config.ForceColorProfile;
             c.PreserveDrawingBuffer			= config.PreserveDrawingBuffer;
-            //Utility.Configuration.Config.Debug.EnableDebugMenu = config.EnableDebugMenu;
+			c.ServerRedirectUrl				= config.RedirectServerUrl;
+			//Utility.Configuration.Config.Debug.EnableDebugMenu = config.EnableDebugMenu;
 
             // volume
             if (Utility.Configuration.Config.BGMPlayer.SyncBrowserMute)

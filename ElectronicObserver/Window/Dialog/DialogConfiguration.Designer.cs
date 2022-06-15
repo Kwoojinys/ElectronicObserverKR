@@ -32,8 +32,8 @@ namespace ElectronicObserver.Window.Dialog
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            ElectronicObserver.Window.Control.StatusBarModule statusBarModule1 = new ElectronicObserver.Window.Control.StatusBarModule();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            ElectronicObserver.Window.Control.StatusBarModule statusBarModule2 = new ElectronicObserver.Window.Control.StatusBarModule();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label19 = new System.Windows.Forms.Label();
@@ -101,6 +101,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Debug_APIListPathSearch = new System.Windows.Forms.Button();
             this.Debug_EnableDebugMenu = new System.Windows.Forms.CheckBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.Life_CanSizableFloatWindowInLock = new System.Windows.Forms.CheckBox();
             this.Life_CanCloseFloatWindowInLock = new System.Windows.Forms.CheckBox();
             this.Life_LockLayout = new System.Windows.Forms.CheckBox();
             this.label24 = new System.Windows.Forms.Label();
@@ -257,7 +258,8 @@ namespace ElectronicObserver.Window.Dialog
             this.APIListBrowser = new System.Windows.Forms.OpenFileDialog();
             this.Log_PlayTime = new System.Windows.Forms.Label();
             this.PlayTimeTimer = new System.Windows.Forms.Timer(this.components);
-            this.Life_CanSizableFloatWindowInLock = new System.Windows.Forms.CheckBox();
+            this.label45 = new System.Windows.Forms.Label();
+            this.FormBrowser_RedirectServerUrlBox = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Connection_UpstreamProxyPort)).BeginInit();
@@ -323,6 +325,8 @@ namespace ElectronicObserver.Window.Dialog
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label45);
+            this.tabPage1.Controls.Add(this.FormBrowser_RedirectServerUrlBox);
             this.tabPage1.Controls.Add(this.label19);
             this.tabPage1.Controls.Add(this.Connection_UpstreamProxyAddress);
             this.tabPage1.Controls.Add(this.Connection_DownstreamProxyLabel);
@@ -662,12 +666,12 @@ namespace ElectronicObserver.Window.Dialog
             // 
             this.UI_RenderingTest.AutoSize = true;
             this.UI_RenderingTest.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            statusBarModule1.BarColor0Begin = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            statusBarModule1.BarColor0End = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            statusBarModule1.MaximumValue = 500;
-            statusBarModule1.PrevValue = 401;
-            statusBarModule1.Value = 401;
-            this.UI_RenderingTest.HPBar = statusBarModule1;
+            statusBarModule2.BarColor0Begin = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            statusBarModule2.BarColor0End = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            statusBarModule2.MaximumValue = 500;
+            statusBarModule2.PrevValue = 401;
+            statusBarModule2.Value = 401;
+            this.UI_RenderingTest.HPBar = statusBarModule2;
             this.UI_RenderingTest.Location = new System.Drawing.Point(16, 3);
             this.UI_RenderingTest.MainFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.UI_RenderingTest.Margin = new System.Windows.Forms.Padding(16, 3, 16, 3);
@@ -801,7 +805,7 @@ namespace ElectronicObserver.Window.Dialog
             this.ShowLogTypeListCheckBox.IntegralHeight = false;
             this.ShowLogTypeListCheckBox.Location = new System.Drawing.Point(11, 28);
             this.ShowLogTypeListCheckBox.Name = "ShowLogTypeListCheckBox";
-            this.ShowLogTypeListCheckBox.Size = new System.Drawing.Size(150, 280);
+            this.ShowLogTypeListCheckBox.Size = new System.Drawing.Size(150, 278);
             this.ShowLogTypeListCheckBox.TabIndex = 10;
             // 
             // Log_SaveLogImmediately
@@ -1061,7 +1065,7 @@ namespace ElectronicObserver.Window.Dialog
             this.Debug_SealingPanel.Controls.Add(this.Debug_APIListPathSearch);
             this.Debug_SealingPanel.Location = new System.Drawing.Point(0, 56);
             this.Debug_SealingPanel.Name = "Debug_SealingPanel";
-            this.Debug_SealingPanel.Size = new System.Drawing.Size(696, 239);
+            this.Debug_SealingPanel.Size = new System.Drawing.Size(696, 237);
             this.Debug_SealingPanel.TabIndex = 1;
             // 
             // Debug_APIListPath
@@ -1130,6 +1134,18 @@ namespace ElectronicObserver.Window.Dialog
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "윈도우";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // Life_CanSizableFloatWindowInLock
+            // 
+            this.Life_CanSizableFloatWindowInLock.AutoSize = true;
+            this.Life_CanSizableFloatWindowInLock.Location = new System.Drawing.Point(213, 85);
+            this.Life_CanSizableFloatWindowInLock.Name = "Life_CanSizableFloatWindowInLock";
+            this.Life_CanSizableFloatWindowInLock.Size = new System.Drawing.Size(332, 19);
+            this.Life_CanSizableFloatWindowInLock.TabIndex = 11;
+            this.Life_CanSizableFloatWindowInLock.Text = "레이아웃 잠금중 플로트 윈도우 사이즈 조정가능하게 설정";
+            this.ToolTipInfo.SetToolTip(this.Life_CanSizableFloatWindowInLock, "레이아웃이 잠금상태인 경우에도,\r\n플로트 윈도우(본체로부터 분리된 창. 이 경우 \'보기\'에서 열수있는 메뉴들이 해당됩니다.)의 사이즈를 조정할 수" +
+        " 있게 해줍니다.");
+            this.Life_CanSizableFloatWindowInLock.UseVisualStyleBackColor = true;
             // 
             // Life_CanCloseFloatWindowInLock
             // 
@@ -2718,7 +2734,7 @@ namespace ElectronicObserver.Window.Dialog
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 310);
+            this.label10.Location = new System.Drawing.Point(3, 308);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(249, 15);
             this.label10.TabIndex = 5;
@@ -2849,21 +2865,21 @@ namespace ElectronicObserver.Window.Dialog
             this.BGMPlayer_ColumnContent,
             this.BGMPlayer_ColumnPath,
             this.BGMPlayer_ColumnSetting});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.BGMPlayer_ControlGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.BGMPlayer_ControlGrid.DefaultCellStyle = dataGridViewCellStyle2;
             this.BGMPlayer_ControlGrid.Location = new System.Drawing.Point(6, 35);
             this.BGMPlayer_ControlGrid.MultiSelect = false;
             this.BGMPlayer_ControlGrid.Name = "BGMPlayer_ControlGrid";
             this.BGMPlayer_ControlGrid.RowHeadersVisible = false;
             this.BGMPlayer_ControlGrid.RowTemplate.Height = 21;
             this.BGMPlayer_ControlGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.BGMPlayer_ControlGrid.Size = new System.Drawing.Size(684, 259);
+            this.BGMPlayer_ControlGrid.Size = new System.Drawing.Size(684, 257);
             this.BGMPlayer_ControlGrid.TabIndex = 0;
             this.BGMPlayer_ControlGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BGMPlayer_ControlGrid_CellContentClick);
             this.BGMPlayer_ControlGrid.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.BGMPlayer_ControlGrid_CellFormatting);
@@ -2961,17 +2977,24 @@ namespace ElectronicObserver.Window.Dialog
             this.PlayTimeTimer.Interval = 1000;
             this.PlayTimeTimer.Tick += new System.EventHandler(this.PlayTimeTimer_Tick);
             // 
-            // Life_CanSizableFloatWindowInLock
+            // label45
             // 
-            this.Life_CanSizableFloatWindowInLock.AutoSize = true;
-            this.Life_CanSizableFloatWindowInLock.Location = new System.Drawing.Point(213, 85);
-            this.Life_CanSizableFloatWindowInLock.Name = "Life_CanSizableFloatWindowInLock";
-            this.Life_CanSizableFloatWindowInLock.Size = new System.Drawing.Size(332, 19);
-            this.Life_CanSizableFloatWindowInLock.TabIndex = 11;
-            this.Life_CanSizableFloatWindowInLock.Text = "레이아웃 잠금중 플로트 윈도우 사이즈 조정가능하게 설정";
-            this.ToolTipInfo.SetToolTip(this.Life_CanSizableFloatWindowInLock, "레이아웃이 잠금상태인 경우에도,\r\n플로트 윈도우(본체로부터 분리된 창. 이 경우 \'보기\'에서 열수있는 메뉴들이 해당됩니다.)의 사이즈를 조정할 수" +
-        " 있게 해줍니다.");
-            this.Life_CanSizableFloatWindowInLock.UseVisualStyleBackColor = true;
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(11, 225);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(98, 15);
+            this.label45.TabIndex = 14;
+            this.label45.Text = "우회 서버 URL：";
+            // 
+            // RedirectServerUrlBox
+            // 
+            this.FormBrowser_RedirectServerUrlBox.AllowDrop = true;
+            this.FormBrowser_RedirectServerUrlBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FormBrowser_RedirectServerUrlBox.Location = new System.Drawing.Point(115, 222);
+            this.FormBrowser_RedirectServerUrlBox.Name = "RedirectServerUrlBox";
+            this.FormBrowser_RedirectServerUrlBox.Size = new System.Drawing.Size(529, 21);
+            this.FormBrowser_RedirectServerUrlBox.TabIndex = 15;
             // 
             // DialogConfiguration
             // 
@@ -3289,5 +3312,7 @@ namespace ElectronicObserver.Window.Dialog
         private System.Windows.Forms.CheckedListBox ShowLogTypeListCheckBox;
         private System.Windows.Forms.CheckBox Log_ShowSpoiler;
         private System.Windows.Forms.CheckBox Life_CanSizableFloatWindowInLock;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.TextBox FormBrowser_RedirectServerUrlBox;
     }
 }

@@ -39,11 +39,12 @@ namespace Browser
 		private PipeCommunicator<BrowserLib.IBrowserHost> BrowserHost;
 
 		private BrowserLib.BrowserConfiguration Configuration;
+        public delegate void OnConfigurationChangedHandler(BrowserLib.BrowserConfiguration conf, System.Action<bool> callBack );
+        public event OnConfigurationChangedHandler ChangedConfigurationHandler;
 
-		// 親プロセスが生きているか定期的に確認するためのタイマー
-		private Timer HeartbeatTimer = new Timer();
+        // 親プロセスが生きているか定期的に確認するためのタイマー
+        private Timer HeartbeatTimer = new Timer();
 		private IntPtr HostWindow;
-
 
 		private ChromiumWebBrowser Browser = null;
 
@@ -227,17 +228,19 @@ namespace Browser
             CefSharpSettings.SubprocessExitIfParentProcessClosed = true;
             Cef.Initialize(settings, false, (IBrowserProcessHandler)null);
 
-            var requestHandler = new CustomRequestHandler(pixiSettingEnabled: this.Configuration.PreserveDrawingBuffer);
+            var requestHandler = new CustomRequestHandler(pixiSettingEnabled: this.Configuration.PreserveDrawingBuffer, 
+				this.Configuration.RedirectServerUrl);
             requestHandler.RenderProcessTerminated += (mes) => this.AddLog(0, mes);
+			this.ChangedConfigurationHandler += requestHandler.OnConfigurationChanged;
 
-            this.Browser = new ChromiumWebBrowser(@"about:blank")
+			this.Browser = new ChromiumWebBrowser(@"about:blank")
 			{
-				Dock = DockStyle.None,
-				Size = this.SizeAdjuster.Size,
-                RequestHandler = requestHandler,
-                MenuHandler = new MenuHandler(),
+				Dock			= DockStyle.None,
+				Size			= this.SizeAdjuster.Size,
+                RequestHandler	= requestHandler,
+                MenuHandler		= new MenuHandler(),
 				KeyboardHandler = new KeyboardHandler(),
-				DragHandler = new DragHandler(),
+				DragHandler		= new DragHandler(),
 			};
 
             this.Browser.LoadingStateChanged += this.Browser_LoadingStateChanged;
@@ -245,11 +248,18 @@ namespace Browser
 
             this.SizeAdjuster.Controls.Add(this.Browser);
 
-            if (Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"CefEOBrowser"))) {
-                Directory.Delete(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"CefEOBrowser"), true);
+            if (Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"x86")))
+            {
+                Directory.Delete(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"x86"), true);
                 this.AddLog(1, "해당 버전에서 이전버전의 브라우저 관련 쓸모없는 파일들을 삭제하였습니다.");
             }
-		}
+
+            if (Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"x64")))
+            {
+                Directory.Delete(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"x64"), true);
+                this.AddLog(1, "해당 버전에서 이전버전의 브라우저 관련 쓸모없는 파일들을 삭제하였습니다.");
+            }
+        }
 
         void Exit()
 		{
@@ -279,6 +289,7 @@ namespace Browser
 		{
             this.Configuration = conf;
 
+
             this.SizeAdjuster.AutoScroll = this.Configuration.IsScrollable;
             this.ToolMenu_Other_Zoom_Fit.Checked = this.Configuration.ZoomFit;
             this.ApplyZoom();
@@ -305,8 +316,6 @@ namespace Browser
                     this.ToolMenu.ForeColor = SystemColors.Control;
                     break;
             }
-
-
         }
 
         private void ConfigurationUpdated()
@@ -1280,11 +1289,6 @@ namespace Browser
             }
         }
 
-        private void Cache_Clear()
-        {
-            
-        }
-
         protected override void WndProc(ref Message m)
 		{
 
@@ -1296,10 +1300,52 @@ namespace Browser
 		}
 
 
-		#region 呪文
+        private void Change_RedirectingServerToLuckyJervis(object sender, EventArgs e)
+        {
+            if (!this.IsBrowserInitialized)
+                return;
+
+            this.Configuration.RedirectServerUrl = "luckyjervis.com";
+            this.ChangedConfigurationHandler?.Invoke(this.Configuration, result =>
+            {
+                this.AddLog(3, "LuckyJervis로 우회서버를 변경했습니다.");
+			});
+
+			this.ConfigurationUpdated();
+		}
+
+        private void Change_RedirectingServerToKc3(object sender, EventArgs e)
+        {
+            if (!this.IsBrowserInitialized)
+                return;
+
+            this.Configuration.RedirectServerUrl = "kcwiki.github.io/cache";
+            this.ChangedConfigurationHandler?.Invoke(this.Configuration, result =>
+            {
+				this.AddLog(3, "kc3로 우회서버를 변경했습니다.");
+            });
+
+			this.ConfigurationUpdated();
+		}
+
+        private void Change_RedirectingServerTopoiit(object sender, EventArgs e)
+        {
+            if (!this.IsBrowserInitialized)
+                return;
+
+            this.Configuration.RedirectServerUrl = "poi-it.net/kc_asset";
+            this.ChangedConfigurationHandler?.Invoke(this.Configuration, result =>
+            {
+                this.AddLog(3, "poi-it.net으로 우회서버를 변경했습니다.");
+            });
+
+			this.ConfigurationUpdated();
+		}
+
+        #region 呪文
 
 
-		[DllImport("user32.dll", EntryPoint = "GetWindowLongA", SetLastError = true)]
+        [DllImport("user32.dll", EntryPoint = "GetWindowLongA", SetLastError = true)]
 		private static extern uint GetWindowLong(IntPtr hwnd, int nIndex);
 
 		[DllImport("user32.dll", EntryPoint = "SetWindowLongA", SetLastError = true)]
@@ -1313,17 +1359,21 @@ namespace Browser
 
 
 
-		#endregion
+
+        #endregion
+
+        private void ToolMenu_Other_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 
 
-	}
 
-
-
-	/// <summary>
-	/// ウィンドウが非アクティブ状態から1回のクリックでボタンが押せる ToolStrip です。
-	/// </summary>
-	internal class ExtraToolStrip : ToolStrip
+    /// <summary>
+    /// ウィンドウが非アクティブ状態から1回のクリックでボタンが押せる ToolStrip です。
+    /// </summary>
+    internal class ExtraToolStrip : ToolStrip
 	{
 		public ExtraToolStrip() : base() { }
 

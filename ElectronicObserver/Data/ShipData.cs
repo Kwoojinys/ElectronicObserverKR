@@ -1,12 +1,8 @@
 ﻿using ElectronicObserver.Utility.Data;
-using ElectronicObserver.Utility.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data
 {
@@ -1104,9 +1100,6 @@ namespace ElectronicObserver.Data
 
                 switch (slot.CategoryType)
                 {
-                    case EquipmentTypes.Sonar:
-                        sonarCount++;
-                        break;
                     case EquipmentTypes.DepthCharge:
                         if (slot.IsDepthCharge)
                             depthChargeCount++;
@@ -1115,6 +1108,10 @@ namespace ElectronicObserver.Data
                         else
                             otherDepthChargeCount++;
                         break;
+
+                    case EquipmentTypes.Sonar:
+                        sonarCount++;
+                        break;
                     case EquipmentTypes.SonarLarge:
                         largeSonarCount++;
                         sonarCount++;
@@ -1122,15 +1119,22 @@ namespace ElectronicObserver.Data
                 }
             }
 
-            double synergy = 1.0;
-            if (sonarCount > 0 && depthChargeProjectorCount > 0 && depthChargeCount > 0)
-                synergy = 1.4375;
-            else if (sonarCount > 0 && (depthChargeCount + depthChargeProjectorCount + otherDepthChargeCount) > 0)
-                synergy = 1.15;
-            else if (depthChargeProjectorCount > 0 && depthChargeCount > 0)
-                synergy = 1.1;
+            float newSynergy = 1.0f;
+            float oldSynergy = 1.0f;
 
-            return synergy;
+            if ((sonarCount > 0  || largeSonarCount > 0) && depthChargeCount > 0 )
+                oldSynergy = 1.15f;
+
+            if (sonarCount > 0 && depthChargeCount > 0 && depthChargeProjectorCount > 0)
+            {
+                newSynergy = 1.25f;
+            }
+            else if (depthChargeCount > 0 && depthChargeProjectorCount > 0)
+            {
+                newSynergy = 1.1f;
+            }
+
+            return newSynergy * oldSynergy;
         }
 
         /// <summary>

@@ -10,22 +10,12 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ElectronicObserver.Window.Dialog
 {
-	public partial class DialogConfiguration : Form
+    public partial class DialogConfiguration : Form
 	{
-
-		public const string RegistryPathMaster = @"Software\Microsoft\Internet Explorer\Main\FeatureControl\";
-		public const string RegistryPathBrowserVersion = @"FEATURE_BROWSER_EMULATION\";
-		public const string RegistryPathGPURendering = @"FEATURE_GPU_RENDERING\";
-
-		public const int DefaultBrowserVersion = 11001;
-		public const bool DefaultGPURendering = true;
-
 		/// <summary> 司令部「任意アイテム表示」から除外するアイテムのIDリスト </summary>
 		private readonly HashSet<int> IgnoredItems = new HashSet<int>() { 1, 2, 3, 4, 50, 51, 66, 67, 69 };
 
@@ -33,11 +23,8 @@ namespace ElectronicObserver.Window.Dialog
 
 		private Dictionary<SyncBGMPlayer.SoundHandleID, SyncBGMPlayer.SoundHandle> BGMHandles;
 
-
 		private DateTime _shownTime;
 		private double _playTimeCache;
-
-
 
 		public DialogConfiguration()
 		{
@@ -49,16 +36,13 @@ namespace ElectronicObserver.Window.Dialog
 		public DialogConfiguration(Configuration.ConfigurationData config)
 			: this()
 		{
-
             this.FromConfiguration(config);
 		}
 
 
 		private void Connection_SaveReceivedData_CheckedChanged(object sender, EventArgs e)
 		{
-
             this.Connection_PanelSaveData.Enabled = this.Connection_SaveReceivedData.Checked;
-
 		}
 
         private void NodeToAlphabetBox_CheckedChanged(object sender, EventArgs e)
@@ -489,7 +473,8 @@ namespace ElectronicObserver.Window.Dialog
             this.FormBrowser_ZoomRate.Value = (decimal)Math.Min(Math.Max(config.FormBrowser.ZoomRate * 100, 10), 1000);
             this.FormBrowser_ZoomFit.Checked = config.FormBrowser.ZoomFit;
             this.FormBrowser_LogInPageURL.Text = config.FormBrowser.LogInPageURL;
-            this.FormBrowser_ScreenShotFormat_JPEG.Checked = config.FormBrowser.ScreenShotFormat == 1;
+			this.FormBrowser_RedirectServerUrlBox.Text = config.FormBrowser.ServerRedirectUrl;
+			this.FormBrowser_ScreenShotFormat_JPEG.Checked = config.FormBrowser.ScreenShotFormat == 1;
             this.FormBrowser_ScreenShotFormat_PNG.Checked = config.FormBrowser.ScreenShotFormat == 2;
             this.FormBrowser_ScreenShotPath.Text = config.FormBrowser.ScreenShotPath;
             this.FormBrowser_ConfirmAtRefresh.Checked = config.FormBrowser.ConfirmAtRefresh;
@@ -724,6 +709,8 @@ namespace ElectronicObserver.Window.Dialog
             config.FormBrowser.ZoomRate = (double)this.FormBrowser_ZoomRate.Value / 100;
             config.FormBrowser.ZoomFit = this.FormBrowser_ZoomFit.Checked;
 			config.FormBrowser.LogInPageURL = this.FormBrowser_LogInPageURL.Text;
+			config.FormBrowser.ServerRedirectUrl = this.FormBrowser_RedirectServerUrlBox.Text;
+
 			if (this.FormBrowser_ScreenShotFormat_JPEG.Checked)
 				config.FormBrowser.ScreenShotFormat = 1;
 			else

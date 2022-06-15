@@ -1,10 +1,5 @@
 ﻿using CefSharp;
 using CefSharp.Handler;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Browser.CefOp
 {
@@ -13,20 +8,30 @@ namespace Browser.CefOp
         public delegate void RenderProcessTerminatedEventHandler(string message);
         public event RenderProcessTerminatedEventHandler RenderProcessTerminated;
 
+        public delegate void OnConfigurationChangedHandler(BrowserLib.BrowserConfiguration conf, System.Action<bool> callBack);
+        public event OnConfigurationChangedHandler ChangedConfigurationHandler;
+
         bool pixiSettingEnabled;
+        string ServerRedirectUrl;
 
-
-
-        public CustomRequestHandler(bool pixiSettingEnabled) : base()
+        public CustomRequestHandler(bool pixiSettingEnabled, string redirectUrl) : base()
         {
             this.pixiSettingEnabled = pixiSettingEnabled;
+            this.ServerRedirectUrl  = redirectUrl;
         }
 
         protected override IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling)
         {
-            return new CustomResourceRequestHandler(this.pixiSettingEnabled);
+            var handler = new CustomResourceRequestHandler(this.pixiSettingEnabled, this.ServerRedirectUrl);
+            this.ChangedConfigurationHandler = handler.OnConfigurationChanged;
+
+            return handler;
         }
 
+        public void OnConfigurationChanged(BrowserLib.BrowserConfiguration conf, System.Action<bool> callBack)
+        {
+            this.ChangedConfigurationHandler?.Invoke(conf, callBack);
+        }
 
         /// <summary>
         /// 戻る/進む操作をブロックします。

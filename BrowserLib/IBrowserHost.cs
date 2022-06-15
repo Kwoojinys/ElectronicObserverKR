@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BrowserLib
 {
-	/// <summary>
-	/// FormBrowserHostのインターフェス
-	/// WCFでプロセス間通信用
-	/// </summary>
-	[ServiceContract]
+    /// <summary>
+    /// FormBrowserHostのインターフェス
+    /// WCFでプロセス間通信用
+    /// </summary>
+    [ServiceContract]
 	public interface IBrowserHost
 	{
 		/// <summary>
@@ -199,5 +195,8 @@ namespace BrowserLib
 
         [DataMember]
         public bool EnableDebugMenu { get; set; }
+
+		[DataMember]
+		public string RedirectServerUrl { get; set; }
     }
 }

@@ -1,20 +1,30 @@
 ﻿using CefSharp;
 using CefSharp.Handler;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Browser.CefOp
 {
     public class CustomResourceRequestHandler : ResourceRequestHandler
     {
         private bool _pixiSettingEnabled { get; set; }
+        private string ServerRedirectingUrl { get; set; }
 
-        public CustomResourceRequestHandler(bool pixiSettingEnabled) : base()
+
+        public CustomResourceRequestHandler(bool pixiSettingEnabled, string redirectUrl) : base()
         {
-            this._pixiSettingEnabled = pixiSettingEnabled;
+            this._pixiSettingEnabled    = pixiSettingEnabled;
+            this.ServerRedirectingUrl   = redirectUrl;
+        }
+
+        public void OnConfigurationChanged(BrowserLib.BrowserConfiguration conf, System.Action<bool> callBack)
+        {
+            if (conf == null || string.IsNullOrEmpty(conf.RedirectServerUrl) == true)
+            {
+                callBack?.Invoke(false);
+                return;
+            }
+
+            this.ServerRedirectingUrl = conf.RedirectServerUrl;
+            callBack?.Invoke(true);
         }
 
         /// <summary>
@@ -39,8 +49,11 @@ namespace Browser.CefOp
             //    return CefReturnValue.Cancel;
             //}
 
-            request.Url = request.Url.Replace("203.104.209.7/gadget_html5", "kcwiki.github.io/cache/gadget_html5");
-            request.Url = request.Url.Replace("203.104.209.7/html", "kcwiki.github.io/cache/html");
+            request.Url = request.Url.Replace("203.104.209.7/gadget_html5", $"{this.ServerRedirectingUrl}/gadget_html5");
+            request.Url = request.Url.Replace("203.104.209.7/html", $"{this.ServerRedirectingUrl}/html");
+
+            //System.IO.File.WriteAllText($"debug{System.DateTime.Now}.txt", request.Url);
+
             //request.Url = request.Url.Replace("203.104.209.7/gadget_html5", "luckyjervis.com/gadget_html5");
             //request.Url = request.Url.Replace("203.104.209.7/html", "luckyjervis.com/html");
 

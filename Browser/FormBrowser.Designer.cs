@@ -79,6 +79,10 @@
             this.ToolMenu_Other_NavigateToLogInPage = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolMenu_Other_Navigate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ChangeRedirectingJuckyJervis = new System.Windows.Forms.ToolStripMenuItem();
+            this.ChangeRedirectingpoiit = new System.Windows.Forms.ToolStripMenuItem();
+            this.ChangeRedirectingkc3 = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolMenu_Other_AppliesStyleSheet = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolMenu_CacheClear = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
@@ -221,6 +225,7 @@
             this.ToolMenu_Other_NavigateToLogInPage,
             this.ToolMenu_Other_Navigate,
             this.toolStripSeparator5,
+            this.toolStripMenuItem1,
             this.ToolMenu_Other_AppliesStyleSheet,
             this.ToolMenu_CacheClear,
             this.toolStripSeparator6,
@@ -231,6 +236,7 @@
             this.ToolMenu_Other.Size = new System.Drawing.Size(15, 22);
             this.ToolMenu_Other.Text = "기타";
             this.ToolMenu_Other.DropDownOpening += new System.EventHandler(this.ToolMenu_Other_DropDownOpening);
+            this.ToolMenu_Other.Click += new System.EventHandler(this.ToolMenu_Other_Click);
             // 
             // ToolMenu_Other_ScreenShot
             // 
@@ -484,6 +490,37 @@
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(262, 6);
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ChangeRedirectingJuckyJervis,
+            this.ChangeRedirectingpoiit,
+            this.ChangeRedirectingkc3});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(265, 22);
+            this.toolStripMenuItem1.Text = "우회 서버 변경";
+            // 
+            // ChangeRedirectingJuckyJervis
+            // 
+            this.ChangeRedirectingJuckyJervis.Name = "ChangeRedirectingJuckyJervis";
+            this.ChangeRedirectingJuckyJervis.Size = new System.Drawing.Size(180, 22);
+            this.ChangeRedirectingJuckyJervis.Text = "LuckyJervis";
+            this.ChangeRedirectingJuckyJervis.Click += new System.EventHandler(this.Change_RedirectingServerToLuckyJervis);
+            // 
+            // ChangeRedirectingpoiit
+            // 
+            this.ChangeRedirectingpoiit.Name = "ChangeRedirectingpoiit";
+            this.ChangeRedirectingpoiit.Size = new System.Drawing.Size(180, 22);
+            this.ChangeRedirectingpoiit.Text = "poi-it.net";
+            this.ChangeRedirectingpoiit.Click += new System.EventHandler(this.Change_RedirectingServerTopoiit);
+            // 
+            // ChangeRedirectingkc3
+            // 
+            this.ChangeRedirectingkc3.Name = "ChangeRedirectingkc3";
+            this.ChangeRedirectingkc3.Size = new System.Drawing.Size(180, 22);
+            this.ChangeRedirectingkc3.Text = "Kc3";
+            this.ChangeRedirectingkc3.Click += new System.EventHandler(this.Change_RedirectingServerToKc3);
+            // 
             // ToolMenu_Other_AppliesStyleSheet
             // 
             this.ToolMenu_Other_AppliesStyleSheet.CheckOnClick = true;
@@ -566,9 +603,9 @@
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.SizeAdjuster);
             this.Controls.Add(this.ToolMenu);
-            this.Font = new System.Drawing.Font("Meiryo UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.KeyPreview = true;
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.KeyPreview = true;
             this.Name = "FormBrowser";
             this.ShowInTaskbar = false;
             this.Text = "74식 전자관측의 브라우저";
@@ -579,7 +616,6 @@
             this.ToolMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
 		}
 
 		#endregion
@@ -644,6 +680,10 @@
 		private System.Windows.Forms.ToolStripMenuItem ToolMenu_Other_Zoom_Classic;
 		private System.Windows.Forms.ToolStripMenuItem ToolMenu_Other_RefreshIgnoreCache;
         private System.Windows.Forms.ToolStripMenuItem ToolMenu_CacheClear;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem ChangeRedirectingJuckyJervis;
+        private System.Windows.Forms.ToolStripMenuItem ChangeRedirectingpoiit;
+        private System.Windows.Forms.ToolStripMenuItem ChangeRedirectingkc3;
     }
 }
 
