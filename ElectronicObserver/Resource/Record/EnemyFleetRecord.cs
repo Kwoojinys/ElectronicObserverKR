@@ -1,21 +1,18 @@
 ﻿using ElectronicObserver.Data;
-using ElectronicObserver.Data.Battle;
 using ElectronicObserver.Utility.Storage;
-using ElectronicObserver.Window;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Resource.Record
 {
 
-	/// <summary>
-	/// 敵艦隊編成のレコードです。
-	/// </summary>
-	[DebuggerDisplay("{Record.Count} Records")]
+    /// <summary>
+    /// 敵艦隊編成のレコードです。
+    /// </summary>
+    [DebuggerDisplay("{Record.Count} Records")]
 	public class EnemyFleetRecord : RecordBase
 	{
 

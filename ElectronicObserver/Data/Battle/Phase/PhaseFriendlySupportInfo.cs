@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.Battle.Phase
 {
-	/// <summary>
-	/// 友軍艦隊の情報を処理します。
-	/// </summary>
-	public class PhaseFriendlySupportInfo : PhaseBase
+    /// <summary>
+    /// 友軍艦隊の情報を処理します。
+    /// </summary>
+    public class PhaseFriendlySupportInfo : PhaseBase
 	{
 		public PhaseFriendlySupportInfo(BattleData battle, string title)
 			: base(battle, title)

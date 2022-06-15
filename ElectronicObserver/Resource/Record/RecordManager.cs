@@ -4,13 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Resource.Record
 {
 
-	public sealed class RecordManager
+    public sealed class RecordManager
 	{
 
 		#region Singleton

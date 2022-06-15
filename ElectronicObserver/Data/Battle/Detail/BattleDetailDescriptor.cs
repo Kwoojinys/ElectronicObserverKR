@@ -1,9 +1,7 @@
 ﻿using ElectronicObserver.Data.Battle.Phase;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using ElectronicObserver.Utility.Data;
 using ElectronicObserver.Resource.Record;
 

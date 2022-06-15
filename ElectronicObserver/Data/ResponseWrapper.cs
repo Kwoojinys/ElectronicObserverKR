@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ElectronicObserver.Data
+﻿namespace ElectronicObserver.Data
 {
 
 
-	/// <summary>
-	/// Responseを受信しデータを処理するクラスの基底です。
-	/// </summary>
-	public abstract class ResponseWrapper
+    /// <summary>
+    /// Responseを受信しデータを処理するクラスの基底です。
+    /// </summary>
+    public abstract class ResponseWrapper
 	{
 
 		/// <summary>

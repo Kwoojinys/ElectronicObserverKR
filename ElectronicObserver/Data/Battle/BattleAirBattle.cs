@@ -1,17 +1,13 @@
 ﻿using ElectronicObserver.Data.Battle.Phase;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.Battle
 {
 
-	/// <summary>
-	/// 通常艦隊 vs 通常艦隊 航空戦
-	/// </summary>
-	public class BattleAirBattle : BattleDay
+    /// <summary>
+    /// 通常艦隊 vs 通常艦隊 航空戦
+    /// </summary>
+    public class BattleAirBattle : BattleDay
 	{
 
 		public PhaseAirBattle AirBattle2 { get; protected set; }

@@ -3,16 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.Battle.Phase
 {
 
-	/// <summary>
-	/// 基地空襲戦フェーズ
-	/// </summary>
-	public class PhaseBaseAirRaid : PhaseAirBattleBase
+    /// <summary>
+    /// 基地空襲戦フェーズ
+    /// </summary>
+    public class PhaseBaseAirRaid : PhaseAirBattleBase
 	{
 
 		private BattleBaseAirCorpsSquadron[] _squadrons;

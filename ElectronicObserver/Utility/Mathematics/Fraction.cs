@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Utility.Mathematics
 {
 
-	public class Fraction
+    public class Fraction
 	{
 		public int Current { get; set; }
 		public int Max { get; set; }

@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.Quest
 {
 
-	[DataContract(Name = "ProgressMultiBattle")]
+    [DataContract(Name = "ProgressMultiBattle")]
     [KnownType(typeof(ProgressBattle))]
     [KnownType(typeof(ProgressSpecialBattle))]
     public class ProgressMultiBattle : ProgressData

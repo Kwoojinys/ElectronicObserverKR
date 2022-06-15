@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ElectronicObserver.Window;
-
-namespace ElectronicObserver.Data
+﻿namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// 遠征データを保持します。
-	/// </summary>
-	public class MissionData : APIWrapper, IIdentifiable
+    /// <summary>
+    /// 遠征データを保持します。
+    /// </summary>
+    public class MissionData : APIWrapper, IIdentifiable
 	{
 
         /// 遠征ID

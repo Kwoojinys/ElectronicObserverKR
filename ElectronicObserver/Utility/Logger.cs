@@ -3,15 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static ElectronicObserver.Utility.UtilExtension;
 
 namespace ElectronicObserver.Utility
 {
 
 
-	public delegate void LogAddedEventHandler(Logger.LogData data);
+    public delegate void LogAddedEventHandler(Logger.LogData data);
     public enum LogType
     {
 		Fatal		= 0,

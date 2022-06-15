@@ -1,17 +1,14 @@
 ﻿using ElectronicObserver.Data;
 using ElectronicObserver.Observer;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Utility
 {
 
-	public sealed class SyncBGMPlayer
+    public sealed class SyncBGMPlayer
 	{
 
 		#region Singleton

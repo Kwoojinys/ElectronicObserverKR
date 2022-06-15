@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// Responseに加え、Requestも扱うことのできるクラスの基底です。
-	/// </summary>
-	public abstract class APIWrapper : ResponseWrapper
+    /// <summary>
+    /// Responseに加え、Requestも扱うことのできるクラスの基底です。
+    /// </summary>
+    public abstract class APIWrapper : ResponseWrapper
 	{
 
 		public Dictionary<string, string> RequestData { get; private set; }

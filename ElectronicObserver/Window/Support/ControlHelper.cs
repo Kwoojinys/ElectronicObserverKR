@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ElectronicObserver.Window.Support
 {
 
-	/// <summary>
-	/// コントロールの操作を補助する機能を提供します。
-	/// </summary>
-	public static class ControlHelper
+    /// <summary>
+    /// コントロールの操作を補助する機能を提供します。
+    /// </summary>
+    public static class ControlHelper
 	{
 
 		/// <summary>

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ElectronicObserver.Data;
 using ElectronicObserver.Utility.Data;
@@ -17,7 +14,7 @@ using ElectronicObserver.Utility.Storage;
 namespace ElectronicObserver.Utility
 {
 
-	public class FleetImageGenerator
+    public class FleetImageGenerator
 	{
 
 		/// <summary> 幅・高さともに int.MaxValue の Size </summary>

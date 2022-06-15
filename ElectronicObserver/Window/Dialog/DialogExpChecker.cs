@@ -4,17 +4,14 @@ using ElectronicObserver.Utility;
 using ElectronicObserver.Utility.Data;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ElectronicObserver.Window.Dialog
 {
-	public partial class DialogExpChecker : Form
+    public partial class DialogExpChecker : Form
 	{
 		private static readonly string DefaultTitle = "경험치 계산기";
 		private DataGridViewCellStyle CellStyleModernized;

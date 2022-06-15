@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ElectronicObserver.Resource;
 using ElectronicObserver.Data;
@@ -15,10 +13,10 @@ using ElectronicObserver.Utility.Data;
 namespace ElectronicObserver.Window.Control
 {
 
-	/// <summary>
-	/// 艦隊の状態を表示します。
-	/// </summary>
-	public partial class FleetState : UserControl
+    /// <summary>
+    /// 艦隊の状態を表示します。
+    /// </summary>
+    public partial class FleetState : UserControl
 	{
 
 		[System.Diagnostics.DebuggerDisplay("{State}")]

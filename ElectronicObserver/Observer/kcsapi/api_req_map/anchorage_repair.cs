@@ -1,13 +1,8 @@
 ﻿using ElectronicObserver.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Observer.kcsapi.api_req_map
 {
-	public class anchorage_repair : APIBase
+    public class anchorage_repair : APIBase
 	{
 		public override void OnResponseReceived(dynamic data)
 		{

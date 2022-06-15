@@ -1,22 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ElectronicObserver.Data;
-using System.Drawing.Design;
 using ElectronicObserver.Resource;
-using ElectronicObserver.Utility.Data;
-using ElectronicObserver.Window.Support;
 
 namespace ElectronicObserver.Window.Control
 {
 
-	public partial class ShipStatusEquipment : UserControl
+    public partial class ShipStatusEquipment : UserControl
 	{
 
 		[System.Diagnostics.DebuggerDisplay("{Equipment}")]

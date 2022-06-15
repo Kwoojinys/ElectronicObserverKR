@@ -1,18 +1,10 @@
-﻿using ElectronicObserver.Window;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ElectronicObserver.Data
+﻿namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// 装備種別
-	/// </summary>
-	public class EquipmentType : ResponseWrapper, IIdentifiable
+    /// <summary>
+    /// 装備種別
+    /// </summary>
+    public class EquipmentType : ResponseWrapper, IIdentifiable
 	{
 
 		/// <summary>

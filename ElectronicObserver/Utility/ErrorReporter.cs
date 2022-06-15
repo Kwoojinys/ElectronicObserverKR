@@ -1,15 +1,11 @@
 ﻿using ElectronicObserver.Utility.Mathematics;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Utility
 {
 
-	public class ErrorReporter
+    public class ErrorReporter
 	{
 
 		private const string _basePath = "ErrorReport";

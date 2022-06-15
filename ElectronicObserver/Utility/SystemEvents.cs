@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Utility
 {
 
-	/// <summary>
-	/// システムイベントを扱います。
-	/// </summary>
-	public static class SystemEvents
+    /// <summary>
+    /// システムイベントを扱います。
+    /// </summary>
+    public static class SystemEvents
 	{
 
 		public static bool UpdateTimerEnabled { get; set; }

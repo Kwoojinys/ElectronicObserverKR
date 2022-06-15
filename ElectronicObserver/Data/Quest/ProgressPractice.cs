@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace ElectronicObserver.Data.Quest
 {
 
-	/// <summary>
-	/// 演習任務の進捗を管理します。
-	/// </summary>
-	[DataContract(Name = "ProgressPractice")]
+    /// <summary>
+    /// 演習任務の進捗を管理します。
+    /// </summary>
+    [DataContract(Name = "ProgressPractice")]
 	public class ProgressPractice : ProgressData
 	{
 

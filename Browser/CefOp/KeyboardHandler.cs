@@ -1,18 +1,14 @@
 ﻿using CefSharp;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Browser.CefOp
 {
-	/// <summary>
-	/// キーボード入力を下層のフォームに伝えます？
-	/// </summary>
-	/// <remarks>CefSharp.WinForms.Example.Handlers</remarks>
-	public class KeyboardHandler : IKeyboardHandler
+    /// <summary>
+    /// キーボード入力を下層のフォームに伝えます？
+    /// </summary>
+    /// <remarks>CefSharp.WinForms.Example.Handlers</remarks>
+    public class KeyboardHandler : IKeyboardHandler
 	{
 		public bool OnPreKeyEvent(IWebBrowser browserControl, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut)
 		{

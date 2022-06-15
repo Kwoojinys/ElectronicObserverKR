@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace ElectronicObserver.Utility.Storage
 {
 
-	/// <summary>
-	/// 汎用データ保存クラスの基底です。
-	/// 使用時は DataContractAttribute を設定してください。
-	/// </summary>
-	[DataContract(Name = "DataStorage")]
+    /// <summary>
+    /// 汎用データ保存クラスの基底です。
+    /// 使用時は DataContractAttribute を設定してください。
+    /// </summary>
+    [DataContract(Name = "DataStorage")]
 	public abstract class DataStorage : IExtensibleDataObject
 	{
 

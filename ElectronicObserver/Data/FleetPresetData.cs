@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data
 {
-	public class FleetPresetData : APIWrapper, IIdentifiable
+    public class FleetPresetData : APIWrapper, IIdentifiable
 	{
 		public int PresetID => (int)this.RawData.api_preset_no;
 

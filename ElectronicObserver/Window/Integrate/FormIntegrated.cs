@@ -2,9 +2,6 @@
 using ElectronicObserver.Utility;
 using ElectronicObserver.Utility.Storage;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -17,10 +14,10 @@ using WeifenLuo.WinFormsUI.Docking;
 namespace ElectronicObserver.Window.Integrate
 {
 
-	/// <summary>
-	/// 取り込むウィンドウのベースとなるフォーム
-	/// </summary>
-	public partial class FormIntegrate : DockContent
+    /// <summary>
+    /// 取り込むウィンドウのベースとなるフォーム
+    /// </summary>
+    public partial class FormIntegrate : DockContent
 	{
 
 		public readonly static String PREFIX = "FormIntegrated_";

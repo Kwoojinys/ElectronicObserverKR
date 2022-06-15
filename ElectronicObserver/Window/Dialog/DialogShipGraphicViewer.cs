@@ -4,20 +4,17 @@ using ElectronicObserver.Resource.Record;
 using ElectronicObserver.Window.Support;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ElectronicObserver.Window.Dialog
 {
-	public partial class DialogShipGraphicViewer : Form
+    public partial class DialogShipGraphicViewer : Form
 	{
 
         List<string> ImagePathList;

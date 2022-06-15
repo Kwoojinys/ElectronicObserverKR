@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BrowserLib
 {
 
-	/// <summary>
-	/// WCFのNetNamedPipeBindingを使ったサーバ・クライアント
-	/// </summary>
-	public class PipeCommunicator<ClientType> where ClientType : class
+    /// <summary>
+    /// WCFのNetNamedPipeBindingを使ったサーバ・クライアント
+    /// </summary>
+    public class PipeCommunicator<ClientType> where ClientType : class
 	{
 		private ServiceHost Server;
 		private string ServerUrl;

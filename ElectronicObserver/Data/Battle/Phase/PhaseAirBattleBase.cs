@@ -1,17 +1,14 @@
 ﻿using ElectronicObserver.Data.Battle.Detail;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.Battle.Phase
 {
 
-	/// <summary>
-	/// 航空戦フェーズ処理の基底となるクラスです。
-	/// </summary>
-	public abstract class PhaseAirBattleBase : PhaseBase
+    /// <summary>
+    /// 航空戦フェーズ処理の基底となるクラスです。
+    /// </summary>
+    public abstract class PhaseAirBattleBase : PhaseBase
 	{
 
 		public PhaseAirBattleBase(BattleData data, string title)

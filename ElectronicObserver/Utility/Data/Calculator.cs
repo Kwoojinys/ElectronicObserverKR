@@ -1,12 +1,10 @@
 ﻿using ElectronicObserver.Data;
-using ElectronicObserver.Resource.Record;
 using ElectronicObserver.Utility.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Utility.Data
 {

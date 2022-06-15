@@ -2,7 +2,6 @@
 using ElectronicObserver.Resource;
 using ElectronicObserver.Resource.Record;
 using ElectronicObserver.Utility.Data;
-using ElectronicObserver.Utility.Mathematics;
 using ElectronicObserver.Window.Control;
 using ElectronicObserver.Window.Support;
 using ElectronicObserver.Utility.Storage;
@@ -14,12 +13,11 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ElectronicObserver.Window.Dialog
 {
-	public partial class DialogAlbumMasterEquipment : Form
+    public partial class DialogAlbumMasterEquipment : Form
 	{
 
 

@@ -1,18 +1,14 @@
 ﻿using ElectronicObserver.Utility.Mathematics;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// 工廠ドックの情報を保持します。
-	/// </summary>
-	public class ArsenalData : ResponseWrapper, IIdentifiable
+    /// <summary>
+    /// 工廠ドックの情報を保持します。
+    /// </summary>
+    public class ArsenalData : ResponseWrapper, IIdentifiable
 	{
 
 		/// <summary>

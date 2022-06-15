@@ -5,18 +5,15 @@ using ElectronicObserver.Utility.Mathematics;
 using ElectronicObserver.Window.Support;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ElectronicObserver.Window.Dialog
 {
-	public partial class DialogShipGroupFilter : Form
+    public partial class DialogShipGroupFilter : Form
 	{
 
 		private ShipGroupData _group;

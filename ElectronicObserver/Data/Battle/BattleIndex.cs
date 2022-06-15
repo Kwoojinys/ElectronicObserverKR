@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace ElectronicObserver.Data.Battle
 {
-	public struct BattleIndex
+    public struct BattleIndex
 	{
 		public readonly BattleSides Side;
 		public readonly int Index;

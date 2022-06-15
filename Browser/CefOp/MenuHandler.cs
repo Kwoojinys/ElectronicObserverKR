@@ -1,17 +1,11 @@
 ﻿using CefSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Browser.CefOp
 {
-	/// <summary>
-	/// コンテキストメニューを無効化します。
-	/// </summary>
-	public class MenuHandler : IContextMenuHandler
+    /// <summary>
+    /// コンテキストメニューを無効化します。
+    /// </summary>
+    public class MenuHandler : IContextMenuHandler
 	{
 		public MenuHandler()
 		{

@@ -1,14 +1,9 @@
 ﻿using ElectronicObserver.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Observer.kcsapi.api_req_kaisou
 {
 
-	public class slot_deprive : APIBase
+    public class slot_deprive : APIBase
 	{
 
 		public override void OnResponseReceived(dynamic data)

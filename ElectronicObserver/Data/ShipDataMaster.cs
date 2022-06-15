@@ -2,20 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ElectronicObserver.Window;
 namespace ElectronicObserver.Data
 {
 
 
-	/// <summary>
-	/// 艦船のマスターデータを保持します。
-	/// </summary>
-	public class ShipDataMaster : ResponseWrapper, IIdentifiable
+    /// <summary>
+    /// 艦船のマスターデータを保持します。
+    /// </summary>
+    public class ShipDataMaster : ResponseWrapper, IIdentifiable
 	{
 
 		/// <summary>

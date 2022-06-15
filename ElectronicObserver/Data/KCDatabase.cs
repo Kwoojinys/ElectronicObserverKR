@@ -1,19 +1,14 @@
 ﻿using ElectronicObserver.Data.Battle;
 using ElectronicObserver.Data.Quest;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data
 {
 
 
-	/// <summary>
-	/// 艦これのデータを扱う中核です。
-	/// </summary>
-	public sealed class KCDatabase
+    /// <summary>
+    /// 艦これのデータを扱う中核です。
+    /// </summary>
+    public sealed class KCDatabase
 	{
 
 

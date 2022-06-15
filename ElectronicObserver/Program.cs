@@ -1,14 +1,12 @@
 ﻿using ElectronicObserver.Window;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 
 namespace ElectronicObserver
 {
-	static class Program
+    static class Program
 	{
 		/// <summary>
 		/// アプリケーションのメイン エントリ ポイントです。

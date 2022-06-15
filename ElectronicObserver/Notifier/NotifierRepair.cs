@@ -1,17 +1,14 @@
 ﻿using ElectronicObserver.Data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Notifier
 {
 
-	/// <summary>
-	/// 入渠完了通知を扱います。
-	/// </summary>
-	public class NotifierRepair : NotifierBase
+    /// <summary>
+    /// 入渠完了通知を扱います。
+    /// </summary>
+    public class NotifierRepair : NotifierBase
 	{
 
 		private Dictionary<int, bool> processedFlags;

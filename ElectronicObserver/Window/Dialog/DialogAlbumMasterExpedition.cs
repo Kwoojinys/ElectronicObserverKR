@@ -2,21 +2,15 @@
 using ElectronicObserver.Resource;
 using ElectronicObserver.Resource.Record;
 using ElectronicObserver.Utility;
-using ElectronicObserver.Utility.Data;
-using ElectronicObserver.Utility.Mathematics;
 using ElectronicObserver.Window.Control;
-using ElectronicObserver.Window.Support;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace ElectronicObserver.Window.Dialog
 {

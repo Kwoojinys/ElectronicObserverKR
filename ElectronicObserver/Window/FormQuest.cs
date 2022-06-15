@@ -1,5 +1,4 @@
 ﻿using ElectronicObserver.Data;
-using ElectronicObserver.Observer;
 using ElectronicObserver.Resource;
 using ElectronicObserver.Utility;
 using ElectronicObserver.Window.Support;
@@ -9,15 +8,13 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace ElectronicObserver.Window
 {
 
-	public partial class FormQuest : DockContent
+    public partial class FormQuest : DockContent
 	{
 
 		private DataGridViewCellStyle CSDefaultLeft, CSDefaultCenter;

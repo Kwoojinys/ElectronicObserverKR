@@ -2,26 +2,20 @@
 using ElectronicObserver.Utility.Storage;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace ElectronicObserver.Data
 {
 
 
-	/// <summary>
-	/// 艦船グループのデータを保持します。
-	/// </summary>
-	[DataContract(Name = "ShipGroupData")]
+    /// <summary>
+    /// 艦船グループのデータを保持します。
+    /// </summary>
+    [DataContract(Name = "ShipGroupData")]
 	[DebuggerDisplay("[{GroupID}] : {Name} ({Members.Count} ships)")]
 	public sealed class ShipGroupData : DataStorage, IIdentifiable, ICloneable
 	{

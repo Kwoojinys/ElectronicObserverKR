@@ -3,16 +3,14 @@ using ElectronicObserver.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Notifier
 {
 
-	/// <summary>
-	/// 疲労回復通知を扱います。
-	/// </summary>
-	public class NotifierCondition : NotifierBase
+    /// <summary>
+    /// 疲労回復通知を扱います。
+    /// </summary>
+    public class NotifierCondition : NotifierBase
 	{
 
 		private Dictionary<int, bool> _processedFlags;

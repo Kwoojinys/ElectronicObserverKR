@@ -1,16 +1,11 @@
 ﻿using ElectronicObserver.Data.Battle.Phase;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.Battle
 {
-	/// <summary>
-	/// 夜昼戦
-	/// </summary>
-	public abstract class BattleDayFromNight : BattleNight
+    /// <summary>
+    /// 夜昼戦
+    /// </summary>
+    public abstract class BattleDayFromNight : BattleNight
 	{
 
 		public PhaseSupport NightSupport { get; protected set; }

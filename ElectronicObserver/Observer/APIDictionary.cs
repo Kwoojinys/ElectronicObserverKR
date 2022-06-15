@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Observer
 {
 
 
-	public class APIDictionary : IReadOnlyDictionary<string, APIBase>
+    public class APIDictionary : IReadOnlyDictionary<string, APIBase>
 	{
 
 		private readonly IDictionary<string, APIBase> dict;

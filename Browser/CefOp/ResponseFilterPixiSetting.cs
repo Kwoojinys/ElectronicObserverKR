@@ -1,17 +1,14 @@
 ﻿using CefSharp;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Browser.CefOp
 {
-	/// <summary>
-	/// スクリーンショット撮影に必要なデータを挿入します。
-	/// </summary>
-	public class ResponseFilterPixiSetting : IResponseFilter
+    /// <summary>
+    /// スクリーンショット撮影に必要なデータを挿入します。
+    /// </summary>
+    public class ResponseFilterPixiSetting : IResponseFilter
 	{
 		public bool InitFilter() => true;
 

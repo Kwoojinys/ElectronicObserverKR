@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// 出撃時のマップ・進撃先を保持します。
-	/// </summary>
-	public class CompassData : ResponseWrapper
+    /// <summary>
+    /// 出撃時のマップ・進撃先を保持します。
+    /// </summary>
+    public class CompassData : ResponseWrapper
 	{
 
 		/// <summary>

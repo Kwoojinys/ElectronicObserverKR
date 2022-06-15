@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// IDを持つデータのリストを保持します。
-	/// </summary>
-	/// <typeparam name="TData"></typeparam>
-	public class IDDictionary<TData> : IReadOnlyDictionary<int, TData> where TData : class, IIdentifiable
+    /// <summary>
+    /// IDを持つデータのリストを保持します。
+    /// </summary>
+    /// <typeparam name="TData"></typeparam>
+    public class IDDictionary<TData> : IReadOnlyDictionary<int, TData> where TData : class, IIdentifiable
 	{
 
 		private readonly IDictionary<int, TData> dict;

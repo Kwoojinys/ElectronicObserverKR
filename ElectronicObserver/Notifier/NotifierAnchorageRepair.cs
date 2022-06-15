@@ -1,15 +1,12 @@
 ﻿using ElectronicObserver.Data;
 using ElectronicObserver.Observer;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Notifier
 {
 
-	public class NotifierAnchorageRepair : NotifierBase
+    public class NotifierAnchorageRepair : NotifierBase
 	{
 
 		/// <summary>

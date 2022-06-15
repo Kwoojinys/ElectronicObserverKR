@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ElectronicObserver.Window.Integrate
 {
 
-	/// <summary>
-	/// 選択中のウィンドウに表示する枠
-	/// </summary>
-	public partial class FormCandidate : Form
+    /// <summary>
+    /// 選択中のウィンドウに表示する枠
+    /// </summary>
+    public partial class FormCandidate : Form
 	{
 
 		private Pen blackPen = new Pen(Color.Black, 5);

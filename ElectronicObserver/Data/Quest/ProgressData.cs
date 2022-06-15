@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.Quest
 {
 
-	/// <summary>
-	/// 任務の進捗を管理する基底クラスです。
-	/// </summary>
-	[DataContract(Name = "ProgressData")]
+    /// <summary>
+    /// 任務の進捗を管理する基底クラスです。
+    /// </summary>
+    [DataContract(Name = "ProgressData")]
 	public abstract class ProgressData : IIdentifiable
 	{
 

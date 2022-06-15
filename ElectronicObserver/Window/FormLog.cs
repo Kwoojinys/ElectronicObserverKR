@@ -1,20 +1,12 @@
 ﻿using ElectronicObserver.Resource;
 using ElectronicObserver.Utility;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace ElectronicObserver.Window
 {
 
-	public partial class FormLog : DockContent
+    public partial class FormLog : DockContent
 	{
 
 		public FormLog(FormMain parent)

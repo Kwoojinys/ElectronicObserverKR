@@ -2,16 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.Battle.Phase
 {
 
-	/// <summary>
-	/// 支援攻撃フェーズの処理を行います。
-	/// </summary>
-	public class PhaseSupport : PhaseBase
+    /// <summary>
+    /// 支援攻撃フェーズの処理を行います。
+    /// </summary>
+    public class PhaseSupport : PhaseBase
 	{
 
 		public readonly bool IsNight;

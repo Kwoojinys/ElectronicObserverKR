@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Collections.ObjectModel;
 
 namespace ElectronicObserver.Utility.Data
 {
 
-	/// <summary>
-	/// 経験値テーブルを管理します。
-	/// </summary>
-	public static class ExpTable
+    /// <summary>
+    /// 経験値テーブルを管理します。
+    /// </summary>
+    public static class ExpTable
 	{
 
 		/// <summary>

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Windows.Forms;
 
 namespace ElectronicObserver.Utility
 {
 
-	public static class PathHelper
+    public static class PathHelper
 	{
 		/// <summary>
 		/// OpenFileDialog を、指定されたパスで初期化します。

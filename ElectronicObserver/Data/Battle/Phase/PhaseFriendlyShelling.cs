@@ -2,15 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.Battle.Phase
 {
-	/// <summary>
-	/// 夜戦における友軍艦隊攻撃フェーズの処理を行います。
-	/// </summary>
-	public class PhaseFriendlyShelling : PhaseBase
+    /// <summary>
+    /// 夜戦における友軍艦隊攻撃フェーズの処理を行います。
+    /// </summary>
+    public class PhaseFriendlyShelling : PhaseBase
 	{
 		public PhaseFriendlyShelling(BattleData battle, string title)
 			: base(battle, title)

@@ -1,21 +1,18 @@
 ﻿using ElectronicObserver.Utility.Mathematics;
-using ElectronicObserver.Window;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.ShipGroup
 {
 
-	/// <summary>
-	/// 艦船フィルタの式データ
-	/// </summary>
-	[DataContract(Name = "ExpressionData")]
+    /// <summary>
+    /// 艦船フィルタの式データ
+    /// </summary>
+    [DataContract(Name = "ExpressionData")]
 	public class ExpressionData : ICloneable
 	{
 

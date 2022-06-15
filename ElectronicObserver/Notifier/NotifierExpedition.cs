@@ -1,19 +1,14 @@
 ﻿using ElectronicObserver.Data;
-using ElectronicObserver.Observer;
-using ElectronicObserver.Window;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Notifier
 {
 
-	/// <summary>
-	/// 遠征帰投通知を扱います。
-	/// </summary>
-	public class NotifierExpedition : NotifierBase
+    /// <summary>
+    /// 遠征帰投通知を扱います。
+    /// </summary>
+    public class NotifierExpedition : NotifierBase
 	{
 
 		private Dictionary<int, bool> processedFlags;

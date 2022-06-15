@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// 各種資源量を保持します。
-	/// </summary>
-	public class MaterialData : APIWrapper
+    /// <summary>
+    /// 各種資源量を保持します。
+    /// </summary>
+    public class MaterialData : APIWrapper
 	{
 
 		/// <summary>

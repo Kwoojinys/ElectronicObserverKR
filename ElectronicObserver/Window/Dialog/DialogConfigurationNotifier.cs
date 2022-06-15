@@ -1,22 +1,18 @@
 ﻿using ElectronicObserver.Notifier;
 using ElectronicObserver.Utility.Data;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ElectronicObserver.Window.Dialog
 {
 
-	/// <summary>
-	/// 通知システムの設定ダイアログを扱います。
-	/// </summary>
-	public partial class DialogConfigurationNotifier : Form
+    /// <summary>
+    /// 通知システムの設定ダイアログを扱います。
+    /// </summary>
+    public partial class DialogConfigurationNotifier : Form
 	{
 
 		private NotifierBase _notifier;

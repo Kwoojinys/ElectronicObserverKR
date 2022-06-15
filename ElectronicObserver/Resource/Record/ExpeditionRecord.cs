@@ -1,19 +1,16 @@
 ﻿using ElectronicObserver.Data;
-using ElectronicObserver.Observer;
 using ElectronicObserver.Utility.Mathematics;
 using ElectronicObserver.Utility.Storage;
-using ElectronicObserver.Window;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Resource.Record
 {
 
-	[DebuggerDisplay("{Record.Count} Records")]
+    [DebuggerDisplay("{Record.Count} Records")]
 	public class ExpeditionRecord : RecordBase
 	{
 

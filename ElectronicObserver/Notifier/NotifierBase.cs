@@ -1,22 +1,16 @@
 ﻿using ElectronicObserver.Utility;
-using ElectronicObserver.Window;
 using ElectronicObserver.Window.Dialog;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Media;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Notifier
 {
 
-	/// <summary>
-	/// 通知を扱います。
-	/// </summary>
-	public abstract class NotifierBase
+    /// <summary>
+    /// 通知を扱います。
+    /// </summary>
+    public abstract class NotifierBase
 	{
 
 		/// <summary>

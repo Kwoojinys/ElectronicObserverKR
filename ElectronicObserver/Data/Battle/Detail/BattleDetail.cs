@@ -1,16 +1,14 @@
 ﻿using ElectronicObserver.Utility.Data;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.Battle.Detail
 {
-	/// <summary>
-	/// 戦闘詳細のデータを保持します。
-	/// </summary>
-	public abstract class BattleDetail
+    /// <summary>
+    /// 戦闘詳細のデータを保持します。
+    /// </summary>
+    public abstract class BattleDetail
 	{
 
 		public double[] RawDamages { get; protected set; }

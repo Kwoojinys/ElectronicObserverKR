@@ -2,16 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.Battle.Phase
 {
 
-	/// <summary>
-	/// 航空戦フェーズの処理を行います。
-	/// </summary>
-	public class PhaseAirBattle : PhaseAirBattleBase
+    /// <summary>
+    /// 航空戦フェーズの処理を行います。
+    /// </summary>
+    public class PhaseAirBattle : PhaseAirBattleBase
 	{
 
 		public PhaseAirBattle(BattleData data, string title, string suffix = "")

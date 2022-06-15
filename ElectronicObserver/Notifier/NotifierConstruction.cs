@@ -1,17 +1,14 @@
 ﻿using ElectronicObserver.Data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Notifier
 {
 
-	/// <summary>
-	/// 建造完了通知を扱います。
-	/// </summary>
-	public class NotifierConstruction : NotifierBase
+    /// <summary>
+    /// 建造完了通知を扱います。
+    /// </summary>
+    public class NotifierConstruction : NotifierBase
 	{
 
 		private Dictionary<int, bool> processedFlags;

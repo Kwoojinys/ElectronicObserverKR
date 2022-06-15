@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ElectronicObserver.Data
+﻿namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// 消費アイテムのデータを保持します。
-	/// </summary>
-	public class UseItem : ResponseWrapper, IIdentifiable
+    /// <summary>
+    /// 消費アイテムのデータを保持します。
+    /// </summary>
+    public class UseItem : ResponseWrapper, IIdentifiable
 	{
 
 		/// <summary>

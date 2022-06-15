@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace ElectronicObserver.Window.Support
 {
 
-	public class CustomFloatWindowFactory : DockPanelExtender.IFloatWindowFactory
+    public class CustomFloatWindowFactory : DockPanelExtender.IFloatWindowFactory
 	{
 
 		public FloatWindow CreateFloatWindow(DockPanel dockPanel, DockPane pane, System.Drawing.Rectangle bounds)

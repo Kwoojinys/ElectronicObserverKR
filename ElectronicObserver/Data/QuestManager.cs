@@ -1,17 +1,14 @@
 ﻿using ElectronicObserver.Utility.Mathematics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// 任務情報を統括して扱います。
-	/// </summary>
-	public class QuestManager : APIWrapper
+    /// <summary>
+    /// 任務情報を統括して扱います。
+    /// </summary>
+    public class QuestManager : APIWrapper
 	{
 
 		/// <summary>

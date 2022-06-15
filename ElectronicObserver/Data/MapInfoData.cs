@@ -1,17 +1,12 @@
-﻿using ElectronicObserver.Window;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// 海域情報を保持します。
-	/// </summary>
-	public class MapInfoData : APIWrapper, IIdentifiable
+    /// <summary>
+    /// 海域情報を保持します。
+    /// </summary>
+    public class MapInfoData : APIWrapper, IIdentifiable
 	{
 
 		/// <summary>

@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using ElectronicObserver.Observer;
 
 namespace ElectronicObserver.Window.Dialog
 {
-	public partial class DialogLocalAPILoader : Form
+    public partial class DialogLocalAPILoader : Form
 	{
 
 		public string FilePath => this.TextFilePath.Text;

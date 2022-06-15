@@ -2,16 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.Battle.Phase
 {
 
-	/// <summary>
-	/// 雷撃戦フェーズの処理を行います。
-	/// </summary>
-	public class PhaseTorpedo : PhaseBase
+    /// <summary>
+    /// 雷撃戦フェーズの処理を行います。
+    /// </summary>
+    public class PhaseTorpedo : PhaseBase
 	{
 
 		/// <summary>

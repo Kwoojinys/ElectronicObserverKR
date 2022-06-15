@@ -14,14 +14,13 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace ElectronicObserver.Window
 {
 
-	public partial class FormBattle : DockContent
+    public partial class FormBattle : DockContent
 	{
         private Color WinRankColor_Win = Utility.ThemeManager.GetColor(Utility.ThemeColors.MainFontColor);
         private readonly Color WinRankColor_Lose = Color.Red;

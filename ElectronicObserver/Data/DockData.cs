@@ -1,17 +1,14 @@
 ﻿using ElectronicObserver.Utility.Mathematics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// 入渠ドックの情報を保持します。
-	/// </summary>
-	public class DockData : ResponseWrapper, IIdentifiable
+    /// <summary>
+    /// 入渠ドックの情報を保持します。
+    /// </summary>
+    public class DockData : ResponseWrapper, IIdentifiable
 	{
 
 		/// <summary>

@@ -11,7 +11,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ElectronicObserver.Utility;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ElectronicObserver.Window.Dialog

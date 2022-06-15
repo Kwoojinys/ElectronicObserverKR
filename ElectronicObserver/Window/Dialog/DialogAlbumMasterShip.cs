@@ -14,13 +14,12 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
 namespace ElectronicObserver.Window.Dialog
 {
-	public partial class DialogAlbumMasterShip : Form
+    public partial class DialogAlbumMasterShip : Form
 	{
 
 		private int _shipID;

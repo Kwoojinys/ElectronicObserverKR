@@ -1,14 +1,10 @@
 ﻿using ElectronicObserver.Data;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Observer.kcsapi.api_req_hensei
 {
 
-	public class combined : APIBase
+    public class combined : APIBase
 	{
 
 		public override bool IsRequestSupported => true;

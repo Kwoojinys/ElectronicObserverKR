@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Utility.Storage
 {
 
-	/// <summary>
-	/// シリアル化可能な List を扱います。
-	/// コンマ区切りでシリアル化するので、その形式で変換できないものは指定しないでくだちい
-	/// </summary>
-	/// <typeparam name="T">リストの型。ISerializableです。</typeparam>
-	[DataContract(Name = "SerializableList")]
+    /// <summary>
+    /// シリアル化可能な List を扱います。
+    /// コンマ区切りでシリアル化するので、その形式で変換できないものは指定しないでくだちい
+    /// </summary>
+    /// <typeparam name="T">リストの型。ISerializableです。</typeparam>
+    [DataContract(Name = "SerializableList")]
 	public class SerializableList<T> where T : IConvertible
 	{
 

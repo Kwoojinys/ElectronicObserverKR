@@ -1,21 +1,16 @@
 ﻿using DynaJson;
 using ElectronicObserver.Utility.Storage;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Window.Support
 {
 
 
 
-	public static class WindowPlacementManager
+    public static class WindowPlacementManager
 	{
 
 		#region 各種宣言

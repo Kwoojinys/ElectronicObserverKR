@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ElectronicObserver.Observer
 {
 
-	public delegate void APIReceivedEventHandler(string apiname, dynamic data);
+    public delegate void APIReceivedEventHandler(string apiname, dynamic data);
 
 	/// <summary>
 	/// API処理部の基底となるクラスです。

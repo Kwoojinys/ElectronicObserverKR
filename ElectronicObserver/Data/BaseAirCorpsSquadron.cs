@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// 基地航空隊の航空中隊データを扱います。
-	/// </summary>
-	public class BaseAirCorpsSquadron : APIWrapper, IIdentifiable
+    /// <summary>
+    /// 基地航空隊の航空中隊データを扱います。
+    /// </summary>
+    public class BaseAirCorpsSquadron : APIWrapper, IIdentifiable
 	{
 
 		/// <summary>

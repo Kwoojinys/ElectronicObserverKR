@@ -1,18 +1,15 @@
 ﻿using ElectronicObserver.Data.Battle.Detail;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.Battle.Phase
 {
 
-	/// <summary>
-	/// 戦闘フェーズの基底クラスです。
-	/// </summary>
-	public abstract class PhaseBase
+    /// <summary>
+    /// 戦闘フェーズの基底クラスです。
+    /// </summary>
+    public abstract class PhaseBase
 	{
 		protected BattleData Battle;
 		public List<BattleDetail> BattleDetails { get; protected set; }

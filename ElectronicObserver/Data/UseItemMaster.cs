@@ -1,18 +1,10 @@
-﻿using ElectronicObserver.Window;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ElectronicObserver.Data
+﻿namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// 消費アイテムのマスターデータを保持します。
-	/// </summary>
-	public class UseItemMaster : ResponseWrapper, IIdentifiable
+    /// <summary>
+    /// 消費アイテムのマスターデータを保持します。
+    /// </summary>
+    public class UseItemMaster : ResponseWrapper, IIdentifiable
 	{
 
 		/// <summary>

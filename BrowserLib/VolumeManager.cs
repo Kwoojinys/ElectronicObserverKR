@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BrowserLib
 {
 
-	/// <summary>
-	/// 音量やミュートを管理します。
-	/// </summary>
-	public class VolumeManager
+    /// <summary>
+    /// 音量やミュートを管理します。
+    /// </summary>
+    public class VolumeManager
 	{
 
 		public uint ProcessID { get; private set; }

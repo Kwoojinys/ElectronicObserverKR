@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WMPLib;
@@ -10,10 +9,10 @@ using WMPLib;
 namespace ElectronicObserver.Utility
 {
 
-	/// <summary>
-	/// Windows Media Player コントロールを利用して、音楽を再生するためのクラスです。
-	/// </summary>
-	public class MediaPlayer
+    /// <summary>
+    /// Windows Media Player コントロールを利用して、音楽を再生するためのクラスです。
+    /// </summary>
+    public class MediaPlayer
 	{
 		private WindowsMediaPlayer _wmp;
 

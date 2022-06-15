@@ -1,6 +1,4 @@
-﻿using System;
-
-public static class MathExtension
+﻿public static class MathExtension
 {
     public static int ToInt(this object obj)
     {

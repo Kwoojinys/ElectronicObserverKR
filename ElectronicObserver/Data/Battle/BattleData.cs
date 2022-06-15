@@ -4,15 +4,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.Battle
 {
 
-	/// <summary>
-	/// 戦闘情報を保持するデータの基底です。
-	/// </summary>
-	public abstract class BattleData : ResponseWrapper
+    /// <summary>
+    /// 戦闘情報を保持するデータの基底です。
+    /// </summary>
+    public abstract class BattleData : ResponseWrapper
 	{
 
 		protected int[] _resultHPs;

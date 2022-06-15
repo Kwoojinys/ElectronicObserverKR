@@ -1,19 +1,16 @@
 ﻿using ElectronicObserver.Data;
 using ElectronicObserver.Data.Battle;
 using ElectronicObserver.Observer;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Notifier
 {
 
-	/// <summary>
-	/// 大破進撃警告通知を扱います。
-	/// </summary>
-	public class NotifierDamage : NotifierBase
+    /// <summary>
+    /// 大破進撃警告通知を扱います。
+    /// </summary>
+    public class NotifierDamage : NotifierBase
 	{
 
 		/// <summary>

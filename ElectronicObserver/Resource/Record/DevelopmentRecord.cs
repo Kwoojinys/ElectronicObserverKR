@@ -7,15 +7,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Resource.Record
 {
 
-	/// <summary>
-	/// 建造のレコードです。
-	/// </summary>
-	[DebuggerDisplay("{Record.Count} Records")]
+    /// <summary>
+    /// 建造のレコードです。
+    /// </summary>
+    [DebuggerDisplay("{Record.Count} Records")]
 	public class DevelopmentRecord : RecordBase
 	{
 

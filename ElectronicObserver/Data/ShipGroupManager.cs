@@ -1,21 +1,16 @@
 ﻿using ElectronicObserver.Resource;
 using ElectronicObserver.Utility.Storage;
-using Microsoft.VisualBasic.FileIO;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// 艦船グループのデータを管理します。
-	/// </summary>
-	[DataContract(Name = "ShipGroupManager")]
+    /// <summary>
+    /// 艦船グループのデータを管理します。
+    /// </summary>
+    [DataContract(Name = "ShipGroupManager")]
 	public sealed class ShipGroupManager : DataStorage
 	{
 

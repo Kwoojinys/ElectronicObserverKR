@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace ElectronicObserver.Data.Battle.Phase
 {
-	/// <summary>
-	/// 夜戦開始フェーズの処理を行います。
-	/// </summary>
-	public class PhaseNightInitial : PhaseBase
+    /// <summary>
+    /// 夜戦開始フェーズの処理を行います。
+    /// </summary>
+    public class PhaseNightInitial : PhaseBase
 	{
 
 		private readonly bool IsEscort;

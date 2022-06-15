@@ -1,18 +1,13 @@
 ﻿using ElectronicObserver.Data.Battle.Phase;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.Battle
 {
 
-	/// <summary>
-	/// 機動部隊 vs 通常艦隊 昼戦
-	/// </summary>
-	public class BattleCombinedNormalDay : BattleDay
+    /// <summary>
+    /// 機動部隊 vs 通常艦隊 昼戦
+    /// </summary>
+    public class BattleCombinedNormalDay : BattleDay
 	{
 
 		public override void LoadFromResponse(string apiname, dynamic data)

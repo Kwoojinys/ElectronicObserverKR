@@ -3,10 +3,6 @@ using ElectronicObserver.Utility;
 using ElectronicObserver.Window.Integrate;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
@@ -14,10 +10,10 @@ using WeifenLuo.WinFormsUI.Docking;
 namespace ElectronicObserver.Window
 {
 
-	/// <summary>
-	/// ウィンドウキャプチャ
-	/// </summary>
-	public partial class FormWindowCapture : DockContent
+    /// <summary>
+    /// ウィンドウキャプチャ
+    /// </summary>
+    public partial class FormWindowCapture : DockContent
 	{
 
 		public static readonly String WARNING_MESSAGE =

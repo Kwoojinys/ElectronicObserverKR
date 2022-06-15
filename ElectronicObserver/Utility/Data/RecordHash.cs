@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Utility.Data
 {
 
-	/// <summary>
-	/// レコードに使用するための MD5 アルゴリズムによるハッシュ計算を行います。
-	/// デフォルトの MD5 クラスを利用した場合、 FIPS が有効な環境下で InvalidOperationException や TargetInvocationException が発生する問題があります。
-	/// この問題を回避するためのクラスです。
-	/// </summary>
-	/// <remarks>http://support.microsoft.com/kb/811833</remarks>
-	public static class RecordHash
+    /// <summary>
+    /// レコードに使用するための MD5 アルゴリズムによるハッシュ計算を行います。
+    /// デフォルトの MD5 クラスを利用した場合、 FIPS が有効な環境下で InvalidOperationException や TargetInvocationException が発生する問題があります。
+    /// この問題を回避するためのクラスです。
+    /// </summary>
+    /// <remarks>http://support.microsoft.com/kb/811833</remarks>
+    public static class RecordHash
 	{
 
 		// こちらが使えればそのほうが2.5倍ぐらい処理が速い

@@ -1,14 +1,10 @@
 ﻿using ElectronicObserver.Data;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Observer.kcsapi.api_req_member
 {
 
-	public class updatedeckname : APIBase
+    public class updatedeckname : APIBase
 	{
 
 

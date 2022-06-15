@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Window.Control
 {
 
-	/// <summary>
-	/// 現在値と最大値を視覚的に表現するバー
-	/// </summary>
-	[TypeConverter(typeof(ExpandableObjectConverter))]
+    /// <summary>
+    /// 現在値と最大値を視覚的に表現するバー
+    /// </summary>
+    [TypeConverter(typeof(ExpandableObjectConverter))]
 	public class StatusBarModule
 	{
 

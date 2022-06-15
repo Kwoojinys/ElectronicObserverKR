@@ -1,17 +1,14 @@
 ﻿using ElectronicObserver.Utility.Mathematics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// 提督および司令部の情報を保持します。
-	/// </summary>
-	public class AdmiralData : APIWrapper
+    /// <summary>
+    /// 提督および司令部の情報を保持します。
+    /// </summary>
+    public class AdmiralData : APIWrapper
 	{
 
 		/// <summary>

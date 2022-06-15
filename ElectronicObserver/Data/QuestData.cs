@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ElectronicObserver.Utility;
-using ElectronicObserver.Window;
+﻿using ElectronicObserver.Utility;
 
 namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// 任務のデータを保持します。
-	/// </summary>
-	public class QuestData : ResponseWrapper, IIdentifiable
+    /// <summary>
+    /// 任務のデータを保持します。
+    /// </summary>
+    public class QuestData : ResponseWrapper, IIdentifiable
 	{
 
 		/// <summary>

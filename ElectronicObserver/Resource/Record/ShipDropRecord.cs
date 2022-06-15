@@ -6,12 +6,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Resource.Record
 {
 
-	[DebuggerDisplay("{Record.Count} Records")]
+    [DebuggerDisplay("{Record.Count} Records")]
 	public class ShipDropRecord : RecordBase
 	{
 

@@ -1,21 +1,19 @@
 ﻿using ElectronicObserver.Data;
 using ElectronicObserver.Observer;
-using ElectronicObserver.Utility;
 using ElectronicObserver.Utility.Mathematics;
 using ElectronicObserver.Utility.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Resource.Record
 {
 
-	/// <summary>
-	/// 資源のレコードを保持します。
-	/// </summary>
-	public class ResourceRecord : RecordBase
+    /// <summary>
+    /// 資源のレコードを保持します。
+    /// </summary>
+    public class ResourceRecord : RecordBase
 	{
 
 		public sealed class ResourceElement : RecordElementBase

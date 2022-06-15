@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using ElectronicObserver.Window;
 using ElectronicObserver.Utility.Data;
 
 namespace ElectronicObserver.Utility

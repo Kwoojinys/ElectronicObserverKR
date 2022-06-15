@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ElectronicObserver.Window;
 
 namespace ElectronicObserver.Data
 {
 
 
-	/// <summary>
-	/// 装備のマスターデータを保持します。
-	/// </summary>
-	public class EquipmentDataMaster : ResponseWrapper, IIdentifiable
+    /// <summary>
+    /// 装備のマスターデータを保持します。
+    /// </summary>
+    public class EquipmentDataMaster : ResponseWrapper, IIdentifiable
 	{
 
 		/// <summary>
@@ -359,14 +354,18 @@ namespace ElectronicObserver.Data
 
 		/// <summary> 爆雷かどうか(投射機は含まない) </summary>
 		public bool IsDepthCharge =>
-            this.EquipmentID == 226 ||       // 九五式爆雷 
-            this.EquipmentID == 227;         // 二式爆雷
+			this.EquipmentID == 226 ||       // 九五式爆雷 
+			this.EquipmentID == 227 ||         // 二式爆雷
+			this.EquipmentID == 378 ||
+			this.EquipmentID == 439;
 
 		/// <summary> 爆雷投射機かどうか(爆雷は含まない) </summary>
 		public bool IsDepthChargeProjector =>
 			this.EquipmentID == 44 ||        // 九四式爆雷投射機
-			this.EquipmentID == 45;          // 三式爆雷投射機
-
+			this.EquipmentID == 45 ||          // 三式爆雷投射機
+			this.EquipmentID == 287 ||
+			this.EquipmentID == 288 ||
+			this.EquipmentID == 439;
 
 		public bool IsHightAltitudeFighter =>
 			this.EquipmentID == 350 ||   // Me163B

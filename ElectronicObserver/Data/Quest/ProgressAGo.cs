@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data.Quest
 {
-	using DSPair = KeyValuePair<double, string>;
+    using DSPair = KeyValuePair<double, string>;
 
-	/// <summary>
-	/// 任務「あ号作戦」の進捗を管理します。
-	/// </summary>
-	[DataContract(Name = "ProgressAGo")]
+    /// <summary>
+    /// 任務「あ号作戦」の進捗を管理します。
+    /// </summary>
+    [DataContract(Name = "ProgressAGo")]
 	public class ProgressAGo : ProgressData
 	{
 

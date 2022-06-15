@@ -1,21 +1,17 @@
 ﻿using DynaJson;
-using ElectronicObserver.Window;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ElectronicObserver.Data
 {
 
-	/// <summary>
-	/// 艦種
-	/// </summary>
-	public class ShipType : ResponseWrapper, IIdentifiable
+    /// <summary>
+    /// 艦種
+    /// </summary>
+    public class ShipType : ResponseWrapper, IIdentifiable
 	{
 
 		/// <summary>

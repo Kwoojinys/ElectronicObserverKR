@@ -9,12 +9,11 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ElectronicObserver.Window.Dialog
 {
-	public partial class DialogEquipmentList : Form
+    public partial class DialogEquipmentList : Form
 	{
 
 
