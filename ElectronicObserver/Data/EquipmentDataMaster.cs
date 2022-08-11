@@ -365,7 +365,8 @@ namespace ElectronicObserver.Data
 			this.EquipmentID == 45 ||          // 三式爆雷投射機
 			this.EquipmentID == 287 ||
 			this.EquipmentID == 288 ||
-			this.EquipmentID == 439;
+			this.EquipmentID == 439 ||
+			this.EquipmentID == 472;
 
 		public bool IsHightAltitudeFighter =>
 			this.EquipmentID == 350 ||   // Me163B
