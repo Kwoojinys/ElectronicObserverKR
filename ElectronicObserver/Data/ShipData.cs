@@ -904,7 +904,6 @@ namespace ElectronicObserver.Data
                 this.MasterShip.ShipType == ShipTypes.TorpedoCruiser ||
                 this.MasterShip.ShipType == ShipTypes.TrainingCruiser)
             {
-
                 int single = 0;
                 int twin = 0;
 
@@ -1006,7 +1005,6 @@ namespace ElectronicObserver.Data
             var attackKind = Calculator.GetDayAttackKind(this.AllSlotMaster.ToArray(), this.ShipID, -1);
             if (attackKind == DayAttackKind.AirAttack || attackKind == DayAttackKind.CutinAirAttack)
                 return 0;
-
 
             double basepower = this.FirepowerTotal + this.GetDayBattleEquipmentLevelBonus() + this.GetCombinedFleetShellingDamageBonus() + 5;
 
@@ -1236,6 +1234,8 @@ namespace ElectronicObserver.Data
             {       // Graf Zeppelin(改), Saratoga
                 basepower = this.FirepowerBase + this.SlotInstanceMaster.Where(eq => eq?.IsSwordfish ?? false).Sum(eq => eq.Firepower + eq.Torpedo);
             }
+
+            // 카가 개2호, 타이요형 추가..
             else
             {
                 basepower = this.FirepowerTotal + this.TorpedoTotal + this.GetNightBattleEquipmentLevelBonus();
@@ -1396,7 +1396,7 @@ namespace ElectronicObserver.Data
         {
             get
             {
-                if (!this.CanAttackSubmarine)
+                if (this.CanAttackSubmarine == false)
                     return false;
 
                 switch (this.ShipID)
